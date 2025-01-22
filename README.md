@@ -9,4 +9,4 @@
   <a href="https://discord.gg/wN49SNssUw"><img src="https://img.shields.io/badge/Discord-lightgrey?style=for-the-badge&logo=discord" alt="Discord" /></a>
 </p>
 
-![GreyCollar](https://github.com/user-attachments/assets/653ad832-195e-4cc3-9e23-7aa94b92f613)
+![GreyCollar Banner](https://github.com/user-attachments/assets/a6b9210c-2142-42e2-bf0e-7a44e8f26a89)
