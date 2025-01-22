@@ -1,0 +1,25 @@
+{
+    "sequence": 8,
+    "seed": [
+        {
+            "id": "0419a3c6-fa81-4963-921f-8e26a2531ab5",
+            "conversationId": "93dcd933-9bd8-45c0-b347-2dc12a0b2658",
+            "sessionId": "b9901597-8625-43d9-a925-ed5e0ad7b1e4",
+            "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+            "answer": "Egg come first",
+            "createdAt": "2024-08-04T09:00:25.000Z",
+            "status": "ANSWERED",
+            "question": "What came first, the chicken or the egg?"
+        },
+        {
+            "id": "d92da3ee-521c-4b93-9770-c38dcea173a5",
+            "conversationId": "93dcd933-9bd8-45c0-b347-2dc12a0b2658",
+            "sessionId": "b605ad87-fe47-4dc8-b1cd-23d783c0a547",
+            "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+            "answer": null,
+            "createdAt": "2023-08-06T12:00:00.000Z",
+            "status": "IN_PROGRESS",
+            "question": "What came first, the chicken or the egg?"
+        }
+    ]
+}

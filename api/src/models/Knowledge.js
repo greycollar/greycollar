@@ -1,0 +1,56 @@
+const platform = require("@nucleoidai/platform-express");
+const {
+  Postgres: { sequelize },
+} = platform.module();
+const { DataTypes, UUIDV4 } = platform.require("sequelize");
+
+const Knowledge = sequelize.define("Knowledge", {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: UUIDV4,
+    primaryKey: true,
+    allowNull: false,
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isIn: [["URL", "TEXT", "QA"]],
+    },
+  },
+  question: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  answer: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  url: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  text: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  content: {
+    type: DataTypes.BLOB,
+    allowNull: true,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "IN_PROGRESS",
+    validate: {
+      isIn: [["IN_PROGRESS", "COMPLETED"]],
+    },
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+});
+
+module.exports = Knowledge;

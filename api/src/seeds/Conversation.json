@@ -1,0 +1,26 @@
+{
+    "sequence": 6,
+    "seed": [
+        {
+            "id": "3b6625da-580e-4c4d-81da-f13476a62e67",
+            "role": "USER",
+            "content": "How do I make a great iced Americano ?",
+            "createdAt": "2023-08-05T12:00:10Z",
+            "sessionId": "b9901597-8625-43d9-a925-ed5e0ad7b1e4"
+        },
+        {
+            "id": "bf78b75e-aa2c-4560-b9ab-4cf6644e2e30",
+            "role": "ASSISTANT",
+            "content": "To make a great iced Americano, follow these steps:\n\n1. Brew a double shot of espresso.\n2. Fill a glass with ice cubes.\n3. Pour the hot espresso over the ice.\n4. Add cold water to taste, typically about equal to the amount of espresso.\n5. Stir and enjoy!",
+            "createdAt": "2023-08-05T12:00:20Z",
+            "sessionId": "b9901597-8625-43d9-a925-ed5e0ad7b1e4"
+        },
+        {
+            "id": "93dcd933-9bd8-45c0-b347-2dc12a0b2658",
+            "role": "USER",
+            "content": "What came first, the chicken or the egg?",
+            "createdAt": "2023-08-05T12:00:30Z",
+            "sessionId": "b9901597-8625-43d9-a925-ed5e0ad7b1e4"
+        }
+    ]
+}

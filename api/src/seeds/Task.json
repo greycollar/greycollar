@@ -1,0 +1,13 @@
+{
+  "sequence": 9,
+  "seed": [
+    {
+      "id": "8c88d077-99f1-482a-8575-879187b11ec9",
+      "description": "Search for the answer to the question: What came first, the chicken or the egg?",
+      "status": "IN_PROGRESS",
+      "commandId": "3fbb3f27-57e1-419d-8d21-82b523b1e7d5",
+      "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+      "createdAt": "2025-01-19T10:34:20.094Z"
+    }
+  ]
+}

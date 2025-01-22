@@ -1,0 +1,11 @@
+{
+  "seed": [
+    {
+      "id": "488edd32-93cd-491f-a108-f872e39517cc",
+      "name": "Good Galactic Team",
+      "coach": "Elijah",
+      "icon": ":fa6-brands:galactic-republic:",
+      "organizationId": "1c063446-7e78-432a-a273-34f481d0f0c3"
+    }
+  ]
+}

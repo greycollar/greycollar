@@ -1,0 +1,128 @@
+{
+    "sequence": 4,
+    "seed": [
+        {
+            "id": "ffd6dfa4-45ba-4da2-bc5c-5a529610b52f",
+            "role": "ASSISTANT",
+            "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+            "content": "Hi! I'm here to assist you with your coffee needs.",
+            "createdAt": "2023-08-05T12:00:00Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+        },
+        {
+            "id": "eef6dfa4-45ba-4da2-bc5c-5a529610b52f",
+            "role": "USER",
+            "userId": "1001",
+            "content": "How do I make a great iced Americano ?",
+            "createdAt": "2023-08-05T12:00:10Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+        },
+        {
+            "id": "bbf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+            "role": "ASSISTANT",
+            "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+            "content": "To make a great iced Americano, follow these steps:\n\n1. Brew a double shot of espresso.\n2. Fill a glass with ice cubes.\n3. Pour the hot espresso over the ice.\n4. Add cold water to taste, typically about equal to the amount of espresso.\n5. Stir and enjoy!",
+            "createdAt": "2023-08-05T12:00:20Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+        },
+        {
+            "id": "ccf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+            "role": "SYSTEM",
+            "command": "/learn-text",
+            "knowledgeId": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+            "createdAt": "2023-08-05T12:00:30Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+        },
+        {
+            "id": "e2256e48-3a97-4bed-941c-aa9266044935",
+            "role": "ASSISTANT",
+            "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+            "content": "The Philips 5400 LatteGo is a great choice for making iced Americano. You can prepare great Americanos by setting the coffee intensity to the 3rd degree. Here are a few additional tips specific to your machine:\n\n1. Use freshly ground coffee beans.\n2. Use filtered water.\n3. Pre-chill your glass.\n4. Adjust water for stronger flavor.\n5. Try adding a splash of syrup or milk.",
+            "createdAt": "2023-08-05T12:00:40Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+        },
+        {
+            "id": "a5423326-9c64-4413-b6c7-5abbb3da6001",
+            "role": "USER",
+            "userId": "1001",
+            "content": "Thanks for the tips!",
+            "createdAt": "2023-08-05T12:00:45.000Z",
+            "status": "READ",
+            "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f",
+            "replyTo": "e2256e48-3a97-4bed-941c-aa9266044935"
+        },
+        {
+            "id": "8a7d99a4-6ca8-41c2-aa0c-2631e6d51fb6",
+            "role": "ASSISTANT",
+            "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+            "content": "How can I assist you today?",
+            "createdAt": "2023-08-05T12:00:00Z",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "f2edf125-d4c5-40cd-aede-8b08c6900ccd",
+            "role": "USER",
+            "userId": "1001",
+            "content": "How can I improve my company's cash flow management?",
+            "createdAt": "2023-08-05T12:00:10Z",
+            "status": "READ",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "70811003-d2a8-4698-98d9-10fc05badaa2",
+            "role": "ASSISTANT",
+            "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+            "content": "Improving cash flow management involves several strategies. Here are a few key steps:\n\n1. Monitor your cash flow regularly.\n2. Optimize your billing process to reduce delays.\n3. Negotiate better terms with suppliers.\n4. Manage your inventory efficiently.\n5. Consider short-term financing options.",
+            "createdAt": "2023-08-05T12:00:20Z",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "69ce01c9-5b03-4acf-b7ca-f6d65ce4eea4",
+            "role": "SYSTEM",
+            "command": "/learn-text",
+            "knowledgeId": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+            "createdAt": "2023-08-05T12:00:30Z",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "7e2c9dc1-6ee7-448f-9bc7-e814d59f72ee",
+            "role": "USER",
+            "userId": "1001",
+            "content": "Can you provide specific tips for optimizing the billing process?",
+            "createdAt": "2023-08-05T12:00:40Z",
+            "status": "READ",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "58e85ef5-185f-46f5-a60c-e0ada3bedd35",
+            "role": "ASSISTANT",
+            "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+            "content": "Absolutely! Here are some tips to optimize your billing process:\n\n1. Automate invoicing to reduce errors and save time.\n2. Send invoices promptly and follow up on overdue payments.\n3. Offer multiple payment methods to make it easier for clients.\n4. Set clear payment terms and conditions.\n5. Keep track of outstanding invoices and manage receivables proactively.",
+            "createdAt": "2023-08-05T12:00:50Z",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "4300b489-0b75-4c5f-aed4-18d6b5758090",
+            "role": "USER",
+            "userId": "1001",
+            "content": "Thank you !",
+            "createdAt": "2023-08-05T13:00:00Z",
+            "status": "RECIEVED",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        },
+        {
+            "id": "fdce5ab7-bc4c-41a1-93bc-7a63f5203ed3",
+            "role": "USER",
+            "userId": "1001",
+            "content": "Have a good day",
+            "createdAt": "2023-08-05T13:10:00Z",
+            "status": "RECIEVED",
+            "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+        }
+    ]
+}

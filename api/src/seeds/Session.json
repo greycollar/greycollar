@@ -1,0 +1,15 @@
+{
+    "sequence": 5,
+    "seed": [
+        {
+            "id": "b605ad87-fe47-4dc8-b1cd-23d783c0a547",
+            "type": "CHAT",
+            "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b"
+        },
+        {
+            "id": "b9901597-8625-43d9-a925-ed5e0ad7b1e4",
+            "type": "CHAT",
+            "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e"
+        }
+    ]
+}
