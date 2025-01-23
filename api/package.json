@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@nucleoidai/platform-express": "^1.5.42",
-    "puppeteer": "^24.1.0"
+    "puppeteer": "^24.1.0",
+    "socket.io": "^4.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
