@@ -1,8 +1,4 @@
-import {
-  subscribe,
-  publish,
-  messages,
-} from "../../../../../node-event/src/Event";
+import { subscribe, publish, messages } from "../Event";
 
 describe("node-event", () => {
   it("accepts type and payload", () => {
