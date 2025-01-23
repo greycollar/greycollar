@@ -11,9 +11,12 @@
     "test": "jest --verbose --detectOpenHandles"
   },
   "dependencies": {
-    "@nucleoidai/platform-express": "^1.5.42",
+    "@anthropic-ai/sdk": "^0.35.0",
+    "@nucleoidai/platform": "^1.0.44",
+    "@nucleoidai/platform-express": "^1.5.43",
+    "openai": "^4.79.4",
     "puppeteer": "^24.1.0",
-    "socket.io": "^4.3.2"
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
