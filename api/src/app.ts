@@ -10,10 +10,11 @@ import sessions from "./routes/sessions";
 import supervisings from "./routes/supervisings";
 import tasks from "./routes/tasks";
 import teamDetails from "./routes/teamDetails";
+import { publish, subscribe } from "./lib/Event";
 
-import 'express';
+import "express";
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
   interface Request {
     session: {
       organizationId: string;
@@ -29,6 +30,7 @@ const app = platform.express();
 app.use("/metrics", metrics);
 
 app.use(authorization.verify);
+app.use(authorization.authorize("ADMIN"));
 
 app.use("/teams/details", teamDetails);
 app.use("/colleagues", colleagues);
@@ -40,5 +42,14 @@ app.use("/commands", commands);
 app.use("/tasks", tasks);
 app.use("/engines", engines);
 app.use("/organizations", organizations);
+
+subscribe("CHAT.USER_MESSAGED", ({ session, content }) => {
+  setTimeout(() => {
+    publish("CHAT.AI_MESSAGED", {
+      session,
+      content,
+    });
+  }, 1000);
+});
 
 export default app;

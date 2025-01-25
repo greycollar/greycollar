@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 import config from "./config";
 import http from "http";
 import models from "./src/models";
-import { setupSocket } from "./socketHandler";
+import sessions from "./src/socket/sessions";
 
 platform.init(config).then(() => {
   const app = require("./src/app").default;
@@ -14,9 +14,9 @@ platform.init(config).then(() => {
       origin: process.env["FRONTEND_URL"] || "http://localhost:5173",
     },
   });
-  models.init();
 
-  setupSocket(io);
+  models.init();
+  sessions.setup(io);
 
   server.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${process.env.PORT || 3000}`);
