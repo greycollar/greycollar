@@ -1,10 +1,10 @@
-import platform from "@nucleoidai/platform-express";
-import express from "express";
-import Joi from "joi";
-import schemas from "../schemas";
-import Session from "../models/Session";
 import Colleague from "../models/Colleague";
 import Conversation from "../models/Conversation";
+import Joi from "joi";
+import Session from "../models/Session";
+import express from "express";
+import platform from "@nucleoidai/platform-express";
+import schemas from "../schemas";
 import sessions from "../functions/sessions";
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.post("/:id", async (req, res) => {
     schemas.Session.schema
   );
 
-  const newSession = await sessions.create({
+  const newSession = await sessions.chat({
     id,
     teamId,
     type,

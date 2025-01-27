@@ -1,6 +1,7 @@
+import { publish, subscribe } from "../lib/Event";
+
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
-import { publish, subscribe } from "../lib/Event";
 import { v4 as uuid } from "uuid";
 
 const sockets = {};
@@ -39,9 +40,10 @@ const setup = (io: Server) => {
 
     sockets[session.id] = socket.id;
 
-    socket.on("customer_message", async ({ content }) =>
-      publish("SESSION", "CUSTOMER_MESSAGED", { session, content })
-    );
+    socket.on("customer_message", async ({ content }, callback) => {
+      publish("SESSION", "CUSTOMER_MESSAGED", { session, content });
+      callback({ data: content });
+    });
   });
 
   subscribe("SESSION", "AI_MESSAGED", ({ session, content }) => {
