@@ -10,3 +10,38 @@
 </p>
 
 ![GreyCollar Banner](https://github.com/user-attachments/assets/a6b9210c-2142-42e2-bf0e-7a44e8f26a89)
+
+## Event-Driven AI Agent
+
+GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.
+
+### Event API
+
+```
+Session
+{
+  id: uuid,
+  appId: uuid,
+  organizationId: uuid,
+  projectId: uuid,
+  userId: string,
+  roles: string[],
+  timestamp: timestamp,
+}
+```
+
+```
+SESSION.CUSTOMER_MESSAGED
+{
+  session: Session,
+  content: string,
+}
+```
+
+```
+SESSION.AI_MESSAGED
+{
+  session: Session,
+  content: string,
+}
+```
