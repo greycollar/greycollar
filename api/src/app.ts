@@ -43,9 +43,9 @@ app.use("/tasks", tasks);
 app.use("/engines", engines);
 app.use("/organizations", organizations);
 
-subscribe("CHAT.USER_MESSAGED", ({ session, content }) => {
+subscribe("SESSION", "CUSTOMER_MESSAGED", ({ session, content }) => {
   setTimeout(() => {
-    publish("CHAT.AI_MESSAGED", {
+    publish("SESSION", "AI_MESSAGED", {
       session,
       content,
     });
