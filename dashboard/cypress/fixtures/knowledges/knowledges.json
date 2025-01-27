@@ -1,0 +1,27 @@
+[
+  {
+    "id": "0b6e8e55-3d02-4f59-966f-e6339ba27095",
+    "type": "URL",
+    "url": "https://imaginecoffeeshop.com/faq",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 1721294307
+  },
+  {
+    "id": "8a743824-3a4c-4d96-b235-34a2f0c19dd0",
+    "type": "TEXT",
+    "text": "Parking in rear",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "IN_PROGRESS",
+    "createdAt": 1721294324
+  },
+  {
+    "id": "17f4a185-c81c-4be5-a6ee-fdd38fdb2b1a",
+    "type": "QA",
+    "question": "What time does the store close in weekends?",
+    "answer": "The store closes 5pm in weekends",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 1721294337
+  }
+]

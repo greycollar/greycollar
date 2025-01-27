@@ -1,0 +1,202 @@
+[
+  {
+    "id": "ffd6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "ASSISTANT",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "content": "Hi! I'm here to assist you with your coffee needs.",
+    "createdAt": "2023-08-05T12:00:00Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "eef6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "USER",
+    "userId": "1001",
+    "status": "READ",
+    "content": "How do I make a great iced Americano ?",
+    "createdAt": "2023-08-05T12:00:10Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "bbf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "ASSISTANT",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "content": "To make a great iced Americano, follow these steps:\n\n1. Brew a double shot of espresso.\n2. Fill a glass with ice cubes.\n3. Pour the hot espresso over the ice.\n4. Add cold water to taste, typically about equal to the amount of espresso.\n5. Stir and enjoy!",
+    "createdAt": "2023-08-05T12:00:20Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "ccf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "SYSTEM",
+    "command": "/learn-text",
+    "knowledgeId": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+    "createdAt": "2023-08-05T12:00:30Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "e2256e48-3a97-4bed-941c-aa9266044935",
+    "role": "ASSISTANT",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "content": "The Philips 5400 LatteGo is a great choice for making iced Americano. You can prepare great Americanos by setting the coffee intensity to the 3rd degree. Here are a few additional tips specific to your machine:\n\n1. Use freshly ground coffee beans.\n2. Use filtered water.\n3. Pre-chill your glass.\n4. Adjust water for stronger flavor.\n5. Try adding a splash of syrup or milk.",
+    "createdAt": "2023-08-05T12:00:40Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "mmd6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "ASSISTANT",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "content": "How can I assist you today?",
+    "createdAt": "2023-08-05T12:00:00Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "wwf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "USER",
+    "userId": "1001",
+    "status": "READ",
+    "content": "How can I improve my company's cash flow management?",
+    "createdAt": "2023-08-05T12:00:10Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "xxf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "ASSISTANT",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "content": "Improving cash flow management involves several strategies. Here are a few key steps:\n\n1. Monitor your cash flow regularly.\n2. Optimize your billing process to reduce delays.\n3. Negotiate better terms with suppliers.\n4. Manage your inventory efficiently.\n5. Consider short-term financing options.",
+    "createdAt": "2023-08-05T12:00:20Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "ssf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "SYSTEM",
+    "command": "/learn-text",
+    "knowledgeId": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+    "createdAt": "2023-08-05T12:00:30Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "zzf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "USER",
+    "userId": "1001",
+    "content": "Can you provide specific tips for optimizing the billing process?",
+    "createdAt": "2023-08-05T12:00:40Z",
+    "status": "READ",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "ppf6dfa4-45ba-4da2-bc5c-5a529610b52f",
+    "role": "ASSISTANT",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "content": "Absolutely! Here are some tips to optimize your billing process:\n\n1. Automate invoicing to reduce errors and save time.\n2. Send invoices promptly and follow up on overdue payments.\n3. Offer multiple payment methods to make it easier for clients.\n4. Set clear payment terms and conditions.\n5. Keep track of outstanding invoices and manage receivables proactively.",
+    "createdAt": "2023-08-05T12:00:50Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "command": "/learn-text",
+    "createdAt": "2024-08-21T10:32:13.826Z",
+    "id": "e0127d16-9441-4801-8d61-008f0025149a",
+    "knowledgeId": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+    "role": "SYSTEM",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "8c88d077-99f1-482a-8575-879187b11ec9",
+    "description": "Search for the answer to the question: What came first, the chicken or the egg?",
+    "status": "IN_PROGRESS",
+    "commandId": "3fbb3f27-57e1-419d-8d21-82b523b1e7d5",
+    "createdAt": "2021-06-01T00:00:00.000Z",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e"
+  },
+  {
+    "id": "0b6e8e55-3d02-4f59-966f-e6339ba27095",
+    "type": "URL",
+    "url": "https://www.financialmanagementandstrategy.com/resources",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.307Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "8a743824-3a4c-4d96-b235-34a2f0c19dd0",
+    "type": "TEXT",
+    "text": "Latest trends in financial management and strategy.",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.337Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "17f4a185-c81c-4be5-a6ee-fdd38fdb2b1a",
+    "type": "QA",
+    "question": "What are the key components of an effective financial strategy?",
+    "answer": "The key components of an effective financial strategy include budgeting, forecasting, risk management, investment planning, and performance measurement.",
+    "colleagueId": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.307Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "81a97af4-75ce-473c-9106-2bdfb86abf80",
+    "type": "URL",
+    "url": "https://www.customerservicebestpractices.com/resources",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.324Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "eab826a3-2566-4ac9-abaf-c3a31b947059",
+    "type": "TEXT",
+    "text": "In-progress report on customer service trends and improvements.",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.324Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "9a1c0eb7-5ada-44e9-bd84-0f55943809b8",
+    "type": "QA",
+    "question": "What are the key qualities of an effective customer service representative?",
+    "answer": "Key qualities of an effective customer service representative include strong communication skills, empathy, problem-solving abilities, patience, and product knowledge.",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "1970-01-20T22:08:14.324Z",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729"
+  },
+  {
+    "id": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
+    "type": "TEXT",
+    "text": "I use Philips 5400 LatteGo.",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "date": "2023-08-05T12:00:25",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "ea02e7db-7ff6-4c88-846f-2de9494d6d8d",
+    "type": "URL",
+    "url": "https://www.coffeeservicebestpractices.com/resources",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "2024-08-07T10:00:00Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "8bc99c86-59f2-48d6-ab3f-4e9129b53814",
+    "type": "TEXT",
+    "text": "In-progress report on coffee service trends and improvements.",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "2024-08-07T10:00:00Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  },
+  {
+    "id": "78324f23-6b55-4ef1-871c-34177b312481",
+    "type": "QA",
+    "question": "What are the key qualities of an effective barista?",
+    "answer": "Key qualities of an effective barista include strong communication skills, empathy, problem-solving abilities, patience, and product knowledge.",
+    "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "status": "COMPLETED",
+    "date": "2024-08-07T10:00:00Z",
+    "teamId": "add6dfa4-45ba-4da2-bc5c-5a529610b52f"
+  }
+]

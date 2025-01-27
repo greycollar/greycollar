@@ -1,0 +1,11 @@
+{
+  "id": 3,
+  "name": "Batman",
+  "personality": "Intelligent, mysterious, and brave. Excels in detective work and combat.",
+  "responsibility": "Protecting Gotham City, solving mysteries, and combating threats.",
+  "companyId": 1,
+  "avatar": ":9:",
+  "departmentId": 1,
+  "createdAt": "2023-12-15T08:29:03.941Z",
+  "updatedAt": "2023-12-15T08:29:03.941Z"
+}

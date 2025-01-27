@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "name": "Alice",
+        "personality": "Friendly, approachable, and customer-oriented. Enjoys interacting with customers and providing personalized recommendations.",
+        "responsibility": "Managing the sales floor, assisting customers with product selections, and ensuring a positive shopping experience.",
+        "companyId": 1,
+        "avatar": "avatar",
+        "departmentId": 1,
+        "createdAt": "2023-12-15T08:29:03.941Z",
+        "updatedAt": "2023-12-15T08:29:03.941Z"
+    }
+]

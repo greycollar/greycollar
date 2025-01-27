@@ -1,0 +1,29 @@
+[
+  {
+    "id": "289a3c9a-f23b-421a-ac6e-f14052a2d57c",
+    "vendor": "OpenAI",
+    "model": "4o",
+    "avatar": "https://www.creativefabrica.com/wp-content/uploads/2023/02/15/Robot-scifi-avatar-SVG-Graphics-61318342-1-1-580x390.jpg",
+    "createdAt": "2024-06-01T00:00:00.000Z",
+    "description": "A versatile AI model designed for natural language processing, offering advanced capabilities for text understanding and generation.",
+    "price": 50.0
+  },
+  {
+    "id": "d9c93323-3baf-4623-a96c-b85db99b4441",
+    "vendor": "Claude",
+    "model": "Sonnet",
+    "avatar": "https://www.creativefabrica.com/wp-content/uploads/2023/02/15/Robotic-avatar-illustration-Graphics-61317919-1-1-580x390.jpg",
+    "createdAt": "2024-07-01T00:00:00.000Z",
+    "description": "A refined AI model ideal for conversational interfaces, focusing on accuracy and contextual understanding in dialogues.",
+    "price": 45.0
+  },
+  {
+    "id": "def5678g-34cd-67ef-890h-2345678ijklm",
+    "vendor": "Microsoft",
+    "model": "Orion",
+    "avatar": "https://www.creativefabrica.com/wp-content/uploads/2023/02/15/Robotic-avatar-illustration-Graphics-61317919-1-1-580x390.jpg",
+    "createdAt": "2024-10-15T00:00:00.000Z",
+    "description": "Microsoft's Orion model, tailored for enterprise applications, excels in complex problem-solving with a focus on security and reliability.",
+    "price": 55.0
+  }
+]

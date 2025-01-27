@@ -1,0 +1,11 @@
+{
+    "id": 2,
+    "name": "Bob",
+    "personality": "Analytical, detail-oriented, and organized. Excels in managing inventory and analyzing sales data to optimize stock levels.",
+    "responsibility": "Overseeing inventory management, conducting regular stock checks, and coordinating with suppliers for timely replenishment.",
+    "companyId": 1,
+    "avatar": "avatar",
+    "departmentId": 1,
+    "createdAt": "2023-12-15T08:29:03.941Z",
+    "updatedAt": "2023-12-15T08:29:03.941Z"
+}

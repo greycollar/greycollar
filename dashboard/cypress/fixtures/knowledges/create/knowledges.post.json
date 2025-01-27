@@ -1,0 +1,52 @@
+[
+  {
+    "id": "0b6e8e55-3d02-4f59-966f-e6339ba27095",
+    "type": "URL",
+    "url": "https://imaginecoffeeshop.com/faq",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 1721294307
+  },
+  {
+    "id": "8a743824-3a4c-4d96-b235-34a2f0c19dd0",
+    "type": "TEXT",
+    "text": "Parking in rear",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "IN_PROGRESS",
+    "createdAt": 1721294324
+  },
+  {
+    "id": "17f4a185-c81c-4be5-a6ee-fdd38fdb2b1a",
+    "type": "QA",
+    "question": "What time does the store close in weekends?",
+    "answer": "The store closes 5pm in weekends",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 1721294337
+  },
+  {
+    "id": "3b4e9271-4f65-4dfb-92b1-8e2e6e0ec35f",
+    "type": "URL",
+    "url": "https://www.google.com",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 172905678
+  },
+  {
+    "id": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "type": "TEXT",
+    "text": "My first text",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "IN_PROGRESS",
+    "createdAt": 172905678
+  },
+  {
+    "id": "4c5f0982-5a76-4d64-9c63-9c3e7e0fc36e",
+    "type": "QA",
+    "question": "How are you",
+    "answer": "Okay",
+    "colleagueId": "00db1bd4-4829-40f2-8b99-d2e42342157e",
+    "status": "COMPLETED",
+    "createdAt": 172905678
+  }
+]

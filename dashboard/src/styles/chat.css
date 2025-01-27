@@ -1,0 +1,47 @@
+.cs-message-input__content-editor {
+  background-color: #ededed;
+  color: #060f12;
+}
+
+.cs-message-input__content-editor-wrapper {
+  background-color: #ededed;
+  color: #060f12;
+}
+
+.svg-inline--fa {
+  color: #060f12;
+}
+
+.cs-message__content {
+  background-color: #525252;
+  color: white;
+  border-radius: 15px 15px 15px 0px;
+  margin-bottom: 5%;
+}
+
+.cs-message--outgoing .cs-message__content {
+  background-color: #818589;
+  color: white;
+  border-radius: 15px 15px 0px 15px;
+}
+
+.cs-message:not(:only-child) {
+  margin: 10px;
+}
+
+.cs-typing-indicator__dot {
+  background-color: #c8c8c8;
+}
+
+.cs-typing-indicator__text {
+  color: #c8c8c8;
+}
+
+.cs-avatar {
+  margin-top: 60%;
+}
+
+*,
+[data-slate-string="true"] {
+  vertical-align: middle;
+}

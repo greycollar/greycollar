@@ -1,0 +1,38 @@
+[
+  {
+    "id": "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+    "name": "Alex",
+    "avatar": ":5:",
+    "character": "Professional, friendly, and a problem solver",
+    "title": "Account Expert",
+    "role": "Specializes in financial management and strategy.",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729",
+    "AIEngine": {
+      "id": "d9c93323-3baf-4623-a96c-b85db99b4441",
+      "vendor": "Claude",
+      "avatar": "https://www.fahimai.com/wp-content/uploads/2024/06/Untitled-design-7.png",
+      "model": "Sonnet 3.5",
+      "createdAt": "2024-07-01T00:00:00.000Z",
+      "description": "Claude 3.5 Sonnet is Anthropic's advanced AI model, offering a balanced combination of intelligence and efficiency. It features enhanced natural language understanding, improved reasoning capabilities, and excels at tasks ranging from analysis and coding to creative writing and detailed explanations, while maintaining high accuracy and ethical considerations.",
+      "price": 1.5
+    }
+  },
+  {
+    "id": "ef906c5d-cafe-4518-9edc-b80c605df58e",
+    "name": "Taylor",
+    "avatar": ":2:",
+    "character": "Friendly, helpful, and a team player",
+    "title": "Customer Service Representative",
+    "role": "Customer Service Representative",
+    "teamId": "e6d4744d-a11b-4c75-acad-e24a02903729",
+    "AIEngine": {
+      "id": "289a3c9a-f23b-421a-ac6e-f14052a2d57c",
+      "vendor": "OpenAI",
+      "description": "GPT-4 Optimized (4o) is OpenAI's advanced large language model, featuring enhanced performance and efficiency compared to standard GPT-4. It excels at complex reasoning, creative tasks, and detailed analysis while maintaining high accuracy and reliability. Optimized for better response times and resource utilization.",
+      "price": 1.2,
+      "avatar": "https://scontent.fadb5-1.fna.fbcdn.net/v/t39.30808-6/362291218_778958160692463_4488585172297481993_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=YVEx1y2PSicQ7kNvgEViMpx&_nc_zt=23&_nc_ht=scontent.fadb5-1.fna&_nc_gid=ARmkTvBdeBFq9HUudY_A4AR&oh=00_AYC6cpXAv8rXq3b4RiLySnoMHqeVvZjuS7XRu4VPjhyt5g&oe=671DE6AA",
+      "model": "4o",
+      "createdAt": "2024-06-01T00:00:00.000Z"
+    }
+  }
+]
