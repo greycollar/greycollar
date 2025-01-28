@@ -1,5 +1,5 @@
-import Session from "../models/Session";
 import Conversation from "../models/Conversation";
+import Session from "../models/Session";
 import { publish } from "../lib/Event";
 
 async function chat({
@@ -41,7 +41,9 @@ async function chat({
       session: newSession,
     });
     publish("SESSION", "AI_MESSAGED", {
-      id: newConversation.id,
+      session: {
+        id: newSession.id,
+      },
     });
   }
 }
