@@ -1,12 +1,21 @@
 import { Socket, io } from "socket.io-client";
 
+import { account } from "./account";
+import connects from "./connects.json";
 import { displayCommand } from "./actions/displayCommand";
 
 //TODO re-visit
 let socketInstance: Socket | null = null;
 
+const userId = connects[1];
+
 const setupSocket = (app) => {
-  const socket = io(process.env.BASE_URL);
+  const session = account(userId);
+  const socket = io(process.env.BASE_URL, {
+    auth: {
+      token: session.accessToken,
+    },
+  });
   socketInstance = socket;
 
   socket.on("connect", () => {
