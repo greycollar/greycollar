@@ -47,7 +47,7 @@ const setup = (io: Server) => {
   });
 
   subscribe("SESSION", "AI_MESSAGED", ({ session, content }) => {
-    const socketId = sockets[session.id];
+    const socketId = sockets[session];
     if (socketId) {
       io.to(socketId).emit("ai_message", {
         content,
