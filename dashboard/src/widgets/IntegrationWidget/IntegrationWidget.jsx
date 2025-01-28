@@ -179,7 +179,7 @@ const IntegrationWidget = () => {
   const [open, setOpen] = useState(false);
   const [selectedIntegration, setSelectedIntegration] = useState(null);
   const [relatedSkills, setRelatedSkills] = useState([]);
-  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [selectedSkill, setSelectedSkill] = useState([]);
   const [skillDialogOpen, setSkillDialogOpen] = useState(false);
 
   const teamId = storage.get("projectId");
@@ -203,7 +203,7 @@ const IntegrationWidget = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedIntegration(null);
+    setSelectedIntegration([]);
     setRelatedSkills([]);
   };
 
@@ -222,7 +222,7 @@ const IntegrationWidget = () => {
 
   const handleSkillDialogClose = () => {
     setSkillDialogOpen(false);
-    setSelectedSkill(null);
+    setSelectedSkill([]);
   };
 
   return (
