@@ -4,6 +4,7 @@ import Colleague from "./src/pages/colleague";
 import Colleagues from "./src/pages/colleagues";
 import Container from "./src/Container";
 import Dashboard from "./src/pages/dashboard";
+import Integrations from "./src/pages/integrations";
 import Settings from "./src/pages/settings";
 
 import {
@@ -25,6 +26,10 @@ const routes = [
           {
             path: `/colleagues`,
             element: <Colleagues />,
+          },
+          {
+            path: `/integrations`,
+            element: <Integrations />,
           },
           { path: "/colleagues/:colleagueId", element: <Colleague /> },
           { path: "/settings", element: <Settings /> },
