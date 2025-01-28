@@ -17,6 +17,11 @@ const menuConfig = {
           icon: "ic:baseline-chat",
           path: "/chat",
         },
+        {
+          title: "Integrations",
+          icon: "carbon:ibm-cloud-pak-integration",
+          path: "/integrations",
+        },
       ],
     },
   ],
