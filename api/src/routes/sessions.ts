@@ -3,29 +3,29 @@ import Conversation from "../models/Conversation";
 import Joi from "joi";
 import Session from "../models/Session";
 import express from "express";
-import platform from "@nucleoidai/platform-express";
 import schemas from "../schemas";
-import sessions from "../functions/sessions";
+import session from "../functions/session";
 
 const router = express.Router();
 
-router.post("/:id", async (req, res) => {
-  const { id } = req.params;
+router.post("/:sessionId", async (req, res) => {
+  const { sessionId } = req.params;
   const { projectId: teamId } = req.session;
+
+  // TODO Verify authorization against teamId
 
   const { type, colleagueId, content } = Joi.attempt(
     req.body,
     schemas.Session.schema
   );
 
-  const newSession = await sessions.chat({
-    id,
-    teamId,
+  const conversation = await session.addConversation({
+    sessionId,
     type,
     colleagueId,
     content,
   });
-  return res.status(201).json(newSession);
+  return res.status(200).json(conversation);
 });
 
 router.get("/:id", async (req, res) => {

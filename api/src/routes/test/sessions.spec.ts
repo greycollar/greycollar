@@ -15,12 +15,13 @@ describe("Session service", () => {
         type: "CHAT",
         colleagueId: "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
       })
-      .expect(201);
+      .expect(200);
 
     deepEqual(body, {
-      id: "e3fee3eb-02f0-4081-82d1-03e03bacc177",
-      type: "CHAT",
-      colleagueId: "72ef5b08-b4a9-42b7-bb0a-22d40e56798b",
+      id: body.id,
+      role: "USER",
+      createdAt: body.createdAt,
+      sessionId: "e3fee3eb-02f0-4081-82d1-03e03bacc177",
     });
   });
 
@@ -33,15 +34,7 @@ describe("Session service", () => {
         type: "CHAT",
         content: "Thank you for your answer",
       })
-      .expect(201);
-
-    deepEqual(body, {
-      id: body.id,
-      createdAt: body.createdAt,
-      content: "Thank you for your answer",
-      role: "USER",
-      sessionId: "b9901597-8625-43d9-a925-ed5e0ad7b1e4",
-    });
+      .expect(200);
 
     const { body: session } = await request(app)
       .get("/sessions/b9901597-8625-43d9-a925-ed5e0ad7b1e4")

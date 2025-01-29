@@ -9,6 +9,7 @@ import Progress from "../models/Progress";
 import express from "express";
 import schemas from "../schemas";
 import scrapper from "../lib/scrapper";
+import knowledge from "../functions/knowledge";
 
 const router = express.Router();
 
@@ -62,39 +63,13 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const { projectId: teamId } = req.session;
-  const { colleagueId, type } = req.query;
-
-  let where = {} as {
+  const { colleagueId, type } = req.query as {
     colleagueId?: string;
-    teamId?: string;
-  };
-  let knowledgeWhere = {} as {
     type?: string;
   };
 
-  if (colleagueId) {
-    where.colleagueId = colleagueId as string;
-  } else {
-    where.teamId = teamId;
-  }
-
-  if (type) {
-    knowledgeWhere.type = type as string;
-  }
-
-  const colleagueKnowledge = await ColleagueKnowledge.findAll({
-    where,
-    include: [
-      {
-        model: Knowledge,
-        where: knowledgeWhere,
-      },
-    ],
-  });
-
-  const knowledgeEntries = colleagueKnowledge.map(({ Knowledge }) => Knowledge);
-
-  res.json(knowledgeEntries);
+  const knowledgeList = await knowledge.list({ teamId, colleagueId, type });
+  res.json(knowledgeList);
 });
 
 router.get("/:id", async (req, res) => {
