@@ -1,0 +1,58 @@
+name: Land
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Set config file
+        run: |
+            cp ./dashboard/config.land.js ./dashboard/config.js && cp ./api/config.land.ts ./api/config.ts
+
+      - name: Update version.json
+        run: |
+          echo "{ \"version\": \"$BRANCH\" }" > ./dashboard/src/version.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Log in to Docker Hub
+        env:
+          DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        uses: docker/login-action@v1
+        with:
+          username: canmingir
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: canmingir/greycollar:land-${{ github.run_id }}
+          context: .
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/container-apps-deploy-action@v2
+        with:
+          registryUsername: canmingir
+          registryUrl: registry.hub.docker.com
+          registryPassword: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          containerAppName: greycollar
+          resourceGroup: NucGroup
+          imageToDeploy: registry.hub.docker.com/canmingir/greycollar:land-${{ github.run_id }}
+
