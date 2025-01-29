@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.",
   "main": "index.js",
+  "author": "GreyCollar Team",
+  "license": "Apache-2.0",
   "scripts": {
     "dev:api":"cd api && npm run dev",
     "dev:dashboard":"cd dashboard && npm run dev",
@@ -15,8 +17,6 @@
     "posttest": "echo \"Tests completed.\"",
     "build": "concurrently -n 'dashboard' -c 'blue' 'cd dashboard && npm run build'"
   },
-  "author": "Nuc Dev Team",
-  "license": "ISC",
   "dependencies": {
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
