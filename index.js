@@ -4,7 +4,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
 
 const apiProxy = createProxyMiddleware({
-  target: "http://localhost:3001",
+  target: "http://localhost:4000",
   changeOrigin: true,
   pathRewrite: {
     "^/api": "",
@@ -25,6 +25,7 @@ app.use("/api", apiProxy);
 app.use("/", dashboardProxy);
 
 const PORT = 3000;
+
 app.listen(PORT, () => {
   console.log(`Proxy server running on port ${PORT}`);
 });
