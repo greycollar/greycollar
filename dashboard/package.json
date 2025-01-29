@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:cy": "cypress open",
-    "test": "exit 0",
+    "test": "start-server-and-test dev http://localhost:5173 cypress:run",
     "build": "vite build",
     "cypress:open": "cypress open --e2e --browser chrome",
     "cypress:run": "cypress run",

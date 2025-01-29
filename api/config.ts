@@ -7,7 +7,7 @@ const config = {
       },
       tokenUrl: "https://github.com/login/oauth/access_token",
       userUrl: "https://api.github.com/user",
-      clientId: "0c2844d3d19dc9293fc5",
+      clientId: "Ov23lihgDzlqJ1gnZxX3",
     },
   },
   postgres: {
