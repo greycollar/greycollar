@@ -15,7 +15,8 @@
     "pretest": "echo \"Running tests...\"",
     "test": "concurrently -n 'api,dashboard' -c 'green,blue' 'cd api && npm run test' 'cd dashboard && npm run test'",
     "posttest": "echo \"Tests completed.\"",
-    "build": "concurrently -n 'dashboard' -c 'blue' 'cd dashboard && npm run build'"
+    "build": "concurrently -n 'dashboard' -c 'blue' 'cd dashboard && npm run build'",
+    "serve": "concurrently -n 'dev,http-server,middleware' -c 'yellow,magenta,green' 'npm run dev:api' 'npx @nucleoidai/http-server start --port 5173' 'node index.js'"
   },
   "dependencies": {
     "concurrently": "^9.1.2",
