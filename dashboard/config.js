@@ -3,11 +3,11 @@ const config = {
   name: "GreyCollar",
   base: "/dashboard",
   beta: true,
-  api: "http://localhost:3000",
+  api: "http://localhost:3000/api",
   project: {
     github: {
       authUrl: "https://github.com/login/oauth/authorize",
-      clientId: "0c2844d3d19dc9293fc5",
+      clientId: "Ov23lihgDzlqJ1gnZxX3",
       redirectUri: "http://localhost:3000/dashboard/callback",
       userUrl: "https://api.github.com/user",
       scope: "user",
