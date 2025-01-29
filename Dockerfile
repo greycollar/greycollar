@@ -13,6 +13,9 @@ RUN cd api && npm rebuild sqlite3
 
 COPY package.json .
 
+RUN npm install concurrently
+RUN npm install nodemon
+
 EXPOSE 3000
 
 ENTRYPOINT npm run serve  
