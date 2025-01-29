@@ -1,21 +1,28 @@
 {
-    "name": "greycollar",
-    "version": "0.0.1",
-    "description": "GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js",
-        "install-all": "npm install && cd api && npm install && cd ../dashboard && npm install"
-    },
-    "author": "Your Name",
-    "license": "ISC",
-    "dependencies": {
-        "express": "^4.18.2",
-        "http-proxy-middleware": "^3.0.1",
-        "cors": "^2.8.5"
-    },
-    "devDependencies": {
-        "nodemon": "^3.0.2"
-    }
+  "name": "greycollar",
+  "version": "0.0.1",
+  "description": "GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n 'main,api,dashboard' -c 'yellow,green,blue' 'nodemon index.js' 'cd api && npm run dev' 'cd dashboard && npm run dev'",
+    "preinstall": "echo \"Installing dependencies...\"",
+    "install": "concurrently -n 'api,dashboard' -c 'green,blue' 'cd api && npm install' 'cd dashboard && npm install'",
+    "postinstall": "echo \"Installation completed.\"",
+    "pretest": "echo \"Running tests...\"",
+    "test": "concurrently -n 'api,dashboard' -c 'green,blue' 'cd api && npm run test' 'cd dashboard && npm run test'",
+    "posttest": "echo \"Tests completed.\"",
+    "build": "concurrently -n 'dashboard' -c 'blue' 'cd dashboard && npm run build'"
+  },
+  "author": "Nuc Dev Team",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
+
