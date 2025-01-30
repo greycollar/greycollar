@@ -3,7 +3,7 @@ const config = {
   name: "GreyCollar",
   base: "/dashboard",
   beta: true,
-  api: "localhost:3000/api",
+  api: "http://localhost:3000/api",
   project: {
     github: {
       redirectUri:
