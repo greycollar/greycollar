@@ -3,7 +3,7 @@ const config = {
   name: "GreyCollar",
   base: "/dashboard",
   beta: true,
-  api: "http://localhost:3000/api",
+  api: "https://greycollar.gentleflower-99ef02e0.eastus.azurecontainerapps.io/api",
   project: {
     github: {
       redirectUri:
