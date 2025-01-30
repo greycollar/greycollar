@@ -16,6 +16,8 @@ COPY package.json .
 RUN npm install concurrently
 RUN npm install nodemon
 
+ENV PG=postgresql://nucadmin:uqY32!4jF%3BU%26@postgres.nucleoid.com:5432/land
+
 EXPOSE 3000
 
 ENTRYPOINT npm run serve  
