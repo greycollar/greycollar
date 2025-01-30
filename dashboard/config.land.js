@@ -9,7 +9,7 @@ const config = {
       redirectUri: "https://nuc.land/callback/greycollar",
       authUrl: "https://github.com/login/oauth/authorize",
       userUrl: "https://api.github.com/user",
-      clientId: "c391f0f4f1ad600a20ef",
+      clientId: "Ov23liDUwCkj5NPpApo7",
       scope: "user",
       response_type: "code",
     },
