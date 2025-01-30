@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 const apiProxy = createProxyMiddleware({
-  target: "http://127.0.0.1:4000",
+  target: "http://localhost:4000",
   changeOrigin: true,
   pathRewrite: {
     "^/api": "",
@@ -15,7 +15,7 @@ const apiProxy = createProxyMiddleware({
 });
 
 const dashboardProxy = createProxyMiddleware({
-  target: "http://127.0.0.1:5173",
+  target: "http://localhost:5173",
   changeOrigin: true,
   ws: true,
 });

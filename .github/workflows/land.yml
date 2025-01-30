@@ -55,4 +55,6 @@ jobs:
           containerAppName: greycollar
           resourceGroup: NucGroup
           imageToDeploy: registry.hub.docker.com/canmingir/greycollar:land-${{ github.run_id }}
+          targetPort: 3000
+          ingress: 'external'
 
