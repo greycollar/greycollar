@@ -6,17 +6,17 @@
   "author": "GreyCollar Team",
   "license": "Apache-2.0",
   "scripts": {
-    "dev:api":"cd api && npm run dev",
-    "dev:dashboard":"cd dashboard && npm run dev",
-    "dev": "concurrently -n 'main,api,dashboard' -c 'yellow,green,blue' 'nodemon index.js' 'cd api && npm run dev' 'cd dashboard && npm run dev'",
+    "dev:api": "cd ./api && npm run dev",
+    "dev:dashboard": "cd ./dashboard && npm run dev",
+    "dev": "concurrently -n \"main,api,dashboard\" -c \"yellow,green,blue\" \"nodemon index.js\" \"cd ./api && npm run dev\" \"cd ./dashboard && npm run dev\"",
     "preinstall": "echo \"Installing dependencies...\"",
-    "install": "concurrently -n 'api,dashboard' -c 'green,blue' 'cd api && npm install' 'cd dashboard && npm install'",
+    "install": "concurrently -n \"api,dashboard\" -c \"green,blue\" \"cd ./api && npm install\" \"cd ./dashboard && npm install\"",
     "postinstall": "echo \"Installation completed.\"",
     "pretest": "echo \"Running tests...\"",
-    "test": "concurrently -n 'api,dashboard' -c 'green,blue' 'cd api && npm run test' 'cd dashboard && npm run test'",
+    "test": "concurrently -n \"api,dashboard\" -c \"green,blue\" \"cd ./api && npm run test\" \"cd ./dashboard && npm run test\"",
     "posttest": "echo \"Tests completed.\"",
-    "build": "concurrently -n 'dashboard' -c 'blue' 'cd dashboard && npm run build'",
-    "serve": "concurrently -n 'dev,http-server,middleware' -c 'yellow,magenta,green' 'npm run dev:api' 'npx @nucleoidai/http-server start --port 5173' 'node index.js'"
+    "build": "concurrently -n \"dashboard\" -c \"blue\" \"cd ./dashboard && npm run build\"",
+    "serve": "concurrently -n \"dev,http-server,middleware\" -c \"yellow,magenta,green\" \"npm run dev:api\" \"npx @nucleoidai/http-server start --port 5173\" \"node index.js\""
   },
   "dependencies": {
     "concurrently": "^9.1.2",
@@ -28,4 +28,3 @@
     "nodemon": "^3.0.2"
   }
 }
-
