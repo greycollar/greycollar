@@ -2,9 +2,12 @@ import * as platform from "@nucleoidai/platform-express";
 
 import { Server } from "socket.io";
 import config from "./config";
+import dotenv from "dotenv";
 import http from "http";
 import models from "./src/models";
 import sessions from "./src/socket/sessions";
+
+dotenv.config();
 
 platform.init(config).then(() => {
   const app = require("./src/app").default;
