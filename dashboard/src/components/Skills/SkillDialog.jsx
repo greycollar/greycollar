@@ -2,8 +2,8 @@ import ClosableDialogTitle from "./ClosableDialogTitle";
 import { Icon } from "@iconify/react";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import NumberOne from "/media/number-one.png";
-import NumberThree from "/media/number-two.png";
-import NumberTwo from "/media/number-three.png";
+import NumberThree from "/media/number-three.png";
+import NumberTwo from "/media/number-two.png";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
 // eslint-disable-next-line no-unused-vars
 import styless from "../../styles/connectButton.css";
