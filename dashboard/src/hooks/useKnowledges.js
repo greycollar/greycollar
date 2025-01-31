@@ -4,7 +4,7 @@ import useApi from "./useApi";
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
-function useKnowledges() {
+function useKnowledges(colleagueId) {
   const [knowledgeCreated] = useEvent("KNOWLEDGE_CREATED", null);
   const [knowledgeUpdated] = useEvent("KNOWLEDGE_UPDATED", null);
   const [knowledgeDeleted] = useEvent("KNOWLEDGE_DELETED", null);
@@ -17,7 +17,11 @@ function useKnowledges() {
   // TODO - Research self-call events
 
   useEffect(() => {
-    getKnowledges();
+    if (colleagueId) {
+      getColeagueKnowledge(colleagueId);
+    } else {
+      getKnowledges();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     knowledgeCreated,
@@ -29,7 +33,7 @@ function useKnowledges() {
   const createKnowledge = useCallback(
     (knowledge, colleagueId) => {
       return handleResponse(
-        http.post(`/knowledge/`, {
+        http.post(`/knowledge`, {
           url: knowledge.url,
           text: knowledge.text,
           question: knowledge.question,
@@ -85,10 +89,23 @@ function useKnowledges() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getColeagueKnowledge = useCallback((colleagueId) => {
+    handleResponse(
+      http.get(`/knowledge?colleagueId=${colleagueId}`),
+      (response) => {
+        setKnowledges(response.data);
+        publish("KNOWLEDGE_LOADED", { knowledge: response.data });
+      }
+    );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return {
     knowledges,
     loading,
     error,
+    getColeagueKnowledge,
     updateKnowledges,
     deleteKnowledges,
     createKnowledge,

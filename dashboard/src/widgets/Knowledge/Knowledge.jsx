@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 function Knowledge({ colleagueId }) {
   const { knowledges, deleteKnowledges, updateKnowledges, createKnowledge } =
-    useKnowledges();
+    useKnowledges(colleagueId);
 
   const table = useTable();
 
