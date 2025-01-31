@@ -231,7 +231,7 @@ const IntegrationWidget = () => {
         sx={{ mb: 3 }}
         fullWidth
         variant="outlined"
-        placeholder="Search desired integrations for your teams or colleagues"
+        placeholder="Search integrations for team or colleagues"
         value={searchTerm}
         autoComplete="off"
         onChange={handleSearchChange}

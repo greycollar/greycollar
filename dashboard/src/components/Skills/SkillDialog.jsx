@@ -60,7 +60,7 @@ const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
         <Box sx={{ textAlign: "center" }}>
           <Icon icon={skill.logo} width="20" height="20" />
           <Typography variant="h4" sx={{ mt: 1 }}>
-            Welcome to {skill.title}
+            {skill.title}
           </Typography>
         </Box>
         <Box sx={{ mt: 3 }}>{skill.description}</Box>
