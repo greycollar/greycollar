@@ -11,7 +11,6 @@ const config = {
     },
   },
   postgres: {
-    uri: "sqlite::memory:",
     debug: true,
     sync: true,
   },
