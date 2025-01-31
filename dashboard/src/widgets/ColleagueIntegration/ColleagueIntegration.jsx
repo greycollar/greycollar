@@ -118,6 +118,7 @@ const ColleagueIntegration = () => {
           <Grid container spacing={2}>
             {integrations.slice(0, 1).map((skill, index) => (
               <Integrations
+                key={index}
                 title={skill.title}
                 description={skill.description}
                 logo={skill.logo}
