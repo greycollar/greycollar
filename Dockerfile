@@ -10,6 +10,8 @@ COPY ./dashboard/config.js ./config.mjs
 
 COPY ./api ./api
 
+RUN npm install -g concurrently
+
 EXPOSE 3000
 
 ENTRYPOINT npm run serve
