@@ -17,6 +17,36 @@ function ColleagueWizard({
   onClose,
   itemToEdit,
 }) {
+  const sampleColleagues = [
+    {
+      name: "Alex Thompson",
+      avatar: ":2:",
+      src: `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_2.jpg`,
+      character: "Quick-Witted",
+      role: "Software Engineer",
+      aiEngineId: "289a3c9a-f23b-421a-ac6e-f14052a2d57c",
+      engineName: "OpenAI",
+    },
+    {
+      name: "Sarah Chen",
+      avatar: ":5:",
+      src: `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_5.jpg`,
+      character: "Ambitious",
+      role: "Data Scientist",
+      aiEngineId: "d9c93323-3baf-4623-a96c-b85db99b4441",
+      engineName: "Claude",
+    },
+    {
+      name: "Marcus Williams",
+      avatar: ":8:",
+      src: `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_8.jpg`,
+      character: "Natural Leader",
+      role: "Product Manager",
+      aiEngineId: "123a3c9a-b23b-421a-ac6e-f14052a2d57c",
+      engineName: "DeepMind",
+    },
+  ];
+
   const steps = ["Name", "Avatar", "Character", "Role", "Engine", "Summary"];
   const stepExp = [
     "Give colleague a name.",
