@@ -2,7 +2,7 @@
   "name": "greycollar",
   "version": "0.0.1",
   "description": "GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.",
-  "main": "index.js",
+  "main": "server.js",
   "author": "GreyCollar Team",
   "license": "Apache-2.0",
   "scripts": {
