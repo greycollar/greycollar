@@ -55,10 +55,13 @@ const IncomingDrawer = ({
           }}
         >
           {instructions.map((instruction, index) => (
-            <Card key={index} sx={{ marginBottom: "8px", width: "80%" }}>
+            <Card
+              key={instruction.id}
+              sx={{ marginBottom: "8px", width: "80%" }}
+            >
               <CardContent>
                 <Typography variant="body1">
-                  {index + 1}. {instruction}
+                  {index + 1}. {instruction.instruction}
                 </Typography>
               </CardContent>
               <CardActions>

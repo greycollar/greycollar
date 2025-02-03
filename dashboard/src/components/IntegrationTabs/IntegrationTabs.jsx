@@ -8,16 +8,15 @@ const IntegrationTabs = ({ selectedTab, handleTabChange, tabs }) => {
       <Tabs
         value={selectedTab}
         onChange={handleTabChange}
-        centered
         sx={{
           "& .MuiTabs-indicator": {
             backgroundColor: "primary.main",
           },
         }}
       >
-        {tabs.map((tab, index) => (
+        {tabs.map((tab) => (
           <Tab
-            key={index}
+            key={tab.id}
             label={tab.title}
             sx={{
               "&.Mui-selected": {
