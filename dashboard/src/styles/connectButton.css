@@ -12,7 +12,7 @@
 }
 
 .switch input + span {
-  width: 48px;
+  width: 60px; /* Increased width */
   height: 28px;
   border-radius: 14px;
   transition: all 0.3s ease;
@@ -41,7 +41,7 @@
 
 .switch input + span:after {
   top: 5px;
-  left: 32px;
+  left: 42px;
   width: 6px;
   height: 18px;
   border-radius: 40%;
@@ -62,7 +62,7 @@
 .switch input:checked + span:before {
   width: 0px;
   border-radius: 3px;
-  margin-left: 27px;
+  margin-left: 39px;
   border-width: 3px;
   background: #fff;
 }

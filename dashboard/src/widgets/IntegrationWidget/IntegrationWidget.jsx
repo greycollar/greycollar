@@ -18,6 +18,7 @@ import React, { useState } from "react";
 
 const mockData = [
   {
+    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
     title: "Coding",
     description:
       "Expert in writing efficient code, creating seamless apps like Spotify delivers music.",
@@ -25,6 +26,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "6p5o4n3m-2l1k-0j9i-8h7g-6f5e4d3c2b1a",
     title: "Data Analysis",
     description:
       "Skilled in uncovering insights, much like YouTube’s personalized recommendations.",
@@ -32,6 +34,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "7p6o5n4m-3l2k-1j0i-9h8g-7f6e5d4c3b2a",
     title: "Communication",
     description:
       "Strong communication skills, connecting people like Instagram's creative platform.",
@@ -39,6 +42,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "5p4o3n2m-1l0k-9j8i-7h6g-5f4e3d2c1b0a",
     title: "Problem-Solving",
     description:
       "Effective at solving challenges, similar to Google's innovative solutions.",
@@ -46,6 +50,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
     title: "Teamwork",
     description:
       "Collaborates effectively, fostering synergy like Slack unites teams.",
@@ -53,6 +58,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "8q7r6s5t-4u3v-2w1x-0y9z-8a7b6c5d4e3f",
     title: "Marketing",
     description:
       "Drives results with creativity, like TikTok sets global trends.",
@@ -60,6 +66,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "9q8r7s6t-5u4v-3w2x-1y0z-9a8b7c6d5e4f",
     title: "Marketing",
     description:
       "Delivers exceptional service, echoing Zendesk's customer focus.",
@@ -67,6 +74,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
     title: "Leadership",
     description:
       "Motivates teams to success, much like LinkedIn inspires growth.",
@@ -74,6 +82,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
     title: "Problem-Solving",
     description:
       "Brings fresh ideas to the table, much like Pinterest inspires endless possibilities.",
@@ -81,6 +90,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "0a1b2c3d-4e5f-6g7h-8i9j-0k1l2m3n4o5p",
     title: "Teamwork",
     description:
       "Pioneers new solutions, echoing Tesla's drive for technological advancement.",
@@ -88,6 +98,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
     title: "Leadership",
     description:
       "Excels in managing time effectively, much like Trello organizes tasks seamlessly.",
@@ -95,6 +106,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
     title: "Data Analysis",
     description:
       "Skilled in online sales strategies, much like Amazon’s mastery of global commerce.",
@@ -102,6 +114,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
     title: "Content Creation",
     description:
       "Crafts visually stunning experiences, much like Canva empowers creativity.",
@@ -109,6 +122,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
     title: "Content Creation",
     description:
       "Produces engaging content, much like Netflix captivates its audience.",
@@ -116,6 +130,7 @@ const mockData = [
     acquired: true,
   },
   {
+    id: "5a6b7c8d-9e0f-1g2h-3i4j-5k6l7m8n9o0p",
     title: "Communication",
     description:
       "Masters the art of numbers, similar to Tableau's visual storytelling with data.",
@@ -123,6 +138,7 @@ const mockData = [
     acquired: false,
   },
   {
+    id: "6a7b8c9d-0e1f-2g3h-4i5j-6k7l8m9n0o1p",
     title: "Coding",
     description:
       "Builds loyal audiences, much like Spotify retains its subscribers with unique experiences.",
@@ -133,41 +149,49 @@ const mockData = [
 
 const mockIntegrations = [
   {
+    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
     title: "Coding",
     logo: "logos:spotify-icon",
     provider: "Spotify",
   },
   {
+    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
     title: "Data Analysis",
     logo: "logos:youtube-icon",
     provider: "YouTube",
   },
   {
+    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
     title: "Communication",
     logo: "skill-icons:instagram",
     provider: "Instagram",
   },
   {
+    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
     title: "Problem-Solving",
     logo: "logos:google-icon",
     provider: "Google",
   },
   {
+    id: "5a6b7c8d-9e0f-1g2h-3i4j-5k6l7m8n9o0p",
     title: "Teamwork",
     logo: "logos:slack-icon",
     provider: "Slack",
   },
   {
+    id: "6a7b8c9d-0e1f-2g3h-4i5j-6k7l8m9n0o1p",
     title: "Marketing",
     logo: "logos:tiktok-icon",
     provider: "Tiktok",
   },
   {
+    id: "7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p",
     title: "Leadership",
     logo: "logos:linkedin-icon",
     provider: "LinkedIn",
   },
   {
+    id: "8a9b0c1d-2e3f-4g5h-6i7j-8k9l0m1n2o3p",
     title: "Content Creation",
     logo: "logos:netflix-icon",
     provider: "Netflix",
@@ -239,8 +263,8 @@ const IntegrationWidget = () => {
 
       <Grid container spacing={1} sx={{ mb: 2 }}>
         {searchTerm &&
-          filteredIntegrations.map((integration, index) => (
-            <Grid key={`integration-${index}`} item xs={12} sm={6} md={2}>
+          filteredIntegrations.map((integration) => (
+            <Grid key={integration.id} item xs={12} sm={6} md={2}>
               <Card
                 sx={{
                   height: 160,
@@ -280,8 +304,8 @@ const IntegrationWidget = () => {
       </Grid>
 
       <Grid container spacing={2}>
-        {filteredData.map((skill, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+        {filteredData.map((skill) => (
+          <Grid item xs={12} sm={6} md={3} key={skill.id}>
             <Skills
               title={skill.title}
               description={skill.description}
