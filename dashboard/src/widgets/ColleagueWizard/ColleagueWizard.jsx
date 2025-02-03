@@ -8,6 +8,14 @@ import SelectAvatar from "../../components/AvatarSelector/AvatarSelector";
 import SparkleInput from "../../components/SparkleInput/SparkleInput";
 import StepComponent from "../../components/StepComponent/StepComponent";
 
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Divider,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
 function ColleagueWizard({
@@ -107,6 +115,11 @@ function ColleagueWizard({
     itemProperties.reduce((obj, property) => ({ ...obj, [property]: "" }), {})
   );
 
+  const handleTemplateSelect = (colleague) => {
+    setNewItem(colleague);
+    setActiveStep(5);
+  };
+
   useEffect(() => {
     if (itemToEdit) {
       setNewItem(itemToEdit);
@@ -164,13 +177,80 @@ function ColleagueWizard({
 
   const Name = () => {
     return (
-      <SparkleInput
-        data-cy="colleague-wizard-name-input"
-        prop="name"
-        value={newItem["name"]}
-        onChange={handleInputChange("name")}
-        onRandomValue={() => handleRandomValue("name")}
-      />
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div>
+          <SparkleInput
+            data-cy="colleague-wizard-name-input"
+            prop="name"
+            value={newItem["name"]}
+            onChange={handleInputChange("name")}
+            onRandomValue={() => handleRandomValue("name")}
+          />
+        </div>
+
+        <Divider />
+        <div>
+          <Typography variant="body2" gutterBottom textAlign={"center"}>
+            Or choose one of the samples
+          </Typography>
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: "16px",
+              marginTop: "16px",
+            }}
+          >
+            {sampleColleagues.map((colleague, index) => (
+              <Card
+                key={index}
+                onClick={() => handleTemplateSelect(colleague)}
+                sx={{
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  },
+                }}
+              >
+                <CardActionArea>
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <img
+                        src={colleague.src}
+                        alt={colleague.name}
+                        style={{
+                          width: "32px",
+                          height: "32px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                      <Typography variant="h6" component="div">
+                        {colleague.name}
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" color="textSecondary">
+                      {colleague.role}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {colleague.character}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            ))}
+          </Box>
+        </div>
+      </div>
     );
   };
 
