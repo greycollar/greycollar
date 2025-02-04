@@ -2,52 +2,67 @@ import { publish, subscribe } from "../lib/Event";
 
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
-import { v4 as uuid } from "uuid";
 
 const sockets = {};
 
 const setup = (io: Server) => {
   const Colleague = require("../models/Colleague.js");
+  const session = require("../functions/session.ts").default;
 
   io.on("connection", async (socket) => {
-    const token = socket.handshake.auth.token;
-    const colleagueId = socket.handshake.query.colleagueId;
+    try {
+      const token = socket.handshake.auth.token;
+      const colleagueId = socket.handshake.query.colleagueId as string;
 
-    const { sub, aud, rls, aid, oid } = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
-    const session = {
-      id: uuid(),
-      appId: aid,
-      organizationId: oid,
-      projectId: aud,
-      userId: sub,
-      roles: rls,
-      timestamp: new Date(),
-    };
+      const { sub, aud, rls, aid, oid } = jwt.verify(
+        token,
+        process.env.JWT_SECRET
+      );
+      const oauth = {
+        appId: aid,
+        organizationId: oid,
+        projectId: aud,
+        userId: sub,
+        roles: rls,
+        timestamp: new Date(),
+      };
 
-    const colleague = await Colleague.findByPk(colleagueId);
+      const { id: sessionId } = await session.create({
+        type: "CHAT",
+        colleagueId,
+      });
 
-    if (!colleague || colleague.teamId !== session.projectId) {
+      const colleague = await Colleague.findByPk(colleagueId);
+
+      if (!colleague || colleague.teamId !== oauth.projectId) {
+        socket.disconnect();
+        return;
+      }
+
+      socket.on("disconnect", () => {
+        delete sockets[sessionId];
+      });
+
+      sockets[sessionId] = socket.id;
+
+      socket.on("customer_message", async ({ content }, callback) => {
+        await session.addConversation({
+          sessionId,
+          colleagueId,
+          role: "USER",
+          content,
+        });
+
+        callback({ status: "success" });
+      });
+    } catch (err) {
       socket.disconnect();
-      return;
+      console.error(err);
     }
-
-    socket.on("disconnect", () => {
-      delete sockets[session.id];
-    });
-
-    sockets[session.id] = socket.id;
-
-    socket.on("customer_message", async ({ content }, callback) => {
-      publish("SESSION", "CUSTOMER_MESSAGED", { session, content });
-      callback({ data: content });
-    });
   });
 
-  subscribe("SESSION", "AI_MESSAGED", ({ session, content }) => {
-    const socketId = sockets[session.id];
+  subscribe("SESSION", "AI_MESSAGED", ({ sessionId, content }) => {
+    const socketId = sockets[sessionId];
     if (socketId) {
       io.to(socketId).emit("ai_message", {
         content,

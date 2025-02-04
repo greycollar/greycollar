@@ -6,7 +6,7 @@ async function list({
   colleagueId,
   type,
 }: {
-  teamId: string;
+  teamId?: string;
   colleagueId?: string;
   type?: string;
 }) {

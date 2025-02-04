@@ -12,7 +12,11 @@ dotenv.config();
 platform.init(config).then(() => {
   const app = require("./src/app").default;
   const server = http.createServer(app);
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: {
+      origin: "*",
+    },
+  });
 
   models.init();
   sessions.setup(io);

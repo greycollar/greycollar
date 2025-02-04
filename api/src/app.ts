@@ -13,6 +13,7 @@ import teamDetails from "./routes/teamDetails";
 import { publish, subscribe } from "./lib/Event";
 
 import "express";
+import agent from "./functions/agent";
 
 declare module "express-serve-static-core" {
   interface Request {
@@ -43,13 +44,16 @@ app.use("/tasks", tasks);
 app.use("/engines", engines);
 app.use("/organizations", organizations);
 
-subscribe("SESSION", "CUSTOMER_MESSAGED", ({ session, content }) => {
-  setTimeout(() => {
-    publish("SESSION", "AI_MESSAGED", {
-      session,
+subscribe(
+  "SESSION",
+  "USER_MESSAGED",
+  ({ colleagueId, sessionId, conversationId, content }) =>
+    agent.chat({
+      colleagueId,
+      sessionId,
+      conversationId,
       content,
-    });
-  }, 1000);
-});
+    })
+);
 
 export default app;

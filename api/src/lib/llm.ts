@@ -1,17 +1,52 @@
-import { v4 as uuid } from "uuid";
-
 let llm;
 
 if (process.env.LLM === "OPENAI") {
-  llm = require("../../../../Nucleoid/arc/src/lib/openai");
+  llm = require("./openai").default;
 }
 
 if (process.env.LLM === "AZURE") {
-  llm = require("./azure");
+  llm = require("./azure").default;
 }
 
-async function generate({ model, messages = [], temperature = 0, max_tokens }) {
-  return llm.generate({
+async function generate({
+  model,
+  dataset = [],
+  context = [],
+  content,
+  json_format,
+  temperature = 0,
+  max_tokens,
+}: {
+  model?: string;
+  dataset: {
+    role: "system" | "user" | "assistant";
+    content: object | object[];
+  }[];
+  context: {
+    role: "system" | "user" | "assistant";
+    content: object | object[];
+  }[];
+  content: string | object;
+  json_format: string;
+  temperature?: number;
+  max_tokens?: number;
+}) {
+  const messages = [
+    ...dataset,
+    ...context,
+    { role: "user", content },
+    {
+      role: "system",
+      content: {
+        json_format,
+      },
+    },
+  ].map(({ role, content }) => ({
+    role,
+    content: JSON.stringify(content),
+  }));
+
+  return await llm.generate({
     model,
     messages,
     temperature,
@@ -19,4 +54,4 @@ async function generate({ model, messages = [], temperature = 0, max_tokens }) {
   });
 }
 
-module.exports = { generate };
+export { generate };

@@ -1,54 +1,83 @@
 import Session from "../models/Session";
 import Conversation from "../models/Conversation";
 import { publish } from "../lib/Event";
+import { v4 as uuid } from "uuid";
+
+async function create({
+  type,
+  colleagueId,
+}: {
+  type: string;
+  colleagueId: string;
+}) {
+  const sessionId = uuid();
+
+  const session = await Session.create({
+    id: sessionId,
+    type,
+    colleagueId,
+  });
+
+  publish("SESSION", "INITIATED", {
+    id: sessionId,
+    type,
+    colleagueId,
+  });
+
+  return session;
+}
 
 async function addConversation({
   sessionId,
-  type,
+  role,
   colleagueId,
   content,
 }: {
   sessionId: string;
   colleagueId: string;
-  type: string;
+  role: string;
   content: string;
 }) {
-  let session = await Session.findByPk(sessionId);
+  const session = await Session.findByPk(sessionId);
 
   if (!session) {
-    session = await Session.create({ id: sessionId, type, colleagueId });
-    publish("SESSION", "INITIATED", {
-      id: sessionId,
-      type,
-      colleagueId,
-    });
+    throw new Error("Session not found");
   }
 
   const conversation = await Conversation.create({
     content,
-    role: "USER",
+    role,
     sessionId,
   });
 
-  publish("SESSION", "USER_MESSAGED", {
-    id: conversation.id,
-    content,
-    session,
-  });
+  if (role === "USER") {
+    publish("SESSION", "USER_MESSAGED", {
+      colleagueId,
+      sessionId,
+      conversationId: conversation.id,
+      content,
+    });
+  } else {
+    publish("SESSION", "AI_MESSAGED", {
+      colleagueId,
+      sessionId,
+      conversationId: conversation.id,
+      content,
+    });
+  }
 
   return conversation;
 }
 
 async function listConversations({ sessionId }: { sessionId: string }) {
-  const conversations = await Conversation.findAll({
+  return await Conversation.findAll({
     where: { sessionId },
     order: [["createdAt", "ASC"]],
   });
-
-  return conversations;
 }
 
 export default {
+  create,
   addConversation,
   listConversations,
 };

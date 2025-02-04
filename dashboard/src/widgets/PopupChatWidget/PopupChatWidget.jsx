@@ -56,7 +56,7 @@ const PopupChatWidget = ({ readOnly }) => {
   return (
     <>
       <PopChat
-        title={`Practice Chat`}
+        title={`Async Chat Session`}
         open={open}
         handleClose={handleClose}
         closeButton={true}

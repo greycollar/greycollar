@@ -1,9 +1,7 @@
 import http from "../http";
-import { storage } from "@nucleoidjs/webstorage";
 import useApi from "./useApi";
 import { useLocation } from "react-router-dom";
 import useMessage from "./useMessage";
-import { useSocket } from "./useSocket";
 
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -20,7 +18,6 @@ function useChat() {
       knowledgeId: "",
     },
   ]);
-  const socket = useSocket();
 
   const location = useLocation();
 
@@ -42,24 +39,6 @@ function useChat() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageCreated, supervisingAnswered, taskStatus, taskCreated]);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    socket.on("command_sent", (command) => {
-      const { data } = command;
-      const teamId = storage.get("projectId");
-
-      if (data.teamId === teamId) {
-        getMessages();
-      }
-    });
-
-    return () => {
-      socket.off("comman_sent");
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, messages]);
 
   const intervalId = useRef();
 
