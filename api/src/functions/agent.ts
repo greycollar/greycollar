@@ -54,13 +54,13 @@ async function conversations({ sessionId }) {
 async function chat({
   colleagueId,
   sessionId,
-  content,
   conversationId,
+  content,
 }: {
   colleagueId: string;
   sessionId: string;
-  content: string;
   conversationId: string;
+  content: string;
 }) {
   const context = [
     ...(

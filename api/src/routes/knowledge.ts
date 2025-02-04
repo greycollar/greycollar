@@ -8,7 +8,6 @@ import { Op } from "sequelize";
 import Progress from "../models/Progress";
 import express from "express";
 import schemas from "../schemas";
-import scrapper from "../lib/scrapper";
 import knowledge from "../functions/knowledge";
 
 const router = express.Router();
@@ -17,17 +16,21 @@ router.post("/", async (req, res) => {
   const { body } = req;
   const { projectId: teamId } = req.session;
 
-  const validatedBody = Joi.attempt(body, schemas.Knowledge.create);
+  const {
+    colleagueId,
+    teamId: knowledgeTeamId,
+    ...knowledgeBody
+  } = Joi.attempt(body, schemas.Knowledge.create);
 
-  if (validatedBody.teamId) {
-    if (validatedBody.teamId !== teamId) {
+  if (knowledgeTeamId) {
+    if (knowledgeTeamId !== teamId) {
       return res.status(401).end();
     }
   } else {
     const colleague = await Colleague.findOne({
       where: {
         teamId,
-        id: validatedBody.colleagueId,
+        id: colleagueId,
       },
     });
 
@@ -36,26 +39,10 @@ router.post("/", async (req, res) => {
     }
   }
 
-  const {
+  await knowledge.create({
+    teamId,
     colleagueId,
-    teamId: knowledgeTeamId,
-    ...knowledgeBody
-  } = validatedBody;
-
-  if (knowledgeBody.type === "URL") {
-    const webSiteData = await scrapper(knowledgeBody.url);
-
-    const { content } = webSiteData[0];
-
-    knowledgeBody.content = content;
-  }
-
-  const knowledge = await Knowledge.create(knowledgeBody);
-
-  await ColleagueKnowledge.create({
-    knowledgeId: knowledge.id,
-    colleagueId: colleagueId,
-    teamId: knowledgeTeamId,
+    knowledge: knowledgeBody,
   });
 
   res.status(201).json(knowledge);

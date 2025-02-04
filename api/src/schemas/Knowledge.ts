@@ -3,34 +3,14 @@ import Joi from "joi";
 const Knowledge = {
   create: Joi.object({
     type: Joi.string().valid("QA", "URL", "TEXT").required(),
-  })
-    .xor("colleagueId", "teamId")
-    .or("colleagueId", "teamId")
-    .concat(
-      Joi.object({
-        colleagueId: Joi.string().guid({ version: ["uuidv4"] }),
-        teamId: Joi.string().guid({ version: ["uuidv4"] }),
-      })
-    )
-    .when(Joi.object({ type: Joi.string().valid("QA") }).unknown(), {
-      then: Joi.object({
-        question: Joi.string().required(),
-        answer: Joi.string().required(),
-      }),
-    })
-    .when(Joi.object({ type: Joi.string().valid("URL") }).unknown(), {
-      then: Joi.object({
-        url: Joi.string().uri().required(),
-      }),
-    })
-    .when(Joi.object({ type: Joi.string().valid("TEXT") }).unknown(), {
-      then: Joi.object({
-        text: Joi.string().required(),
-      }),
-    }),
-  update: Joi.object({
-    type: Joi.string().valid("QA", "URL", "TEXT").optional(),
-  })
+    colleagueId: Joi.string().guid({ version: ["uuidv4"] }),
+    teamId: Joi.string().guid({ version: ["uuidv4"] }),
+    question: Joi.string().optional(),
+    answer: Joi.string().optional(),
+    url: Joi.string().uri().optional(),
+    text: Joi.string().optional(),
+  }),
+  update: Joi.object({})
     .when(Joi.object({ type: Joi.string().valid("QA") }).unknown(), {
       then: Joi.object({
         question: Joi.string(),
