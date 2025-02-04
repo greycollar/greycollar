@@ -3,11 +3,10 @@ const config = {
   name: "GreyCollar",
   base: "/dashboard",
   beta: true,
-  api: "https://greycollar.gentleflower-99ef02e0.eastus.azurecontainerapps.io/api",
+  api: "https://land.greycollar.ai/api",
   project: {
     github: {
-      redirectUri:
-        "https://greycollar.gentleflower-99ef02e0.eastus.azurecontainerapps.io/dashboard/callback",
+      redirectUri: "https://land.greycollar.ai/dashboard/callback",
       authUrl: "https://github.com/login/oauth/authorize",
       userUrl: "https://api.github.com/user",
       clientId: "Ov23liDUwCkj5NPpApo7",
