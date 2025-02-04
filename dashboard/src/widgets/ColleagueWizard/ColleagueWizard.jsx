@@ -1,4 +1,3 @@
-import ColleagueSummary from "../../components/ItemSummary/ItemSummary";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -7,6 +6,7 @@ import React from "react";
 import SelectAvatar from "../../components/AvatarSelector/AvatarSelector";
 import SparkleInput from "../../components/SparkleInput/SparkleInput";
 import StepComponent from "../../components/StepComponent/StepComponent";
+import TeamSummary from "../../components/ItemSummary/TeamSummary";
 
 import {
   Box,
@@ -315,7 +315,7 @@ function ColleagueWizard({
           />
         );
       case 5:
-        return <ColleagueSummary newItem={newItem} />;
+        return <TeamSummary newItem={newItem} />;
     }
   };
   return (
