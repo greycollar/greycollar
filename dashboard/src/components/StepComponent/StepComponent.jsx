@@ -75,7 +75,7 @@ export default function StepComponent({
           Back
         </Button>
         <Box sx={{ flex: "1 1 auto" }} />
-        {activeStep === 5 ? (
+        {activeStep === steps.length ? (
           <Button
             variant="contained"
             data-cy="colleague-finish-button"
@@ -84,13 +84,15 @@ export default function StepComponent({
             Finish
           </Button>
         ) : (
-          <Button
-            variant="outlined"
-            data-cy="colleague-next-button"
-            onClick={handleNext}
-          >
-            Next
-          </Button>
+          <>
+            <Button
+              variant="outlined"
+              data-cy="colleague-next-button"
+              onClick={handleNext}
+            >
+              Next
+            </Button>
+          </>
         )}
       </DialogActions>
     </>
