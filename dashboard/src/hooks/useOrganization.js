@@ -4,21 +4,27 @@ import { useEvent } from "@nucleoidai/react-event";
 
 import { useCallback, useEffect, useState } from "react";
 
-function useOrganizations() {
+function useOrganization(id) {
   const [organizations, setOrganizations] = useState([{}]);
 
   const { loading, error, handleResponse } = useApi();
 
+  // TODO - Research self-call events
+
   const [teamSelected] = useEvent("TEAM_SELECTED", null);
 
   useEffect(() => {
-    getOrganizations();
-
+    if (id) {
+      getOrganizationsById(id);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teamSelected]);
+  }, [teamSelected, id]);
 
-  const getOrganizations = useCallback(() => {
-    handleResponse(http.get(`/organizations`), (response) =>
+  const getOrganizationsById = useCallback((id) => {
+    if (!id) {
+      return;
+    }
+    handleResponse(http.get(`/organizations/${id}`), (response) =>
       setOrganizations(response.data)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,4 +37,4 @@ function useOrganizations() {
   };
 }
 
-export { useOrganizations };
+export default useOrganization;
