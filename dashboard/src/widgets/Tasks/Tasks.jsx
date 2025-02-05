@@ -50,7 +50,7 @@ function Tasks(colleagueId) {
             variant="button"
             color="default"
             size="small"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, zIndex: 0 }}
             data-cy="add-task-button"
             onClick={() => {
               setOpen(true);
