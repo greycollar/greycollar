@@ -27,8 +27,6 @@ function Container() {
         const result = await createOrganization(organization);
         await createTeam(team, result.id);
       }
-
-      publish("PLATFORM", "PROJECT_BAR_DIALOG", { open: false });
     } catch (error) {
       console.error(error);
     }

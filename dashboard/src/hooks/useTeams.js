@@ -13,16 +13,19 @@ function useTeams() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createTeam = useCallback((team, organizationId) => {
-    handleResponse(
-      http.post(`/projects`, {
-        name: team.name,
-        icon: team.avatar,
-        organizationId,
-      }),
+  const createTeam = useCallback(async (team, organizationId) => {
+    const response = await http.post(`/projects`, {
+      name: team.name,
+      icon: team.avatar,
+      organizationId,
+    });
 
-      publish("TEAM_ADDED", { teamId: team.id })
-    );
+    handleResponse(response);
+
+    publish("PROJECT_CREATED", { project: response.data });
+
+    return response.data;
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
