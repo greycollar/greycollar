@@ -12,6 +12,7 @@ export default function IconSelector({ handleEmojiSelect, avatarSrc, avatar }) {
   const handleEmojiButtonClick = () => {
     setEmojiDialogOpen(true);
   };
+
   return (
     <Stack alignContent={"center"} justifyContent={"center"}>
       <Stack>
@@ -55,6 +56,7 @@ export default function IconSelector({ handleEmojiSelect, avatarSrc, avatar }) {
             handleEmojiSelect(emoji), setEmojiDialogOpen(false);
           }}
           custom={TeamIcons}
+          categories={"team_icons"}
           searchPosition={"none"}
           navPosition="none"
           emojiButtonSize={90}
