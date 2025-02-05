@@ -1,6 +1,5 @@
 import * as platform from "@nucleoidai/platform-express";
 import colleagues from "./routes/colleagues";
-import commands from "./routes/commands";
 import engines from "./routes/engines";
 import knowledges from "./routes/knowledge";
 import messages from "./routes/messages";
@@ -39,7 +38,6 @@ app.use("/knowledge", knowledges);
 app.use("/messages", messages);
 app.use("/sessions", sessions);
 app.use("/supervisings", supervisings);
-app.use("/commands", commands);
 app.use("/tasks", tasks);
 app.use("/engines", engines);
 app.use("/organizations", organizations);
@@ -53,6 +51,17 @@ subscribe(
       sessionId,
       conversationId,
       content,
+    })
+);
+subscribe(
+  "SUPERVISING",
+  "ANSWERED",
+  ({ sessionId, conversationId, colleagueId, question }) =>
+    agent.chat({
+      colleagueId,
+      sessionId,
+      conversationId,
+      content: question,
     })
 );
 

@@ -54,13 +54,13 @@ async function conversations({ sessionId }) {
 async function chat({
   colleagueId,
   sessionId,
-  content,
   conversationId,
+  content,
 }: {
   colleagueId: string;
   sessionId: string;
-  content: string;
   conversationId: string;
+  content: string;
 }) {
   const context = [
     ...(
@@ -76,47 +76,48 @@ async function chat({
     dataset: [...dataset.chat],
     context,
     content,
+    json_format: "{ evaluation: { is_answer_known: <true|false> } }",
     // Experimental Fields
-    json_format: `
-        {
-          evaluation: {
-            is_answer_known: <true|false>,
-            complies_with_policy: <true|false>,
-            confidence_score: <0.0-1.0>,
-            requires_human_intervention: <true|false>,
-            response_type: <factual|opinion|instructional>,
-            additional_notes: <string>,
-            question_analysis: {
-              category: <general_knowledge|HR_policy|technical|other>,
-              complexity_level: <low|medium|high>,
-              contains_sensitive_information: <true|false>,
-              contains_prohibited_content: <true|false>
-            },
-            security: {
-              is_safe_to_answer: <true|false>,
-              data_privacy_risk: <low|medium|high>,
-              potential_phishing_attempt: <true|false>
-            },
-            sentiment_analysis: {
-              question_sentiment: <positive|neutral|negative>,
-              toxicity_level: <none|low|medium|high>,
-              user_frustration_detected: <true|false>
-            },
-            context: {
-              previous_questions_context: <true|false>,
-              user_role: <employee|manager|customer|other>,
-              department: <engineering|HR|sales|other>,
-              geolocation_restricted: <true|false>,
-              requires_escalation: <true|false>
-            },
-            response_metadata: {
-              source: <internal_knowledge_base|external_API|predefined_response>,
-              response_format: <text|JSON|multimedia>,
-              alternative_sources_available: <true|false>,
-              fallback_strategy: <redirect_to_human|use_predefined_answer|other>
-            }
-          }
-        }`,
+    // json_format: `
+    //     {
+    //       evaluation: {
+    //         is_answer_known: <true|false>,
+    //         complies_with_policy: <true|false>,
+    //         confidence_score: <0.0-1.0>,
+    //         requires_human_intervention: <true|false>,
+    //         response_type: <factual|opinion|instructional>,
+    //         additional_notes: <string>,
+    //         question_analysis: {
+    //           category: <general_knowledge|HR_policy|technical|other>,
+    //           complexity_level: <low|medium|high>,
+    //           contains_sensitive_information: <true|false>,
+    //           contains_prohibited_content: <true|false>
+    //         },
+    //         security: {
+    //           is_safe_to_answer: <true|false>,
+    //           data_privacy_risk: <low|medium|high>,
+    //           potential_phishing_attempt: <true|false>
+    //         },
+    //         sentiment_analysis: {
+    //           question_sentiment: <positive|neutral|negative>,
+    //           toxicity_level: <none|low|medium|high>,
+    //           user_frustration_detected: <true|false>
+    //         },
+    //         context: {
+    //           previous_questions_context: <true|false>,
+    //           user_role: <employee|manager|customer|other>,
+    //           department: <engineering|HR|sales|other>,
+    //           geolocation_restricted: <true|false>,
+    //           requires_escalation: <true|false>
+    //         },
+    //         response_metadata: {
+    //           source: <internal_knowledge_base|external_API|predefined_response>,
+    //           response_format: <text|JSON|multimedia>,
+    //           alternative_sources_available: <true|false>,
+    //           fallback_strategy: <redirect_to_human|use_predefined_answer|other>
+    //         }
+    //       }
+    //     }`,
   });
 
   console.debug(evaluation);

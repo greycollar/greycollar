@@ -5,6 +5,7 @@ import Colleague from "../models/Colleague";
 import Conversation from "../models/Conversation";
 import Supervising from "../models/Supervising";
 import Progress from "../models/Progress";
+import supervising from "../functions/supervising";
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
     res.status(404);
   }
 
-  const supervising = await Supervising.create({
+  await supervising.create({
     sessionId,
     conversationId,
     question: conversation.content,
@@ -94,19 +95,19 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
+router.patch("/:supervisingId", async (req, res) => {
+  const { supervisingId } = req.params;
   const teamId = req.session.projectId;
 
   const { answer, status } = Joi.attempt(req.body, schemas.Supervising.patch);
 
-  const supervising = await Supervising.findByPk(id);
+  const supervisingInstance = await Supervising.findByPk(supervisingId);
 
   if (!supervising) {
     res.status(404);
   }
 
-  const colleague = await Colleague.findByPk(supervising.colleagueId);
+  const colleague = await Colleague.findByPk(supervisingInstance.colleagueId);
 
   if (!colleague) {
     res.status(404);
@@ -116,7 +117,14 @@ router.patch("/:id", async (req, res) => {
     res.status(401);
   }
 
-  await supervising.update({ answer, status });
+  await supervising.update({
+    teamId,
+    supervisingId,
+    colleagueId: colleague.id,
+    question: supervisingInstance.question,
+    answer,
+    status,
+  });
 
   res.status(200).json(supervising);
 });

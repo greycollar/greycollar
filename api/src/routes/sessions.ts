@@ -21,7 +21,7 @@ router.post("/:sessionId", async (req, res) => {
 
   const conversation = await session.addConversation({
     sessionId,
-    type,
+    role: type,
     colleagueId,
     content,
   });

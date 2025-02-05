@@ -41,7 +41,7 @@ const Knowledge = sequelize.define("Knowledge", {
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: "IN_PROGRESS",
+    defaultValue: "COMPLETED",
     validate: {
       isIn: [["IN_PROGRESS", "COMPLETED"]],
     },
