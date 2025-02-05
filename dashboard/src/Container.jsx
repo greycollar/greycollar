@@ -1,27 +1,32 @@
 import { Outlet } from "react-router-dom";
 import TeamWizard from "./widgets/TeamWizard/TeamWizard";
 import { useEffect } from "react";
-import { useEvent } from "@nucleoidai/react-event";
+
+import { publish, useEvent } from "@nucleoidai/react-event";
 
 function Container() {
-  const [platformDialog] = useEvent("ADD_PROJECT_BUTTON_CLICKED", false);
-
-  console.log("Container", platformDialog);
+  const [platformDialog] = useEvent("PLATFORM", "PROJECT_DIALOG", {
+    open: false,
+  });
 
   useEffect(() => {
-    if (platformDialog) {
+    if (platformDialog.open) {
       console.log("Add new team event");
     }
   }, [platformDialog]);
 
+  const handleTeamWizardSubmit = ({ team, organization }) => {
+    console.log(team, organization);
+  };
+
   return (
     <>
       <TeamWizard
-        open={platformDialog}
-        onClose={() => {}}
-        title="Team"
-        itemProperties={["name", "character", "role"]}
-        onSubmit={(team) => console.log(team)}
+        open={platformDialog.open}
+        onClose={() => {
+          publish("PLATFORM", "PROJECT_DIALOG", { open: false });
+        }}
+        onSubmit={handleTeamWizardSubmit}
       />
       <Outlet />
     </>
