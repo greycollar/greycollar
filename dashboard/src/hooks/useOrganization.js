@@ -20,6 +20,13 @@ function useOrganization(id) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamSelected, id]);
 
+  const createOrganization = useCallback(async (organization) => {
+    const response = await http.post("/organizations", organization);
+    handleResponse(response);
+    return response.data;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const getOrganizationsById = useCallback((id) => {
     if (!id) {
       return;
@@ -31,6 +38,7 @@ function useOrganization(id) {
   }, []);
 
   return {
+    createOrganization,
     organizations,
     loading,
     error,

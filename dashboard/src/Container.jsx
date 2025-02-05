@@ -1,11 +1,15 @@
 import { Outlet } from "react-router-dom";
 import TeamWizard from "./widgets/TeamWizard/TeamWizard";
 import { useEffect } from "react";
+import useOrganization from "./hooks/useOrganization";
+import useTeams from "./hooks/useTeams";
 
 import { publish, useEvent } from "@nucleoidai/react-event";
 
 function Container() {
-  const [platformDialog] = useEvent("PLATFORM", "PROJECT_DIALOG", {
+  const { createTeam } = useTeams();
+  const { createOrganization } = useOrganization();
+  const [platformDialog] = useEvent("PLATFORM", "PROJECT_BAR_DIALOG", {
     open: false,
   });
 
@@ -15,8 +19,19 @@ function Container() {
     }
   }, [platformDialog]);
 
-  const handleTeamWizardSubmit = ({ team, organization }) => {
-    console.log(team, organization);
+  const handleTeamWizardSubmit = async ({ team, organization }) => {
+    try {
+      if (organization.id) {
+        await createTeam(team, organization.id);
+      } else {
+        const result = await createOrganization(organization);
+        await createTeam(team, result.id);
+      }
+
+      publish("PLATFORM", "PROJECT_BAR_DIALOG", { open: false });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -24,7 +39,7 @@ function Container() {
       <TeamWizard
         open={platformDialog.open}
         onClose={() => {
-          publish("PLATFORM", "PROJECT_DIALOG", { open: false });
+          publish("PLATFORM", "PROJECT_BAR_DIALOG", { open: false });
         }}
         onSubmit={handleTeamWizardSubmit}
       />

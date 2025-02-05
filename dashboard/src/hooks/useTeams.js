@@ -13,15 +13,12 @@ function useTeams() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createTeam = useCallback((team) => {
+  const createTeam = useCallback((team, organizationId) => {
     handleResponse(
       http.post(`/projects`, {
         name: team.name,
-        avatar: team.avatar,
-        character: team.character,
-        role: team.role,
-        companyId: "4def7431-cb19-4aab-aa4b-2a84198cb56a",
-        teamId: team.teamId,
+        icon: team.avatar,
+        organizationId,
       }),
 
       publish("TEAM_ADDED", { teamId: team.id })

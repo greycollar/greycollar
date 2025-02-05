@@ -20,7 +20,6 @@ import {
 
 function TeamWizard({ onSubmit, open, onClose }) {
   const { organizations, loading } = useOrganizations();
-
   const [organization, setOrganization] = useState({});
   const [team, setTeam] = useState({});
 
@@ -86,7 +85,10 @@ function TeamWizard({ onSubmit, open, onClose }) {
                 <Card
                   key={organization.id}
                   onClick={() => {
-                    setOrganization(organization);
+                    setOrganization({
+                      name: organization.name,
+                      id: organization.id,
+                    });
                     setActiveStep(activeStep + 1);
                   }}
                   sx={{
@@ -154,7 +156,7 @@ function TeamWizard({ onSubmit, open, onClose }) {
           </Stack>
         );
       case 2:
-        return <Summary team={team} organization={organizations[0]} />;
+        return <Summary team={team} organization={organization} />;
     }
   };
   return (
