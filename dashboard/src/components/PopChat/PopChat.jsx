@@ -40,10 +40,13 @@ const PopChat = ({
 }) => {
   const [aiResponded] = useEvent("AI_RESPONDED", null);
   const [conversationSent] = useEvent("CONVERSATION_SENT", null);
+  const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [mute, setMute] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [supervisorLoading, setSupervisorLoading] = useState(false);
 
   const [play] = useSound(MessageSfx);
   const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
@@ -57,12 +60,29 @@ const PopChat = ({
     setMessages([...history]);
   }, [history]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     response((ret) => {
-      setMessages([...messages, { content: ret, role: "AI" }]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { content: ret, role: "AI" },
+      ]);
+      setLoading(false);
+      setSupervisorLoading(false);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
+  }, []);
+
+  useEffect(() => {
+    if (aiResponded !== null) {
+      setLoading(false);
+      setSupervisorLoading(false);
+    }
+  }, [aiResponded]);
+
+  useEffect(() => {
+    if (supervisingAnswered !== null) {
+      setSupervisorLoading(true);
+    }
+  }, [supervisingAnswered]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
@@ -71,11 +91,11 @@ const PopChat = ({
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     scrollToBottom();
   }, [messages, open, aiResponded]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     listen
       ? SpeechRecognition.startListening({
           continuous: true,
@@ -85,16 +105,16 @@ const PopChat = ({
   }, [listen]);
 
   const handleSend = useCallback(() => {
-    setMessages([
-      ...messages,
+    setMessages((prevMessages) => [
+      ...prevMessages,
       { content: message || transcript, role: "USER" },
     ]);
     handleNewUserMessage(message);
     setMessage("");
     resetTranscript();
     !mute && play();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleNewUserMessage, messages, message, transcript]);
+    setLoading(true);
+  }, [handleNewUserMessage, message, transcript, mute, play, resetTranscript]);
 
   const handleKeyDown = useCallback(
     (event) => {
@@ -103,7 +123,6 @@ const PopChat = ({
         handleSend();
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [handleSend]
   );
 
@@ -123,8 +142,7 @@ const PopChat = ({
     if (aiResponded !== null && !mute) {
       play();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aiResponded]);
+  }, [aiResponded, mute, play]);
 
   const renderIndicator = () => {
     if (conversationSent?.createdAt > aiResponded?.createdAt) {
@@ -204,6 +222,7 @@ const PopChat = ({
                         alpha(theme.palette.primary.dark, 0.5),
                       borderRadius: 1,
                       height: "auto",
+                      mt: 1,
                     }}
                   >
                     <Typography variant="body1" textAlign={"start"}>
@@ -212,7 +231,7 @@ const PopChat = ({
                   </Stack>
                 )
               )}
-              {renderIndicator() ? (
+              {loading && (
                 <Stack
                   sx={{
                     p: 2,
@@ -220,6 +239,7 @@ const PopChat = ({
                     backgroundColor: (theme) =>
                       alpha(theme.palette.primary.dark, 0.5),
                     borderRadius: 1,
+                    mt: 1,
                   }}
                 >
                   <Iconify
@@ -227,7 +247,24 @@ const PopChat = ({
                     sx={{ width: 25, height: 25 }}
                   />
                 </Stack>
-              ) : null}
+              )}
+              {supervisorLoading && (
+                <Stack
+                  sx={{
+                    p: 2,
+                    height: 50,
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.primary.dark, 0.5),
+                    borderRadius: 1,
+                    mt: 1,
+                  }}
+                >
+                  <Iconify
+                    icon="svg-spinners:tadpole"
+                    sx={{ width: 25, height: 25 }}
+                  />
+                </Stack>
+              )}
             </Scrollbar>
           </Stack>
         </Box>
@@ -311,6 +348,7 @@ const PopChat = ({
                         alpha(theme.palette.primary.dark, 0.5),
                       borderRadius: 1,
                       height: "auto",
+                      mt: 1,
                     }}
                   >
                     <Typography variant="body1" textAlign={"start"}>
@@ -319,7 +357,7 @@ const PopChat = ({
                   </Stack>
                 )
               )}
-              {renderIndicator() ? (
+              {loading && (
                 <Stack
                   sx={{
                     p: 2,
@@ -327,6 +365,7 @@ const PopChat = ({
                     backgroundColor: (theme) =>
                       alpha(theme.palette.primary.dark, 0.5),
                     borderRadius: 1,
+                    mt: 1,
                   }}
                 >
                   <Iconify
@@ -334,7 +373,24 @@ const PopChat = ({
                     sx={{ width: 25, height: 25 }}
                   />
                 </Stack>
-              ) : null}
+              )}
+              {supervisorLoading && (
+                <Stack
+                  sx={{
+                    p: 2,
+                    height: 50,
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.primary.dark, 0.5),
+                    borderRadius: 1,
+                    mt: 1,
+                  }}
+                >
+                  <Iconify
+                    icon="svg-spinners:tadpole"
+                    sx={{ width: 25, height: 25 }}
+                  />
+                </Stack>
+              )}
             </Scrollbar>
           </Stack>
           {/*footer */}

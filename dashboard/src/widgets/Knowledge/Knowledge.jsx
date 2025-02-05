@@ -136,7 +136,7 @@ function Knowledge({ colleagueId }) {
             variant="button"
             color="default"
             size="small"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, zIndex: 0 }}
             data-cy="add-knowledge-button"
             onClick={() => {
               setOpen(true);
