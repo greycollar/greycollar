@@ -40,7 +40,10 @@ const PopChat = ({
 }) => {
   const [aiResponded] = useEvent("AI_RESPONDED", null);
   const [conversationSent] = useEvent("CONVERSATION_SENT", null);
-  const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
+  const [supervisingAnswered, setSupervisingAnswered] = useEvent(
+    "SUPERVISING_ANSWERED",
+    null
+  );
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -79,10 +82,17 @@ const PopChat = ({
   }, [aiResponded]);
 
   useEffect(() => {
-    if (supervisingAnswered !== null) {
+    if (supervisingAnswered) {
       setSupervisorLoading(true);
     }
   }, [supervisingAnswered]);
+
+  useEffect(() => {
+    return () => {
+      setSupervisorLoading(false);
+      setSupervisingAnswered("SUPERVISING_ANSWERED", null);
+    };
+  }, [setSupervisingAnswered]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
@@ -114,6 +124,7 @@ const PopChat = ({
     resetTranscript();
     !mute && play();
     setLoading(true);
+    setSupervisorLoading(false);
   }, [handleNewUserMessage, message, transcript, mute, play, resetTranscript]);
 
   const handleKeyDown = useCallback(

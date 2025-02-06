@@ -1,6 +1,6 @@
-import Supervising from "../models/Supervising";
-import Knowledge from "../models/Knowledge";
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
+import Knowledge from "../models/Knowledge";
+import Supervising from "../models/Supervising";
 import { publish } from "../lib/Event";
 
 async function create({
@@ -46,7 +46,10 @@ async function update({
   question: string;
   answer: string;
 }) {
-  await Supervising.update({ status }, { where: { id: supervisingId } });
+  await Supervising.update(
+    { status, answer },
+    { where: { id: supervisingId } }
+  );
   const { sessionId, conversationId } = await Supervising.findByPk(
     supervisingId
   );
