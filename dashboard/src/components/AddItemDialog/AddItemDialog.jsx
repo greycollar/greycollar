@@ -1,11 +1,12 @@
 import Joi from "joi";
 import LoadingButton from "@mui/lab/LoadingButton";
-import React from "react";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useEvent } from "@nucleoidai/react-event";
 import { useForm } from "react-hook-form";
 
 import {
   Box,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -17,6 +18,7 @@ import {
   FormProvider,
   RHFTextField,
 } from "@nucleoidai/platform/minimal/components";
+import React, { useEffect, useState } from "react";
 
 function AddItemDialog({
   setSelectedType,
@@ -25,7 +27,12 @@ function AddItemDialog({
   open,
   setOpen,
   addItem,
+  colleagueId,
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [knowledgeLoaded] = useEvent("KNOWLEDGE_LOADED", null);
+
   const initialValues = {
     inputValue: "",
     question: "",
@@ -69,6 +76,7 @@ function AddItemDialog({
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    setIsSubmitting(true);
     const item = { type: selectedType };
     if (selectedType === "URL") {
       item.url = data.inputValue;
@@ -78,10 +86,15 @@ function AddItemDialog({
       item.question = data.question;
       item.answer = data.answer;
     }
-    await addItem(item);
+
+    await addItem(item, colleagueId);
+  });
+
+  useEffect(() => {
     setOpen(false);
     reset();
-  });
+    setIsSubmitting(false);
+  }, [knowledgeLoaded]);
 
   const handleChangeType = (event) => {
     setSelectedType(event.target.value);
@@ -92,7 +105,9 @@ function AddItemDialog({
     <Dialog
       open={open}
       onClose={() => {
-        setOpen(false);
+        if (!isSubmitting) {
+          setOpen(false);
+        }
       }}
       fullWidth
       maxWidth="sm"
