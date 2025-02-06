@@ -1,23 +1,33 @@
 import "regenerator-runtime";
 
-import CloseIcon from "@mui/icons-material/Close";
 import Draggable from "react-draggable";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import MessageSfx from "./messageSFX.mp3";
 import { Scrollbar } from "@nucleoidai/platform/minimal/components";
 import Stack from "@mui/material/Stack";
-import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { alpha } from "@mui/material/styles";
+import { keyframes } from "@emotion/react";
 import styles from "./styles";
 import { useEvent } from "@nucleoidai/react-event";
 import useSound from "use-sound";
 
-import { Box, Fab, IconButton, TextField, Typography } from "@mui/material";
+import { Box, IconButton, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 const sub = { item: null };
 const response = (res) => {
@@ -29,32 +39,37 @@ export const handleAddResponseMessage = (ret) => {
 };
 
 const PopChat = ({
+  selectedConversationId,
   title,
   open,
-  closeButton,
   handleClose,
   handleNewUserMessage,
   history = [],
   readOnly,
+  //eslint-disable-next-line
   sx,
 }) => {
   const [aiResponded] = useEvent("AI_RESPONDED", null);
   const [conversationSent] = useEvent("CONVERSATION_SENT", null);
-  const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
-
+  const [supervisingAnswered, setSupervisingAnswered] = useEvent(
+    "SUPERVISING_ANSWERED",
+    null
+  );
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [mute, setMute] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [supervisorLoading, setSupervisorLoading] = useState(false);
 
   const [play] = useSound(MessageSfx);
   const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
     useSpeechRecognition();
-  const messagesEndRef = React.useRef(null);
-  const [listen, setListen] = React.useState(false);
 
-  const draggableRef = React.useRef(null);
+  const messagesEndRef = React.useRef(null);
+  const higlihtedMessage = React.useRef(null);
+
+  const [listen, setListen] = React.useState(false);
 
   useEffect(() => {
     setMessages([...history]);
@@ -84,16 +99,33 @@ const PopChat = ({
     }
   }, [supervisingAnswered]);
 
+  useEffect(() => {
+    return () => {
+      setSupervisorLoading(false);
+      setSupervisingAnswered("SUPERVISING_ANSWERED", null);
+    };
+  }, [setSupervisingAnswered]);
+
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({
+    higlihtedMessage.current?.scrollIntoView({
       behavior: "smooth",
-      block: "end",
+      block: "center",
     });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages, open, aiResponded]);
+
+  useEffect(() => {
+    if (selectedConversationId) {
+      higlihtedMessage.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     listen
@@ -114,6 +146,7 @@ const PopChat = ({
     resetTranscript();
     !mute && play();
     setLoading(true);
+    setSupervisorLoading(false);
   }, [handleNewUserMessage, message, transcript, mute, play, resetTranscript]);
 
   const handleKeyDown = useCallback(
@@ -130,10 +163,6 @@ const PopChat = ({
     setMute(!mute);
   };
 
-  const chatButtonClick = () => {
-    return closeButton ? handleClose() : false;
-  };
-
   const listenUser = () => {
     setListen(!listen);
   };
@@ -148,6 +177,9 @@ const PopChat = ({
     if (conversationSent?.createdAt > aiResponded?.createdAt) {
       return true;
     }
+    if (loading || supervisorLoading) {
+      return true;
+    }
     if (conversationSent && aiResponded === null) {
       return true;
     } else {
@@ -155,148 +187,119 @@ const PopChat = ({
     }
   };
 
-  if (readOnly) {
-    return (
-      <Draggable nodeRef={draggableRef}>
-        <Box
-          ref={draggableRef}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            height: "650px",
-            width: "500px",
-            zIndex: 99999,
-            ...sx,
-          }}
-        >
-          <Stack
-            sx={{
-              borderRadius: 1,
-              height: "100%",
-              width: "100%",
-              p: 1,
-              overflowY: "auto",
-              overflowX: "hidden",
-              flexDirection: "column",
-              backgroundColor: (theme) => theme.palette.background.paper,
-              boxShadow: 2,
-            }}
-          >
-            <Scrollbar>
-              <Stack
-                sx={{
-                  p: 2,
-                  height: 50,
-                  backgroundColor: (theme) =>
-                    alpha(theme.palette.primary.dark, 0.5),
-                  borderRadius: 1,
-                }}
-              >
-                <Typography variant="body1" textAlign={"start"}>
-                  Hi, How can I help you today?
-                </Typography>
-              </Stack>
-              {messages.map((item, index) =>
-                item.role === "USER" ? (
-                  <Stack
-                    key={`${item.role}-${index}`}
-                    sx={{
-                      p: 2,
-                      height: 50,
-                      borderRadius: 1,
-                      m: 1,
-                    }}
-                  >
-                    <Typography variant="body1" textAlign={"end"}>
-                      {item.content}
-                    </Typography>
-                  </Stack>
-                ) : (
-                  <Stack
-                    ref={messagesEndRef}
-                    key={`${item.role}-${index}`}
-                    sx={{
-                      p: 2,
-                      backgroundColor: (theme) =>
-                        alpha(theme.palette.primary.dark, 0.5),
-                      borderRadius: 1,
-                      height: "auto",
-                      mt: 1,
-                    }}
-                  >
-                    <Typography variant="body1" textAlign={"start"}>
-                      {item.content}
-                    </Typography>
-                  </Stack>
-                )
-              )}
-              {loading && (
-                <Stack
-                  sx={{
-                    p: 2,
-                    height: 50,
-                    backgroundColor: (theme) =>
-                      alpha(theme.palette.primary.dark, 0.5),
-                    borderRadius: 1,
-                    mt: 1,
-                  }}
-                >
-                  <Iconify
-                    icon="svg-spinners:tadpole"
-                    sx={{ width: 25, height: 25 }}
-                  />
-                </Stack>
-              )}
-              {supervisorLoading && (
-                <Stack
-                  sx={{
-                    p: 2,
-                    height: 50,
-                    backgroundColor: (theme) =>
-                      alpha(theme.palette.primary.dark, 0.5),
-                    borderRadius: 1,
-                    mt: 1,
-                  }}
-                >
-                  <Iconify
-                    icon="svg-spinners:tadpole"
-                    sx={{ width: 25, height: 25 }}
-                  />
-                </Stack>
-              )}
-            </Scrollbar>
-          </Stack>
-        </Box>
-      </Draggable>
-    );
-  }
+  const LoadingMessage = () => (
+    <Stack
+      sx={{
+        p: 2,
+        height: 50,
+        backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.5),
+        borderRadius: 1,
+      }}
+    >
+      <Iconify icon="svg-spinners:tadpole" sx={{ width: 25, height: 25 }} />
+    </Stack>
+  );
+
+  const AIMessage = ({ message }) => (
+    <Stack
+      ref={messagesEndRef}
+      key={message.id}
+      sx={{
+        p: 2,
+        alignContent: "center",
+        justifyContent: "center",
+        backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.5),
+        borderRadius: 1,
+        height: "auto",
+      }}
+    >
+      <Typography variant="body1" textAlign={"start"}>
+        {message.content}
+      </Typography>
+    </Stack>
+  );
+
+  const HumanMessage = ({ message }) => (
+    <Stack
+      key={message.id}
+      ref={message?.id === selectedConversationId ? higlihtedMessage : null}
+      sx={{
+        p: 2,
+        height: 50,
+        m: 1,
+        alignContent: "center",
+        justifyContent: "center",
+        borderWidth: message?.id === selectedConversationId ? 8 : 0,
+        borderRadius: "5px 15px 15px 5px",
+        borderStyle:
+          message?.id === selectedConversationId
+            ? "none solid none none"
+            : "none",
+        borderColor:
+          message?.id === selectedConversationId
+            ? (theme) => theme.palette.warning.main
+            : "transparent",
+        backgroundColor:
+          message?.id === selectedConversationId
+            ? (theme) => alpha(theme.palette.warning.main, 0.3)
+            : 0,
+        animation:
+          message?.id === selectedConversationId ? `${pulse} 1.2s` : "none",
+      }}
+    >
+      <Typography variant="body1" textAlign={"end"}>
+        {message.content}
+      </Typography>
+    </Stack>
+  );
+
+  const MessageList = ({ messages }) => (
+    <>
+      <AIMessage message={{ content: "Hi, How can I help you today?" }} />
+      {messages.map((item) =>
+        item.role === "USER" ? (
+          <HumanMessage key={item.id} message={item} />
+        ) : (
+          <AIMessage key={item.id} message={item} />
+        )
+      )}
+    </>
+  );
+
+  const Head = () => (
+    <Box
+      sx={styles.header}
+      style={{
+        borderRadius: "7px 7px 0px 0px",
+      }}
+    >
+      <Box sx={{ marginRight: "auto", color: `white` }}>{title}</Box>
+      {readOnly ? null : (
+        <IconButton onClick={changeMute}>
+          <Iconify
+            icon={
+              mute
+                ? "solar:volume-cross-bold-duotone"
+                : "solar:volume-loud-bold-duotone"
+            }
+            sx={{ width: 22, height: 22 }}
+          />
+        </IconButton>
+      )}
+      <IconButton onClick={handleClose}>
+        <Iconify
+          icon="solar:close-circle-line-duotone"
+          sx={{ width: 26, height: 26 }}
+        />
+      </IconButton>
+    </Box>
+  );
 
   if (open) {
     return (
-      <Draggable nodeRef={draggableRef}>
-        <Box
-          ref={draggableRef}
-          sx={styles.boxHeader}
-          style={{
-            borderRadius: "7px 7px 0px 0px",
-          }}
-        >
-          {/* header */}
-          <Box sx={styles.header}>
-            <Box sx={{ marginRight: "auto", color: `white` }}>{title}</Box>
-            <IconButton onClick={changeMute}>
-              {mute ? (
-                <VolumeOffIcon sx={{ color: "white" }} />
-              ) : (
-                <VolumeUpIcon sx={{ color: "white" }} />
-              )}
-            </IconButton>
-            <IconButton onClick={handleClose}>
-              <CloseIcon sx={{ color: "white" }} />
-            </IconButton>
-          </Box>
-          {/* content */}
+      <Draggable>
+        <Box sx={readOnly ? styles.readOnlyBoxHeader : styles.boxHeader}>
+          <Head />
           <Stack
             sx={{
               height: "100%",
@@ -309,151 +312,62 @@ const PopChat = ({
               boxShadow: 2,
             }}
           >
-            <Scrollbar>
-              <Stack
-                sx={{
-                  p: 2,
-                  height: 50,
-                  backgroundColor: (theme) =>
-                    alpha(theme.palette.primary.dark, 0.5),
-                  borderRadius: 1,
-                }}
-              >
-                <Typography variant="body1" textAlign={"start"}>
-                  Hi, How can I help you today?
-                </Typography>
-              </Stack>
-              {messages.map((item, index) =>
-                item.role === "USER" ? (
-                  <Stack
-                    key={`${item.role}-${index}`}
-                    sx={{
-                      p: 2,
-                      height: 50,
-                      borderRadius: 1,
-                      m: 1,
-                    }}
-                  >
-                    <Typography variant="body1" textAlign={"end"}>
-                      {item.content}
-                    </Typography>
-                  </Stack>
-                ) : (
-                  <Stack
-                    ref={messagesEndRef}
-                    key={`${item.role}-${index}`}
-                    sx={{
-                      p: 2,
-                      backgroundColor: (theme) =>
-                        alpha(theme.palette.primary.dark, 0.5),
-                      borderRadius: 1,
-                      height: "auto",
-                      mt: 1,
-                    }}
-                  >
-                    <Typography variant="body1" textAlign={"start"}>
-                      {item.content}
-                    </Typography>
-                  </Stack>
-                )
-              )}
-              {loading && (
-                <Stack
-                  sx={{
-                    p: 2,
-                    height: 50,
-                    backgroundColor: (theme) =>
-                      alpha(theme.palette.primary.dark, 0.5),
-                    borderRadius: 1,
-                    mt: 1,
-                  }}
-                >
-                  <Iconify
-                    icon="svg-spinners:tadpole"
-                    sx={{ width: 25, height: 25 }}
-                  />
-                </Stack>
-              )}
-              {supervisorLoading && (
-                <Stack
-                  sx={{
-                    p: 2,
-                    height: 50,
-                    backgroundColor: (theme) =>
-                      alpha(theme.palette.primary.dark, 0.5),
-                    borderRadius: 1,
-                    mt: 1,
-                  }}
-                >
-                  <Iconify
-                    icon="svg-spinners:tadpole"
-                    sx={{ width: 25, height: 25 }}
-                  />
-                </Stack>
-              )}
+            <Scrollbar sx={{ height: "100%" }}>
+              <MessageList messages={messages} />
+              {renderIndicator() ? <LoadingMessage /> : null}
             </Scrollbar>
           </Stack>
-          {/*footer */}
-          <Box
-            sx={{
-              width: "100%",
-              p: 1,
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
-              boxShadow: 20,
-              borderRadius: "0px 0px 7px 7px",
-            }}
-          >
-            <Stack direction="row" spacing={1} alignItems="center">
-              <TextField
-                variant="outlined"
-                fullWidth
-                autoComplete="off"
-                value={message}
-                InputProps={{
-                  startAdornment: browserSupportsSpeechRecognition && (
-                    <IconButton onClick={listenUser}>
-                      <Iconify
-                        icon={
-                          listen ? "mingcute:mic-fill" : "mingcute:mic-line"
-                        }
-                        sx={{ width: 22, height: 22 }}
-                      />
-                    </IconButton>
-                  ),
-                  endAdornment: (
-                    <IconButton onClick={handleSend}>
-                      <Iconify
-                        icon={"material-symbols:send"}
-                        sx={{
-                          width: 22,
-                          height: 22,
-                          color: (theme) =>
-                            message
-                              ? alpha(theme.palette.primary.main, 0.6)
-                              : "inherit",
-                        }}
-                      />
-                    </IconButton>
-                  ),
-                }}
-                onKeyDown={handleKeyDown}
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                }}
-              />
-            </Stack>
-          </Box>
-          {/*button */}
-          <Box
-            sx={{ width: "100%", p: 1, display: "flex", justifyContent: "end" }}
-          >
-            <Fab className="handle" onClick={chatButtonClick}>
-              <Iconify
-                icon="solar:chat-round-bold-duotone"
-                sx={{ width: 36, height: 36 }}
-              />
-            </Fab>
-          </Box>
+          {!readOnly && (
+            <Box
+              sx={{
+                width: "100%",
+                p: 1,
+                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
+                boxShadow: 20,
+                borderRadius: "0px 0px 7px 7px",
+              }}
+            >
+              <Stack direction="row" spacing={1} alignItems="center">
+                <TextField
+                  variant="outlined"
+                  autoComplete={false}
+                  fullWidth
+                  value={message}
+                  InputProps={{
+                    startAdornment: browserSupportsSpeechRecognition && (
+                      <IconButton onClick={listenUser}>
+                        <Iconify
+                          icon={
+                            listen ? "mingcute:mic-fill" : "mingcute:mic-line"
+                          }
+                          sx={{ width: 22, height: 22 }}
+                        />
+                      </IconButton>
+                    ),
+                    endAdornment: (
+                      <IconButton onClick={handleSend}>
+                        <Iconify
+                          icon={"material-symbols:send"}
+                          sx={{
+                            width: 22,
+                            height: 22,
+                            color: (theme) =>
+                              message
+                                ? alpha(theme.palette.primary.main, 0.6)
+                                : "inherit",
+                          }}
+                        />
+                      </IconButton>
+                    ),
+                  }}
+                  onKeyDown={handleKeyDown}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
+                />
+              </Stack>
+            </Box>
+          )}
         </Box>
       </Draggable>
     );
