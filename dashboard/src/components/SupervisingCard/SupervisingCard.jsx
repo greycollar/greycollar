@@ -22,6 +22,16 @@ import React, { useState } from "react";
 const SupervisingCard = ({ supervisings, updateSupervising }) => {
   const [inputValues, setInputValues] = useState({});
 
+  const handleSubmit = (superviseId) => {
+    if (inputValues[superviseId]) {
+      updateSupervising(superviseId, inputValues[superviseId]);
+      setInputValues({
+        ...inputValues,
+        [superviseId]: "",
+      });
+    }
+  };
+
   return (
     <>
       {supervisings.map((supervise, i) => (
@@ -34,8 +44,8 @@ const SupervisingCard = ({ supervisings, updateSupervising }) => {
               justifyContent: "center",
               gap: 1,
               borderRadius: 5,
-              padding: 3,
-              height: 220,
+              padding: 2,
+              minHeight: 180,
             }}
           >
             <Box
@@ -51,24 +61,42 @@ const SupervisingCard = ({ supervisings, updateSupervising }) => {
                   flexDirection: "column",
                   gap: 2,
                   flex: 4,
-                  paddingTop: 2,
+                  paddingTop: 1,
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    fontWeight: 900,
+                    borderRadius: "8px",
+                    paddingLeft: 0.5,
+                    backgroundColor: "background.paper",
                   }}
                 >
-                  Question #{i + 1}: {supervise.question}
-                </Typography>
-                {supervise.answer ? (
                   <Typography
                     sx={{
-                      marginTop: 2,
+                      fontWeight: 500,
                     }}
                   >
-                    {supervise.answer}
+                    Question #{i + 1}: {supervise.question}
                   </Typography>
+                </Box>
+
+                {supervise.answer ? (
+                  <TextField
+                    variant="outlined"
+                    label="Answer"
+                    value={`${supervise.answer}`}
+                    InputProps={{
+                      readOnly: true,
+                      style: { cursor: "text" },
+                    }}
+                    fullWidth
+                    sx={{
+                      "& .MuiOutlinedInput-input": {
+                        cursor: "default",
+                      },
+                      marginTop: 1,
+                    }}
+                  />
                 ) : (
                   <TextField
                     multiline
@@ -83,6 +111,12 @@ const SupervisingCard = ({ supervisings, updateSupervising }) => {
                         [supervise.id]: e.target.value,
                       })
                     }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(supervise.id);
+                      }
+                    }}
                     fullWidth
                     InputProps={{
                       endAdornment: (
@@ -112,16 +146,7 @@ const SupervisingCard = ({ supervisings, updateSupervising }) => {
                             >
                               <DoneIcon
                                 data-cy="send-answer"
-                                onClick={() => {
-                                  updateSupervising(
-                                    supervise.id,
-                                    inputValues[supervise.id]
-                                  );
-                                  setInputValues({
-                                    ...inputValues,
-                                    [supervise.id]: "",
-                                  });
-                                }}
+                                onClick={() => handleSubmit(supervise.id)}
                               />
                             </Fab>
                           </Box>
@@ -137,7 +162,7 @@ const SupervisingCard = ({ supervisings, updateSupervising }) => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
-                  gap: 2,
+                  gap: 1,
                 }}
               >
                 <TableContainer>
