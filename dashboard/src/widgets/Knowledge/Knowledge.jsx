@@ -57,10 +57,6 @@ function Knowledge({ colleagueId }) {
     setOpenDeleteDialog(true);
   };
 
-  const handleAddItem = (item) => {
-    createKnowledge(item, colleagueId);
-  };
-
   const handleDelete = async (item) => {
     if (item) {
       const deleteResponse = await deleteKnowledges(item);
@@ -168,7 +164,8 @@ function Knowledge({ colleagueId }) {
           setSelectedType={setSelectedType}
           open={open}
           setOpen={setOpen}
-          addItem={handleAddItem}
+          addItem={createKnowledge}
+          colleagueId={colleagueId}
         />
       </Container>
     </>
