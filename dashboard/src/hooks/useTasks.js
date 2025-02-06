@@ -54,6 +54,7 @@ function useTasks() {
   const getTasks = useCallback(() => {
     handleResponse(http.get(`/tasks`), (response) => {
       setTasks(response.data);
+      publish("TASK_LOADED", response.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
