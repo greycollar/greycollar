@@ -1,14 +1,14 @@
 import Box from "@mui/material/Box";
 import StatusToolbar from "../../components/StatusToolbar/StatusToolbar";
 import SupervisingCard from "../../components/SupervisingCard/SupervisingCard";
-import useSupervising from "../../hooks/useSupervising";
+import useSupervisings from "../../hooks/useSupervisings";
 
 import { Container, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 const Supervising = ({ colleagueId }) => {
-  const { updateSupervising, supervising, getColleagueSupervisingByStatus } =
-    useSupervising(colleagueId);
+  const { updateSupervising, supervisings, getColleagueSupervisingByStatus } =
+    useSupervisings(colleagueId);
 
   const [selectedStatus, setSelectedStatus] = useState("IN_PROGRESS");
 
@@ -16,12 +16,6 @@ const Supervising = ({ colleagueId }) => {
     getColleagueSupervisingByStatus(colleagueId, selectedStatus);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatus]);
-
-  const supervisings = supervising.filter(
-    (supervise) =>
-      selectedStatus === "All" ||
-      (supervise && supervise.status === selectedStatus)
-  );
 
   const handleChange = (event) => {
     setSelectedStatus(event.target.value);
