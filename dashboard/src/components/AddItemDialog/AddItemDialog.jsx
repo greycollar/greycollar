@@ -177,10 +177,23 @@ function AddItemDialog({
             <LoadingButton
               type="submit"
               variant="contained"
-              disabled={!isValid}
+              disabled={!isValid || isSubmitting}
               data-cy="finish"
             >
-              Save Changes
+              {isSubmitting ? (
+                <Box style={{ display: "flex", alignItems: "center" }}>
+                  <CircularProgress
+                    size={18}
+                    color="inherit"
+                    style={{ marginRight: "8px" }}
+                  />
+                  Save
+                </Box>
+              ) : (
+                <Box style={{ display: "flex", alignItems: "center" }}>
+                  Save
+                </Box>
+              )}
             </LoadingButton>
           </DialogActions>
         </FormProvider>
