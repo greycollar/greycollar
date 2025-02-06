@@ -5,10 +5,10 @@ import { useSocket } from "./useSocket";
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
-function useSupervising(colleagueId) {
+function useSupervisings(colleagueId) {
   const socket = useSocket();
 
-  const [supervising, setSupervising] = useState([
+  const [supervisings, setSupervisings] = useState([
     {
       answer: "",
       colleagueId: "",
@@ -77,20 +77,21 @@ function useSupervising(colleagueId) {
     handleResponse(
       http.get(`/colleagues/${colleagueId}/supervisings`),
       (response) => {
-        setSupervising(response.data);
+        setSupervisings(response.data);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getColleagueSupervisingByStatus = useCallback((colleagueId, status) => {
-    handleResponse(
-      http.get(`/colleagues/${colleagueId}/supervisings?status=${status}`),
-      (response) => {
-        return response.data;
-      }
+    const endpoint =
+      status === "All"
+        ? `/colleagues/${colleagueId}/supervisings`
+        : `/colleagues/${colleagueId}/supervisings?status=${status}`;
+
+    return handleResponse(http.get(endpoint), (response) =>
+      setSupervisings(response.data)
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
@@ -98,9 +99,9 @@ function useSupervising(colleagueId) {
     updateSupervising,
     loading,
     error,
-    supervising,
+    supervisings,
     getColleagueSupervisingByStatus,
   };
 }
 
-export default useSupervising;
+export default useSupervisings;
