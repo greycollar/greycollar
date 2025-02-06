@@ -36,10 +36,13 @@ const Supervising = ({ colleagueId }) => {
           selectedStatus={selectedStatus}
         />
         {supervisings.length > 0 ? (
-          <SupervisingCard
-            updateSupervising={updateSupervising}
-            supervisings={supervisings}
-          />
+          supervisings.map((supervise) => (
+            <SupervisingCard
+              key={supervise.id}
+              updateSupervising={updateSupervising}
+              supervise={supervise}
+            />
+          ))
         ) : (
           <Stack sx={{ textAlign: "center", my: 4, color: "text.secondary" }}>
             No supervising data available for the selected status
