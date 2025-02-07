@@ -77,7 +77,7 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
                     fontWeight: 900,
                   }}
                 >
-                  Question #{i + 1}: {supervise.question}
+                  {supervise.question}
                 </Typography>
               </Box>
 
