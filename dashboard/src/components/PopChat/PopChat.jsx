@@ -390,11 +390,11 @@ const PopChat = ({
               className="handle"
               onClick={chatButtonClick}
               sx={{ cursor: "pointer" }}
-              color="inherit"
+              color="primary"
             >
               <Iconify
-                icon={"solar:chat-round-line-bold"}
-                sx={{ width: 26, height: 26 }}
+                icon="solar:chat-round-bold-duotone"
+                sx={{ width: 36, height: 36 }}
               />
             </Fab>
           </Box>
