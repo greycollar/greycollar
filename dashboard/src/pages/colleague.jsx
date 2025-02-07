@@ -9,14 +9,7 @@ function Colleague() {
 
   return (
     <>
-      <Page
-        name={"Colleague"}
-        links={[
-          { name: "Dashboard", href: "/" },
-          { name: "Colleagues", href: "/colleagues" },
-          { name: colleague.name, href: "/" },
-        ]}
-      />
+      <Page name={"Colleague"} />
       <ColleagueLayout colleague={colleague} />
     </>
   );

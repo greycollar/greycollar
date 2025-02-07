@@ -23,13 +23,7 @@ function Colleagues() {
   }
   return (
     <>
-      <Page
-        name={"Colleague"}
-        links={[
-          { name: "Dashboard", href: "/" },
-          { name: "Colleagues", href: "/colleagues" },
-        ]}
-      />
+      <Page name={"Colleague"} />
       <SingleScorllableLayout title={team.name}>
         <ColleaguesWidget colleagueId={colleagueId} teamId={teamId} />
       </SingleScorllableLayout>
