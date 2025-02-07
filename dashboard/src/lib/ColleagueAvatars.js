@@ -25,13 +25,14 @@ const ColleagueAvatars = [
       "20",
       "21",
       "22",
+      "23",
+      "24",
+      "25",
     ].map((icon, index) => ({
       id: icon,
       skins: [
         {
-          src: `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${
-            index + 1
-          }.jpg`,
+          src: `https://cdn.nucleoid.com/greycollar/avatars/${index + 1}.jpg`,
         },
       ],
     })),
