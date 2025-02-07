@@ -49,8 +49,6 @@ async function create({
     teamId,
   });
 
-  publish();
-
   return knowledgeInstance;
 }
 
