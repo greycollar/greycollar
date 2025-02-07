@@ -38,6 +38,7 @@ const styles = {
     alignItems: "center",
     p: 1,
     width: "100%",
+    height: "80px",
     cursor: "move",
     boxShadow: 20,
   },
