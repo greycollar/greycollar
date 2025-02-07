@@ -219,6 +219,7 @@ const PopChat = ({
         backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.5),
         borderRadius: 1,
         height: "auto",
+        mt: 1,
       }}
     >
       <Typography variant="body1" textAlign={"start"}>
