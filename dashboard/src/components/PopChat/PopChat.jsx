@@ -4,19 +4,13 @@ import MessageSfx from "./messageSFX.mp3";
 import { Scrollbar } from "@nucleoidai/platform/minimal/components";
 import Stack from "@mui/material/Stack";
 import { alpha } from "@mui/material/styles";
-import { keyframes } from "@emotion/react";
 import styles from "./styles";
 import { useEvent } from "@nucleoidai/react-event";
 import useSound from "use-sound";
 
-import { Box, Fab, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Fab, IconButton, TextField } from "@mui/material";
+import { Head, LoadingMessage, MessageList } from "./components";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-
-const pulse = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-`;
 
 const sub = { item: null };
 const response = (res) => {
@@ -26,115 +20,6 @@ const response = (res) => {
 export const handleAddResponseMessage = (ret) => {
   sub.item(ret);
 };
-
-// Memoized Message Components
-const AIMessage = memo(({ content, messageRef }) => (
-  <Stack
-    ref={messageRef}
-    sx={{
-      p: 2,
-      alignContent: "center",
-      justifyContent: "center",
-      backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.5),
-      borderRadius: 1,
-      height: "auto",
-      mt: 1,
-    }}
-  >
-    <Typography variant="body1" textAlign="start">
-      {content}
-    </Typography>
-  </Stack>
-));
-
-const HumanMessage = memo(({ message, selectedId, messageRef }) => (
-  <Stack
-    ref={messageRef}
-    sx={{
-      p: 2,
-      height: 50,
-      m: 1,
-      alignContent: "center",
-      justifyContent: "center",
-      borderWidth: message?.id === selectedId ? 8 : 0,
-      borderRadius: "5px 15px 15px 5px",
-      borderStyle: message?.id === selectedId ? "none solid none none" : "none",
-      borderColor: (theme) =>
-        message?.id === selectedId ? theme.palette.warning.main : "transparent",
-      backgroundColor: (theme) =>
-        message?.id === selectedId ? alpha(theme.palette.warning.main, 0.3) : 0,
-      animation: message?.id === selectedId ? `${pulse} 1.2s` : "none",
-    }}
-  >
-    <Typography variant="body1" textAlign="end">
-      {message.content}
-    </Typography>
-  </Stack>
-));
-
-const LoadingMessage = memo(() => (
-  <Stack
-    sx={{
-      p: 2,
-      height: 50,
-      backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.5),
-      borderRadius: 1,
-    }}
-  >
-    <Iconify icon="svg-spinners:tadpole" sx={{ width: 25, height: 25 }} />
-  </Stack>
-));
-
-const MessageList = memo(
-  ({ messages, selectedId, messagesEndRef, highlightedMessage }) => (
-    <>
-      <AIMessage content="Hi, How can I help you today?" />
-      {messages.map((item, index) => {
-        const isLastMessage = index === messages.length - 1;
-        const isSelected = item.id === selectedId;
-
-        return item.role === "USER" ? (
-          <HumanMessage
-            key={item.id || index}
-            message={item}
-            selectedId={selectedId}
-            messageRef={isSelected ? highlightedMessage : undefined}
-          />
-        ) : (
-          <AIMessage
-            key={item.id || index}
-            content={item.content}
-            messageRef={isLastMessage ? messagesEndRef : undefined}
-          />
-        );
-      })}
-    </>
-  )
-);
-
-const Head = memo(({ title, mute, changeMute, handleClose, readOnly }) => (
-  <Box sx={styles.header}>
-    <Box sx={{ marginRight: "auto", color: "white" }}>{title}</Box>
-    {!readOnly && (
-      <IconButton onClick={changeMute}>
-        <Iconify
-          icon={
-            mute
-              ? "solar:volume-cross-bold-duotone"
-              : "solar:volume-loud-bold-duotone"
-          }
-          sx={{ width: 22, height: 22 }}
-        />
-      </IconButton>
-    )}
-    <IconButton onClick={handleClose}>
-      <Iconify
-        icon="solar:close-circle-line-duotone"
-        sx={{ width: 26, height: 26 }}
-      />
-    </IconButton>
-  </Box>
-));
 
 const PopChat = ({
   selectedConversationId,
