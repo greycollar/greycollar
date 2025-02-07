@@ -39,7 +39,7 @@ function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
-    await createTask(data.description, colleagueId.colleagueId);
+    await createTask(data.description, colleagueId);
     setOpen(false);
     reset();
   });

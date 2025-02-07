@@ -1,7 +1,7 @@
 import * as platform from "@nucleoidai/platform-express";
 import colleagues from "./routes/colleagues";
 import engines from "./routes/engines";
-import knowledges from "./routes/knowledge";
+import knowledge from "./routes/knowledge";
 import messages from "./routes/messages";
 import metrics from "./routes/metrics";
 import organizations from "./routes/organizations";
@@ -9,7 +9,7 @@ import sessions from "./routes/sessions";
 import supervisings from "./routes/supervisings";
 import tasks from "./routes/tasks";
 import teamDetails from "./routes/teamDetails";
-import { publish, subscribe } from "./lib/Event";
+import { subscribe } from "./lib/Event";
 
 import "express";
 import agent from "./functions/agent";
@@ -34,7 +34,7 @@ app.use(authorization.authorize("ADMIN"));
 
 app.use("/teams/details", teamDetails);
 app.use("/colleagues", colleagues);
-app.use("/knowledge", knowledges);
+app.use("/knowledge", knowledge);
 app.use("/messages", messages);
 app.use("/sessions", sessions);
 app.use("/supervisings", supervisings);
@@ -64,5 +64,10 @@ subscribe(
       content: question,
     })
 );
+subscribe("TASK", "CREATED", ({ taskId }) => agent.task({ taskId }));
+subscribe("STEP", "ADDED", ({ stepId, action, parameters }) =>
+  agent.step({ stepId, action, parameters })
+);
+subscribe("STEP", "COMPLETED", ({ taskId }) => agent.task({ taskId }));
 
 export default app;

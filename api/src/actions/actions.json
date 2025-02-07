@@ -1,0 +1,19 @@
+[
+  {
+    "action": "LLM",
+    "lib": "llm",
+    "parameters": {
+      "message": "<MESSAGE>"
+    }
+  },
+  {
+    "action": "SCRAPE_WEBSITE",
+    "lib": "scrapper",
+    "parameters": {
+      "url": "<URL>"
+    }
+  },
+  {
+    "action": "COMPLETE"
+  }
+]

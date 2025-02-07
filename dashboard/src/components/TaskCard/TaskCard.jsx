@@ -21,12 +21,12 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const TaskCard = ({ task, getTaskProgress, progress }) => {
+const TaskCard = ({ task, getSteps, steps }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
-    getTaskProgress(task.id);
+    getSteps(task.id);
   };
 
   return (
@@ -144,16 +144,6 @@ const TaskCard = ({ task, getTaskProgress, progress }) => {
           }}
         >
           <AccordionDetails>
-            <Typography
-              sx={{
-                textAlign: "center",
-                m: 1,
-                color: "black",
-                fontWeight: "bold",
-              }}
-            >
-              {progress.description}
-            </Typography>
             <Table
               sx={{
                 // bgcolor: "grey.200",
@@ -166,18 +156,23 @@ const TaskCard = ({ task, getTaskProgress, progress }) => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>Description</TableCell>
+                  <TableCell>Comment</TableCell>
                   <TableCell>Date</TableCell>
+                  <TableCell>Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Array.isArray(progress) &&
-                  progress.map((progressItem, i) => (
+                {Array.isArray(steps) &&
+                  steps.map((step, i) => (
                     <TableRow key={i} data-cy="progress-card">
-                      <TableCell>{progressItem.description}</TableCell>
+                      <TableCell>{step.comment}</TableCell>
                       <TableCell>
-                        {new Date(progressItem.createdAt).toLocaleDateString()}
+                        {new Date(step.createdAt).toDateString() ===
+                        new Date().toDateString()
+                          ? new Date(step.createdAt).toLocaleTimeString()
+                          : new Date(step.createdAt).toLocaleDateString()}
                       </TableCell>
+                      <TableCell>{step.status}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>

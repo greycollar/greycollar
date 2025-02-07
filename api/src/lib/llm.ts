@@ -34,7 +34,7 @@ async function generate({
   const messages = [
     ...dataset,
     ...context,
-    { role: "user", content },
+    { role: "user", content: JSON.stringify(content) },
     {
       role: "system",
       content: {

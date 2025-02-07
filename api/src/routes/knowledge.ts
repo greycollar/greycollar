@@ -5,7 +5,6 @@ import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Joi from "joi";
 import Knowledge from "../models/Knowledge";
 import { Op } from "sequelize";
-import Progress from "../models/Progress";
 import express from "express";
 import schemas from "../schemas";
 import knowledge from "../functions/knowledge";
@@ -221,58 +220,6 @@ router.delete("/:id", async (req, res) => {
   await Knowledge.destroy({ where: { id } });
 
   res.status(204).end();
-});
-
-router.get("/:id/progresses", async (req, res) => {
-  const { projectId: teamId } = req.session;
-  const { id } = req.params;
-
-  const knowledge = await Knowledge.findAll({
-    where: { id },
-    include: [
-      {
-        model: ColleagueKnowledge,
-        where: {
-          [Op.or]: [{ teamId }, { teamId: null }],
-        },
-        attributes: ["teamId", "colleagueId"],
-        include: [
-          {
-            model: Colleague,
-            required: false,
-          },
-        ],
-      },
-    ],
-  });
-
-  const colleagueKnowledge = knowledge.map((knowledge) =>
-    knowledge.dataValues.ColleagueKnowledges.map(
-      (colleagueKnowledge) => colleagueKnowledge.dataValues
-    )
-  );
-
-  if (colleagueKnowledge[0][0].teamId) {
-    if (colleagueKnowledge[0][0].teamId !== teamId) {
-      res.status(401).end();
-      return;
-    }
-  } else {
-    const colleaguesTeamId = colleagueKnowledge.flatMap((colleague) =>
-      colleague.map((item) => item.Colleague.dataValues.teamId)
-    );
-
-    if (!colleaguesTeamId.some((teamId) => teamId === teamId)) {
-      res.status(401).end();
-      return;
-    }
-  }
-
-  const progresses = await Progress.findAll({
-    where: { referenceId: id },
-  });
-
-  res.json(progresses);
 });
 
 export default router;

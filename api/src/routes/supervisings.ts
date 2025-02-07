@@ -129,36 +129,4 @@ router.patch("/:supervisingId", async (req, res) => {
   res.status(200).json(supervising);
 });
 
-router.get("/:id/progresses", async (req, res) => {
-  const { id } = req.params;
-  const teamId = req.session.projectId;
-
-  const validatedId = Joi.attempt(id, Joi.string().guid().required());
-
-  const supervising = await Supervising.findOne({
-    where: { id: validatedId },
-    include: [
-      {
-        model: Colleague,
-        attributes: ["teamId"],
-        required: true,
-      },
-    ],
-  });
-
-  if (!supervising) {
-    res.status(404);
-  }
-
-  if (supervising.Colleague.teamId !== teamId) {
-    res.status(401);
-  }
-
-  const progresses = await Progress.findAll({
-    where: { referenceId: validatedId },
-  });
-
-  res.status(200).json(progresses);
-});
-
 export default router;

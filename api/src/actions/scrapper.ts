@@ -1,14 +1,10 @@
-/*eslint-disable */
+import puppeteer from "puppeteer";
 
-const puppeteer = require("puppeteer");
-
-async function scrapper(url, maxDepth = 1) {
-  const browser = await puppeteer.launch({
-    headless: "new",
-  });
+async function run({ parameters: { url, maxDepth = 1 } }) {
+  const browser = await puppeteer.launch();
 
   const visited = new Set();
-  const results = [];
+  const results: string[] = [];
 
   async function crawl(pageUrl, currentDepth) {
     if (currentDepth > maxDepth || visited.has(pageUrl)) {
@@ -56,7 +52,12 @@ async function scrapper(url, maxDepth = 1) {
         links: data.urls,
       };
 
-      results.push(pageData);
+      results.push(`
+        URL: ${pageData.url}
+        Title: ${pageData.title}
+        Content: ${pageData.content}
+      `);
+
       await page.close();
 
       if (currentDepth < maxDepth) {
@@ -73,12 +74,10 @@ async function scrapper(url, maxDepth = 1) {
 
   try {
     await crawl(url, 1);
-    return results;
+    return results.join("\n");
   } finally {
     await browser.close();
   }
 }
 
-module.exports = {
-  scrapper,
-};
+export default { run };

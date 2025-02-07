@@ -15,12 +15,9 @@ const Task = sequelize.define("Task", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  commandId: {
-    type: DataTypes.UUID,
-    references: {
-      model: "Command",
-      key: "id",
-    },
+  comment: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -31,7 +28,7 @@ const Task = sequelize.define("Task", {
     type: DataTypes.STRING,
     default: "IN_PROGRESS",
     validate: {
-      isIn: [["IN_PROGRESS", "DONE"]],
+      isIn: [["IN_PROGRESS", "COMPLETED"]],
     },
   },
   colleagueId: {

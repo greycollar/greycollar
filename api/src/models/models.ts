@@ -10,6 +10,7 @@ async function init() {
   const Supervising = require("./Supervising").default;
   const Knowledge = require("./Knowledge").default;
   const AIEngine = require("./AIEngine").default;
+  const Step = require("./Step").default;
 
   const { Project } = require("@nucleoidai/platform-express/models");
 
@@ -27,7 +28,9 @@ async function init() {
   Project.hasMany(Command, { foreignKey: "teamId" });
   Command.belongsTo(Project, { foreignKey: "teamId" });
 
-  Project.belongsToMany(ColleagueKnowledge, { through: "ColleagueKnowledge" });
+  Task.Project.belongsToMany(ColleagueKnowledge, {
+    through: "ColleagueKnowledge",
+  });
 
   ColleagueKnowledge.belongsToMany(Project, { through: "ColleagueKnowledge" });
 
@@ -63,6 +66,9 @@ async function init() {
 
   AIEngine.hasMany(Colleague, { foreignKey: "aiEngineId" });
   Colleague.belongsTo(AIEngine, { foreignKey: "aiEngineId" });
+
+  Task.hasMany(Step, { foreignKey: "taskId", as: "steps" });
+  Step.belongsTo(Task, { foreignKey: "taskId", as: "task" });
 
   Project.addHook("beforeDestroy", async (project) => {
     await Colleague.destroy({

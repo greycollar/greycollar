@@ -4,6 +4,8 @@ import colleague from "./colleague";
 import knowledgeFunc from "./knowledge";
 import supervising from "./supervising";
 import dataset from "../dataset";
+import taskFunc from "./task";
+import actions from "../actions";
 
 async function info({ colleagueId }) {
   const { name, title, character, role } = await colleague.get({ colleagueId });
@@ -73,7 +75,7 @@ async function chat({
   ];
 
   const { evaluation } = await generate({
-    dataset: [...dataset.chat],
+    dataset: [...dataset.train.chat],
     context,
     content,
     json_format: "{ evaluation: { is_answer_known: <true|false> } }",
@@ -124,7 +126,7 @@ async function chat({
 
   if (evaluation.is_answer_known) {
     const { answer, confidence } = await generate({
-      dataset: [...dataset.policy, ...dataset.chat],
+      dataset: [...dataset.policy, ...dataset.train.chat],
       context,
       content,
       json_format: "{ answer: <ANSWER>, confidence: <0-1> }",
@@ -155,8 +157,74 @@ async function chat({
   }
 }
 
-async function task({}) {}
+async function task({ taskId }: { taskId: string }) {
+  const { colleagueId, description } = await taskFunc.get({ taskId });
+  const currentTask = {
+    description,
+    steps: await taskFunc.listSteps({ taskId }),
+  };
 
-async function step({}) {}
+  if (currentTask.steps.length > 10) {
+    return await taskFunc.update({
+      taskId,
+      status: "FAILED",
+      comment: "Failed due to too many steps",
+    });
+  }
+
+  const context = [
+    ...(
+      await Promise.all([info({ colleagueId }), knowledge({ colleagueId })])
+    ).flat(),
+    actions.list(),
+  ];
+
+  const {
+    next_step: { action, parameters, comment },
+  } = await generate({
+    dataset: [...dataset.train.task],
+    context,
+    content: currentTask,
+    json_format:
+      "{ next_step: { action: <ACTION>, parameters: <PARAMETER>, comment: <COMMENT> } }",
+  });
+
+  if (action === "COMPLETE") {
+    return await taskFunc.update({ taskId, comment, status: "COMPLETED" });
+  }
+
+  await taskFunc.addStep({
+    taskId,
+    action,
+    parameters,
+    comment,
+  });
+}
+
+async function step({ stepId, action, parameters }) {
+  try {
+    const { lib } = actions.find(action);
+    const actionFunc = require(`../actions/${lib}`).default;
+
+    const { taskId } = await taskFunc.getStep({ stepId });
+    const steps = await taskFunc.listSteps({ taskId });
+
+    const result = await actionFunc.run({
+      context: steps
+        .filter((step) => step.result)
+        .map(({ comment, result }) => `Comment: ${comment}\nResult: ${result}`)
+        .join("\n"),
+      parameters,
+    });
+
+    await taskFunc.updateStep({ stepId, result, status: "COMPLETED" });
+  } catch (err: Error) {
+    await taskFunc.updateStep({
+      stepId,
+      result: err.message,
+      status: "FAILED",
+    });
+  }
+}
 
 export default { chat, task, step };

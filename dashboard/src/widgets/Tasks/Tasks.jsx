@@ -7,8 +7,8 @@ import useTasks from "../../hooks/useTasks";
 import { Box, Container, Fab, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-function Tasks(colleagueId) {
-  const { tasks, getTaskProgress, progress, createTask } = useTasks();
+function Tasks({ colleagueId }) {
+  const { tasks, getSteps, steps, createTask } = useTasks(colleagueId);
 
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [open, setOpen] = useState(false);
@@ -35,8 +35,8 @@ function Tasks(colleagueId) {
             <TaskCard
               task={t}
               key={i}
-              getTaskProgress={() => getTaskProgress(t.id)}
-              progress={progress}
+              getSteps={() => getSteps(t.id)}
+              steps={steps}
             />
           ))
         ) : (
