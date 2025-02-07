@@ -1,6 +1,13 @@
 import puppeteer from "puppeteer";
 
-async function run({ parameters: { url, maxDepth = 1 } }) {
+async function run({
+  parameters: { url, maxDepth = 1 },
+}: {
+  parameters: {
+    url: string;
+    maxDepth?: number;
+  };
+}) {
   const browser = await puppeteer.launch();
 
   const visited = new Set();

@@ -36,7 +36,9 @@ async function create({
   }
 
   if (knowledge.type === "URL" && knowledge.url) {
-    knowledge.content = await scrapper.run({ url: knowledge.url });
+    knowledge.content = await scrapper.run({
+      parameters: { url: knowledge.url },
+    });
   }
 
   const knowledgeInstance = await Knowledge.create(knowledge);
