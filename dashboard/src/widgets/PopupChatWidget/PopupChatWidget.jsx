@@ -1,17 +1,29 @@
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import PopChat from "../../components/PopChat";
 import { useEvent } from "@nucleoidai/react-event";
-import { useParams } from "react-router-dom";
 import useSession from "../../hooks/useSession";
+import { v4 as uuidv4 } from "uuid";
 
 import { Badge, Fab } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-const PopupChatWidget = ({ readOnly }) => {
+const PopupChatWidget = ({
+  readOnly,
+  conversationId,
+  openPopChat,
+  setOpenPopChat,
+  sessionId,
+}) => {
   const { colleagueId } = useParams();
   const [open, setOpen] = useState(false);
   const [unreadMessages, setUnreadMessages] = useState(false);
-  const { conversations, sendMessage } = useSession(colleagueId);
+  const { conversations, sendMessage, getSession } = useSession(colleagueId);
+
+  const navigate = useNavigate();
+  const { pathname, search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+
   const [aiResponded] = useEvent("AI_RESPONDED", null);
 
   const [messages, setMessages] = useState([]);
@@ -29,10 +41,23 @@ const PopupChatWidget = ({ readOnly }) => {
   }, [aiResponded]);
 
   useEffect(() => {
-    if (readOnly) {
-      setOpen(true);
+    if (openPopChat && sessionId) {
+      getSession(sessionId);
     }
-  }, [readOnly]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openPopChat, sessionId]);
+
+  useEffect(() => {
+    if (open && !search) {
+      const id = uuidv4();
+      navigate(pathname + "?sessionId=" + id);
+      //  createSession(id, colleagueId, "CHAT");
+    } else if (openPopChat) {
+      const sessionId = searchParams.get("sessionId");
+      getSession(sessionId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const handleNewUserMessage = async (content) => {
     const newMessage = {
@@ -45,28 +70,24 @@ const PopupChatWidget = ({ readOnly }) => {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    openPopChat ? setOpenPopChat(false) : setOpen(false);
     setUnreadMessages(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
   };
 
   return (
     <>
       <PopChat
         title={`Async Chat Session`}
-        open={open}
+        open={openPopChat || open}
         handleClose={handleClose}
-        closeButton={true}
         history={messages}
         handleNewUserMessage={handleNewUserMessage}
         color="appTheme"
         readOnly={readOnly}
+        selectedConversationId={conversationId || null}
       />
-      {!open && (
-        <Fab onClick={handleOpen} cursor="pointer" size="small">
+      {!open && !readOnly && (
+        <Fab onClick={() => setOpen(!open)} cursor="pointer" size="small">
           <Badge
             anchorOrigin={{
               vertical: "top",
@@ -78,7 +99,9 @@ const PopupChatWidget = ({ readOnly }) => {
             invisible={!unreadMessages}
           >
             <Iconify
-              icon="solar:chat-round-bold-duotone"
+              icon={
+                open ? "solar:chat-round-bold-duotone" : "solar:chat-round-bold"
+              }
               sx={{ width: 24, height: 24 }}
             />
           </Badge>

@@ -48,7 +48,7 @@ export default function ItemCard({
         <Stack sx={{ p: 3, pb: 2 }}>
           <Avatar
             alt={name}
-            src={`https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatar.replace(
+            src={`https://cdn.nucleoid.com/greycollar/avatars/${avatar.replace(
               /:/g,
               ""
             )}.jpg`}

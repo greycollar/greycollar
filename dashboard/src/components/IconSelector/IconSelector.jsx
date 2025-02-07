@@ -1,21 +1,18 @@
 import AddIcon from "@mui/icons-material/Add";
-import ColleagueAvatars from "../../lib/ColleagueAvatars";
 import IconButton from "@mui/material/IconButton";
 import Picker from "@emoji-mart/react";
 import React from "react";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
+import TeamIcons from "../../lib/TeamIcons";
 
 import { Dialog, Stack } from "@mui/material";
 
-export default function AvatarSelector({
-  handleEmojiSelect,
-  avatarSrc,
-  avatar,
-}) {
+export default function IconSelector({ handleEmojiSelect, avatarSrc, avatar }) {
   const [emojiDialogOpen, setEmojiDialogOpen] = React.useState(false);
   const handleEmojiButtonClick = () => {
     setEmojiDialogOpen(true);
   };
+
   return (
     <Stack alignContent={"center"} justifyContent={"center"}>
       <Stack>
@@ -34,7 +31,7 @@ export default function AvatarSelector({
           <SourcedAvatar
             source={
               avatarSrc ||
-              `https://cdn.nucleoid.com/greycollar/avatars/${avatar}.jpg`
+              `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatar}.jpg`
             }
             sx={{
               display: "flex",
@@ -58,8 +55,8 @@ export default function AvatarSelector({
           onEmojiSelect={(emoji) => {
             handleEmojiSelect(emoji), setEmojiDialogOpen(false);
           }}
-          custom={ColleagueAvatars}
-          categories={"colleague_avatars"}
+          custom={TeamIcons}
+          categories={"team_icons"}
           searchPosition={"none"}
           navPosition="none"
           emojiButtonSize={90}

@@ -28,6 +28,7 @@ function NewItemForm({
     itemProperties.reduce((obj, property) => ({ ...obj, [property]: "" }), {})
   );
   const [emojiDialogOpen, setEmojiDialogOpen] = useState(false);
+  
   useEffect(() => {
     if (itemToEdit) {
       setNewItem(itemToEdit);

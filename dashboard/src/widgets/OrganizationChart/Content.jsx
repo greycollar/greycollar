@@ -2,7 +2,7 @@ import React from "react";
 import SourcedAvatar from "../../components/SourcedAvatar/SourcedAvatar";
 import StandardNode from "./common/standard-node";
 import { storage } from "@nucleoidjs/webstorage";
-import useOrganizations from "../../hooks/useOrganizations";
+import useOrganizations from "../../hooks/useOrganization";
 import useTeam from "../../hooks/useTeam";
 import { useTheme } from "@mui/material/styles";
 
