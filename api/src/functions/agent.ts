@@ -203,6 +203,7 @@ async function task({ taskId }: { taskId: string }) {
 
 async function step({ stepId, action, parameters }) {
   try {
+    // @ts-ignore
     const { lib } = actions.find(action);
     const actionFunc = require(`../actions/${lib}`).default;
 
@@ -218,12 +219,14 @@ async function step({ stepId, action, parameters }) {
     });
 
     await taskFunc.updateStep({ stepId, result, status: "COMPLETED" });
-  } catch (err: Error) {
-    await taskFunc.updateStep({
-      stepId,
-      result: err.message,
-      status: "FAILED",
-    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      await taskFunc.updateStep({
+        stepId,
+        result: err.message,
+        status: "FAILED",
+      });
+    }
   }
 }
 

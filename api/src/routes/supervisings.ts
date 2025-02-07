@@ -4,7 +4,6 @@ import schemas from "../schemas";
 import Colleague from "../models/Colleague";
 import Conversation from "../models/Conversation";
 import Supervising from "../models/Supervising";
-import Progress from "../models/Progress";
 import supervising from "../functions/supervising";
 
 const router = express.Router();
