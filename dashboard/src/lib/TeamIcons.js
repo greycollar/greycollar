@@ -1,7 +1,7 @@
 const TeamIcons = [
   {
     id: "team_icons",
-    name: "Department Icons",
+    name: "Team Icons",
     emojis: ["tdesign/anchor", "tdesign/analytics"].map((icon) => ({
       id: icon,
       skins: [

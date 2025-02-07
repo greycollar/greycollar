@@ -1,7 +1,6 @@
 import ColleaguesWidget from "../widgets/ColleaguesWidget/ColleaguesWidget";
-import { Helmet } from "react-helmet-async";
+import Page from "../components/Page/Page";
 import SingleScorllableLayout from "../layouts/SingleScrollableLayout";
-import config from "../../config";
 import { storage } from "@nucleoidjs/webstorage";
 import { useEvent } from "@nucleoidai/react-event";
 import { useParams } from "react-router-dom";
@@ -24,10 +23,13 @@ function Colleagues() {
   }
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title> {config.name} - Colleagues </title>
-      </Helmet>
+      <Page
+        name={"Colleague"}
+        links={[
+          { name: "Dashboard", href: "/" },
+          { name: "Colleagues", href: "/colleagues" },
+        ]}
+      />
       <SingleScorllableLayout title={team.name}>
         <ColleaguesWidget colleagueId={colleagueId} teamId={teamId} />
       </SingleScorllableLayout>

@@ -13,7 +13,7 @@ import useColleagues from "../../hooks/useColleagues.js";
 import { useMediaQuery } from "@mui/material";
 import useMessage from "../../hooks/useMessage.js";
 import { useSocket } from "../../hooks/useSocket";
-import useSupervising from "../../hooks/useSupervising.js";
+import useSupervisings from "../../hooks/useSupervisings.js";
 import useTeam from "../../hooks/useTeam.js";
 import { useTheme } from "@mui/material/styles";
 import useUser from "../../hooks/useUser.js";
@@ -28,7 +28,7 @@ const ChatWidget = memo(function ChatWidget({ projectId }) {
   const { team, loading: teamLoading } = useTeam(projectId);
   const { colleagues, loading } = useColleagues();
 
-  const { updateSupervising } = useSupervising();
+  const { updateSupervising } = useSupervisings();
 
   const { messages, loading: messagesLoading } = useChat();
 

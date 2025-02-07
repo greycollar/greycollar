@@ -7,6 +7,7 @@ export default function SparkleInput({
   onChange,
   onRandomValue,
   value,
+  multiline,
   ...others
 }) {
   return (
@@ -19,6 +20,7 @@ export default function SparkleInput({
       label={prop}
       fullWidth
       value={value || ""}
+      multiline={multiline}
       onChange={onChange}
       InputLabelProps={{
         sx: { color: (theme) => theme.palette.text.primary },

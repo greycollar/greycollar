@@ -1,4 +1,5 @@
 import config from "../../config";
+import http from "../http";
 import { io } from "socket.io-client";
 import { publish } from "@nucleoidai/react-event";
 import { storage } from "@nucleoidjs/webstorage";
@@ -52,7 +53,17 @@ function useSession(colleagueId) {
     });
   }, []);
 
+  const getSession = useCallback(async (id) => {
+    if (id) {
+      http.get(`/sessions/${id}`).then((response) => {
+        setConversations(response.data);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return {
+    getSession,
     loading,
     error,
     conversations,
