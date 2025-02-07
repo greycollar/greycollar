@@ -46,7 +46,6 @@
     "react-hook-form": "^7.52.1",
     "react-organizational-chart": "^2.2.1",
     "react-router-dom": "^6.28.0",
-    "react-speech-recognition": "^3.10.0",
     "regenerator-runtime": "^0.14.0",
     "slate": "^0.94.1",
     "slate-history": "^0.100.0",

@@ -81,6 +81,7 @@ const PopupChatWidget = ({
         open={openPopChat || open}
         handleClose={handleClose}
         history={messages}
+        closeButton={true}
         handleNewUserMessage={handleNewUserMessage}
         color="appTheme"
         readOnly={readOnly}

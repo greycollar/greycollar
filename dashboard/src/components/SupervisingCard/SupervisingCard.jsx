@@ -210,7 +210,7 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
                     alignSelf: "center",
                     textAlign: "center",
                   }}
-                  color="primary"
+                  color="inherit"
                   onClick={() => {
                     setOpen(!open);
                   }}
