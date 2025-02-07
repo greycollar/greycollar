@@ -25,6 +25,9 @@ const ColleagueAvatars = [
       "20",
       "21",
       "22",
+      "23",
+      "24",
+      "25",
     ].map((icon, index) => ({
       id: icon,
       skins: [
