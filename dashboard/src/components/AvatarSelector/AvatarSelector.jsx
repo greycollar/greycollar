@@ -34,7 +34,7 @@ export default function AvatarSelector({
           <SourcedAvatar
             source={
               avatarSrc ||
-              `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatar}.jpg`
+              `https://cdn.nucleoid.com/greycollar/avatars/${avatar}.jpg`
             }
             sx={{
               display: "flex",

@@ -22,6 +22,16 @@ import React, { useState } from "react";
 
 const SupervisingCard = ({ supervise, updateSupervising }) => {
   const [inputValues, setInputValues] = useState({});
+
+  const handleSubmit = (superviseId) => {
+    if (inputValues[superviseId]) {
+      updateSupervising(superviseId, inputValues[superviseId]);
+      setInputValues({
+        ...inputValues,
+        [superviseId]: "",
+      });
+    }
+  };
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,8 +45,8 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
             justifyContent: "center",
             gap: 1,
             borderRadius: 5,
-            padding: 3,
-            height: 220,
+            padding: 2,
+            height: 180,
           }}
         >
           <Box
@@ -52,24 +62,42 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
                 flexDirection: "column",
                 gap: 2,
                 flex: 4,
-                paddingTop: 2,
+                paddingTop: 1,
               }}
             >
-              <Typography
+              <Box
                 sx={{
-                  fontWeight: 900,
+                  borderRadius: "8px",
+                  paddingLeft: 0.5,
+                  backgroundColor: "background.paper",
                 }}
               >
-                {supervise.question}
-              </Typography>
-              {supervise.answer ? (
                 <Typography
                   sx={{
-                    marginTop: 2,
+                    fontWeight: 900,
                   }}
                 >
-                  {supervise.answer}
+                  Question #{i + 1}: {supervise.question}
                 </Typography>
+              </Box>
+
+              {supervise.answer ? (
+                <TextField
+                  variant="outlined"
+                  label="Answer"
+                  value={`${supervise.answer}`}
+                  InputProps={{
+                    readOnly: true,
+                    style: { cursor: "text" },
+                  }}
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-input": {
+                      cursor: "default",
+                    },
+                    marginTop: 1,
+                  }}
+                />
               ) : (
                 <TextField
                   multiline
@@ -84,6 +112,12 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
                       [supervise.id]: e.target.value,
                     })
                   }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit(supervise.id);
+                    }
+                  }}
                   fullWidth
                   InputProps={{
                     endAdornment: (
@@ -113,16 +147,7 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
                           >
                             <DoneIcon
                               data-cy="send-answer"
-                              onClick={() => {
-                                updateSupervising(
-                                  supervise.id,
-                                  inputValues[supervise.id]
-                                );
-                                setInputValues({
-                                  ...inputValues,
-                                  [supervise.id]: "",
-                                });
-                              }}
+                              onClick={() => handleSubmit(supervise.id)}
                             />
                           </Fab>
                         </Box>

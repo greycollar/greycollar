@@ -42,7 +42,7 @@ export default function ItemSummary({ newItem }) {
                   <SourcedAvatar
                     source={
                       newItem.src ||
-                      `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${newItem?.avatar?.replace(
+                      `https://cdn.nucleoid.com/greycollar/avatars/${newItem?.avatar?.replace(
                         /:/g,
                         ""
                       )}.jpg`

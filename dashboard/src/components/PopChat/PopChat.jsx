@@ -94,10 +94,17 @@ const PopChat = ({
   }, [aiResponded]);
 
   useEffect(() => {
-    if (supervisingAnswered !== null) {
+    if (supervisingAnswered) {
       setSupervisorLoading(true);
     }
   }, [supervisingAnswered]);
+
+  useEffect(() => {
+    return () => {
+      setSupervisorLoading(false);
+      setSupervisingAnswered("SUPERVISING_ANSWERED", null);
+    };
+  }, [setSupervisingAnswered]);
 
   useEffect(() => {
     return () => {
@@ -146,6 +153,7 @@ const PopChat = ({
     resetTranscript();
     !mute && play();
     setLoading(true);
+    setSupervisorLoading(false);
     setSupervisorLoading(false);
   }, [handleNewUserMessage, message, transcript, mute, play, resetTranscript]);
 

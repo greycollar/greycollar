@@ -7,7 +7,7 @@ function SourcedAvatar({ name, source, sx, children, avatarUrl }) {
       alt={name}
       src={
         source === "MINIMAL"
-          ? `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatarUrl?.replace(
+          ? `https://cdn.nucleoid.com/greycollar/avatars/${avatarUrl?.replace(
               /:/g,
               ""
             )}.jpg`
