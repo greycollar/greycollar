@@ -1,6 +1,7 @@
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
-import scrapper from "../lib/scrapper";
+import scrapper from "../actions/scrapper";
+import { publish } from "../lib/Event";
 
 async function create({
   teamId,
@@ -19,7 +20,7 @@ async function create({
   };
 }) {
   if (!teamId && !colleagueId) {
-    throw new Error("TeamId or colleagueId is required");
+    throw new Error("INVALID_TEAM_OR_COLLEAGUE");
   }
 
   if (knowledge.type === "QA" && (!knowledge.question || !knowledge.answer)) {
@@ -34,12 +35,8 @@ async function create({
     throw new Error("INVALID_TEXT_KNOWLEDGE");
   }
 
-  if (knowledge.type === "URL") {
-    const webSiteData = await scrapper(knowledge.url);
-
-    const { content } = webSiteData[0];
-
-    knowledge.content = content;
+  if (knowledge.type === "URL" && knowledge.url) {
+    knowledge.content = await scrapper.run({ url: knowledge.url });
   }
 
   const knowledgeInstance = await Knowledge.create(knowledge);
@@ -49,6 +46,8 @@ async function create({
     colleagueId,
     teamId,
   });
+
+  publish();
 
   return knowledgeInstance;
 }

@@ -1,85 +1,62 @@
 import Colleague from "../models/Colleague";
 import Joi from "joi";
-import Progress from "../models/Progress";
+import Step from "../models/Step";
 import { Project } from "@nucleoidai/platform-express/models";
 import Task from "../models/Task";
 import express from "express";
-import platform from "@nucleoidai/platform-express";
+import task from "../functions/task";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const teamId = req.session.projectId;
-  const { status, description, colleagueId } = req.body;
+  const { projectId: teamId } = req.session;
+  const { colleagueId, description } = Joi.attempt(
+    req.body,
+    Joi.object({
+      colleagueId: Joi.string()
+        .guid({ version: ["uuidv4"] })
+        .required(),
+      description: Joi.string().required(),
+    })
+  );
 
-  const task = await Task.create({
-    status,
-    description,
-    colleagueId,
-    teamId,
-  });
+  const colleague = await Colleague.findByPk(colleagueId);
 
-  return res.status(201).json(task);
+  if (!colleague) {
+    return res.status(404).end();
+  }
+
+  if (colleague.teamId !== teamId) {
+    return res.status(401).end();
+  }
+
+  const taskInstance = await task.create({ colleagueId, description });
+
+  return res.status(200).json(taskInstance);
 });
 
 router.get("/", async (req, res) => {
-  const teamId = req.session.projectId;
+  const { projectId: teamId } = req.session;
+  const { colleagueId } = Joi.attempt(
+    req.query,
+    Joi.object({
+      colleagueId: Joi.string()
+        .guid({ version: ["uuidv4"] })
+        .required(),
+    })
+  );
 
-  const team = await Project.findByPk(teamId);
-
-  if (!team) {
-    return res.status(401);
-  }
-
-  const tasks = await Task.findAll({
-    include: [
-      {
-        model: Colleague,
-        attributes: [],
-        where: { teamId },
-        required: true,
-      },
-    ],
-  });
+  const tasks = await task.list({ colleagueId, teamId });
 
   return res.status(200).json(tasks);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:taskId", async (req, res) => {
   const teamId = req.session.projectId;
-  const { id } = req.params;
-
-  const validatedId = Joi.attempt(id, Joi.string().guid().required());
-  const task = await Task.findOne({ where: { id: validatedId } });
-
-  if (!task) {
-    return res.status(404);
-  }
-
-  if (task.colleagueId) {
-    const colleague = await Colleague.findOne({
-      teamId,
-      id: task.colleagueId,
-    });
-
-    if (!colleague) {
-      return res.status(401);
-    }
-
-    return res.status(200).json(task);
-  }
-
-  return res.status(200).json(task);
-});
-
-router.get("/:id/progresses", async (req, res) => {
-  const teamId = req.session.projectId;
-  const { id } = req.params;
-
-  const validatedId = Joi.attempt(id, Joi.string().guid().required());
+  const { taskId } = req.params;
 
   const task = await Task.findOne({
-    where: { id: validatedId },
+    where: { id: taskId },
     include: [
       {
         model: Colleague,
@@ -97,9 +74,35 @@ router.get("/:id/progresses", async (req, res) => {
     return res.status(401);
   }
 
-  const progresses = await Progress.findAll({ where: { referenceId: id } });
+  return res.status(200).json(task);
+});
 
-  return res.status(200).json(progresses);
+router.get("/:taskId/steps", async (req, res) => {
+  const { projectId: teamId } = req.session;
+  const { taskId } = req.params;
+
+  const taskInstance = await Task.findOne({
+    where: { id: taskId },
+    include: [
+      {
+        model: Colleague,
+        attributes: ["teamId"],
+        required: true,
+      },
+    ],
+  });
+
+  if (!taskInstance) {
+    return res.status(404);
+  }
+
+  if (taskInstance.Colleague.teamId !== teamId) {
+    return res.status(401);
+  }
+
+  const steps = await task.listSteps({ taskId });
+
+  return res.status(200).json(steps);
 });
 
 export default router;

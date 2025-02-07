@@ -4,7 +4,7 @@ import useApi from "./useApi";
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
-function useTasks() {
+function useTasks(colleagueId) {
   const [tasks, setTasks] = useState([
     {
       description: "",
@@ -16,7 +16,7 @@ function useTasks() {
     },
   ]);
 
-  const [progress, setProgress] = useState([
+  const [steps, setSteps] = useState([
     {
       description: "",
       id: "",
@@ -32,7 +32,7 @@ function useTasks() {
   const [taskCreated] = useEvent("TASK_CREATED", null);
 
   useEffect(() => {
-    getTasks();
+    getTasks(colleagueId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskStatus, taskCreated]);
 
@@ -41,7 +41,6 @@ function useTasks() {
       http.post(`/tasks`, {
         description: task,
         colleagueId: colleagueId,
-        status: "IN_PROGRESS",
       }),
       (response) => {
         publish("TASK_CREATED", response.data);
@@ -51,17 +50,20 @@ function useTasks() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getTasks = useCallback(() => {
-    handleResponse(http.get(`/tasks`), (response) => {
-      setTasks(response.data);
-      publish("TASK_LOADED", response.data);
-    });
+  const getTasks = useCallback((colleagueId) => {
+    handleResponse(
+      http.get(`/tasks?colleagueId=${colleagueId}`),
+      (response) => {
+        setTasks(response.data);
+        publish("TASK_LOADED", response.data);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getTaskProgress = useCallback((id) => {
-    handleResponse(http.get(`/tasks/${id}/progresses`), (response) => {
-      setProgress(response.data);
+  const getSteps = useCallback((id) => {
+    handleResponse(http.get(`/tasks/${id}/steps`), (response) => {
+      setSteps(response.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -70,8 +72,8 @@ function useTasks() {
     loading,
     error,
     tasks,
-    getTaskProgress,
-    progress,
+    getSteps,
+    steps,
     createTask,
   };
 }

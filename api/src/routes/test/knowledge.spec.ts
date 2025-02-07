@@ -275,22 +275,4 @@ describe("Knowledge service", () => {
       })
       .expect(400);
   });
-
-  it("get knowledge's progresses", async () => {
-    test.project("e6d4744d-a11b-4c75-acad-e24a02903729");
-
-    const { body } = await request(app)
-      .get("/knowledge/17f4a185-c81c-4be5-a6ee-fdd38fdb2b1a/progresses")
-      .expect(200);
-
-    deepEqual(body, [
-      {
-        id: "623a0be2-93c2-487c-8688-c4d3a69a9830",
-        description: "Saving QA data to vector database",
-        type: "KNOWLEDGE",
-        referenceId: "17f4a185-c81c-4be5-a6ee-fdd38fdb2b1a",
-        createdAt: "2023-08-05T12:00:25.000Z",
-      },
-    ]);
-  });
 });

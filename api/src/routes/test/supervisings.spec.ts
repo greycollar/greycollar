@@ -168,24 +168,6 @@ describe("Supervisings service", () => {
     ]);
   });
 
-  it("get supervising progress", async () => {
-    test.project("e6d4744d-a11b-4c75-acad-e24a02903729");
-
-    const { body } = await request(app)
-      .get("/supervisings//d92da3ee-521c-4b93-9770-c38dcea173a5/progresses")
-      .expect(200);
-
-    deepEqual(body, [
-      {
-        id: "cf29b77f-0132-48eb-87ef-d86ee407d3c4",
-        description: "Supervising is waiting for the answer",
-        type: "SUPERVISING",
-        referenceId: "d92da3ee-521c-4b93-9770-c38dcea173a5",
-        createdAt: "2023-08-05T12:00:25.000Z",
-      },
-    ]);
-  });
-
   it("get supervising by id", async () => {
     test.project("e6d4744d-a11b-4c75-acad-e24a02903729");
 

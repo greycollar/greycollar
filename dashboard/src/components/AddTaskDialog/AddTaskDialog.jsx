@@ -46,7 +46,7 @@ function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
 
   const onSubmit = handleSubmit(async (data) => {
     setIsSubmitting(true);
-    await createTask(data.description, colleagueId.colleagueId);
+    await createTask(data.description, colleagueId);
   });
 
   useEffect(() => {
