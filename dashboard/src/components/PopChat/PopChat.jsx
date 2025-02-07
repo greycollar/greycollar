@@ -11,7 +11,7 @@ import styles from "./styles";
 import { useEvent } from "@nucleoidai/react-event";
 import useSound from "use-sound";
 
-import { Box, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Fab, IconButton, TextField, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -46,6 +46,7 @@ const PopChat = ({
   handleNewUserMessage,
   history = [],
   readOnly,
+  closeButton,
   //eslint-disable-next-line
   sx,
 }) => {
@@ -173,6 +174,10 @@ const PopChat = ({
 
   const listenUser = () => {
     setListen(!listen);
+  };
+
+  const chatButtonClick = () => {
+    return closeButton ? handleClose() : false;
   };
 
   useEffect(() => {
@@ -319,6 +324,7 @@ const PopChat = ({
               flexDirection: "column",
               backgroundColor: (theme) => theme.palette.background.paper,
               boxShadow: 2,
+              borderRadius: readOnly ? "0px 0px 7px 7px" : "0px",
             }}
           >
             <Scrollbar sx={{ height: "100%" }}>
@@ -377,6 +383,21 @@ const PopChat = ({
               </Stack>
             </Box>
           )}
+          <Box
+            sx={{ width: "100%", p: 1, display: "flex", justifyContent: "end" }}
+          >
+            <Fab
+              className="handle"
+              onClick={chatButtonClick}
+              sx={{ cursor: "pointer" }}
+              color="inherit"
+            >
+              <Iconify
+                icon={"solar:chat-round-line-bold"}
+                sx={{ width: 26, height: 26 }}
+              />
+            </Fab>
+          </Box>
         </Box>
       </Draggable>
     );
