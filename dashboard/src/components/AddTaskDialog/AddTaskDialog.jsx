@@ -1,10 +1,12 @@
 import Joi from "joi";
 import LoadingButton from "@mui/lab/LoadingButton";
-import React from "react";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useEvent } from "@nucleoidai/react-event";
 import { useForm } from "react-hook-form";
 
 import {
+  Box,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -14,8 +16,12 @@ import {
   FormProvider,
   RHFTextField,
 } from "@nucleoidai/platform/minimal/components";
+import React, { useEffect, useState } from "react";
 
 function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [taskLoaded] = useEvent("TASK_LOADED", null);
+
   const initialValues = {
     description: "",
   };
@@ -39,17 +45,24 @@ function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    setIsSubmitting(true);
     await createTask(data.description, colleagueId);
+  });
+
+  useEffect(() => {
     setOpen(false);
     reset();
-  });
+    setIsSubmitting(false);
+  }, [taskLoaded]);
 
   return (
     <Dialog
       open={open}
       onClose={() => {
-        setOpen(false);
-        reset();
+        if (!isSubmitting) {
+          setOpen(false);
+          reset();
+        }
       }}
       fullWidth
       maxWidth="sm"
@@ -90,10 +103,23 @@ function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
             <LoadingButton
               type="submit"
               variant="contained"
-              disabled={!isValid}
+              disabled={!isValid || isSubmitting}
               data-cy="finish"
             >
-              Create Task
+              {isSubmitting ? (
+                <Box style={{ display: "flex", alignItems: "center" }}>
+                  <CircularProgress
+                    size={18}
+                    color="inherit"
+                    style={{ marginRight: "8px" }}
+                  />
+                  Save
+                </Box>
+              ) : (
+                <Box style={{ display: "flex", alignItems: "center" }}>
+                  Save
+                </Box>
+              )}
             </LoadingButton>
           </DialogActions>
         </FormProvider>

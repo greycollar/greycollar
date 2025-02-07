@@ -55,6 +55,7 @@ function useTasks(colleagueId) {
       http.get(`/tasks?colleagueId=${colleagueId}`),
       (response) => {
         setTasks(response.data);
+        publish("TASK_LOADED", response.data);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
