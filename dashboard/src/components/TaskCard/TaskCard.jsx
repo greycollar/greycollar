@@ -1,4 +1,6 @@
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import FlowDialog from "../FlowDialog/FlowDialog";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
 import TaskIcon from "@mui/icons-material/Task";
@@ -23,9 +25,15 @@ import React, { useState } from "react";
 
 const TaskCard = ({ task, getSteps, steps }) => {
   const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
+    getSteps(task.id);
+  };
+
+  const handleFlowOpen = () => {
+    setOpen(true);
     getSteps(task.id);
   };
 
@@ -38,12 +46,34 @@ const TaskCard = ({ task, getSteps, steps }) => {
             flexDirection: "column",
             alignContent: "center",
             justifyContent: "center",
+            position: "relative",
             gap: 1,
             borderRadius: 5,
             padding: 3,
             height: 250,
           }}
         >
+          <Box
+            sx={{
+              position: "absolute",
+              top: 15,
+              right: 24,
+            }}
+          >
+            <Tooltip title="Flow">
+              <Fab
+                data-cy="flow-button"
+                size="small"
+                sx={{
+                  textAlign: "center",
+                }}
+                onClick={handleFlowOpen}
+                color="default"
+              >
+                <AccountTreeIcon />
+              </Fab>
+            </Tooltip>
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -180,6 +210,8 @@ const TaskCard = ({ task, getSteps, steps }) => {
           </AccordionDetails>
         </Card>
       </Collapse>
+
+      <FlowDialog open={open} setOpen={setOpen} steps={steps} />
     </Box>
   );
 };
