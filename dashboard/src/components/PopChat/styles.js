@@ -19,6 +19,7 @@ const styles = {
     width: "450px",
     right: "15px",
     bottom: "10px",
+    zIndex: 99999,
   },
   boxHeader: {
     display: "flex",

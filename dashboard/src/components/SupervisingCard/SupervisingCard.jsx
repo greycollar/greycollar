@@ -74,7 +74,7 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
               >
                 <Typography
                   sx={{
-                    fontWeight: 900,
+                    fontWeight: 500,
                   }}
                 >
                   {supervise.question}
@@ -235,6 +235,7 @@ const SupervisingCard = ({ supervise, updateSupervising }) => {
         setOpenPopChat={setOpen}
         conversationId={supervise.conversationId}
         sessionId={supervise.sessionId}
+        sound={false}
       />
     </>
   );

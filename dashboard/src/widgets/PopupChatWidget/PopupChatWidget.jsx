@@ -14,6 +14,7 @@ const PopupChatWidget = ({
   openPopChat,
   setOpenPopChat,
   sessionId,
+  sound,
 }) => {
   const { colleagueId } = useParams();
   const [open, setOpen] = useState(false);
@@ -86,6 +87,7 @@ const PopupChatWidget = ({
         color="appTheme"
         readOnly={readOnly}
         selectedConversationId={conversationId || null}
+        sound={sound}
       />
       {!open && !readOnly && (
         <Fab onClick={() => setOpen(!open)} cursor="pointer" size="small">

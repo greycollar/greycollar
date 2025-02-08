@@ -30,6 +30,7 @@ const PopChat = ({
   history = [],
   readOnly,
   closeButton,
+  sound,
   //eslint-disable-next-line
   sx,
 }) => {
@@ -114,7 +115,11 @@ const PopChat = ({
   }, [selectedConversationId, scrollToBottom]);
 
   useEffect(() => {
-    if (aiResponded !== null) {
+    if (!sound) {
+      setLoading(false);
+      setSupervisorLoading(false);
+      return;
+    } else if (aiResponded !== null) {
       setLoading(false);
       setSupervisorLoading(false);
       !mute && play();
