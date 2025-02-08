@@ -17,7 +17,7 @@ const Supervising = ({ colleagueId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatus]);
 
-  const filtered = supervisings.filter(
+  const supervising = supervisings.filter(
     (supervise) =>
       selectedStatus === "All" || supervise.status === selectedStatus
   );
@@ -40,8 +40,8 @@ const Supervising = ({ colleagueId }) => {
           handleChange={handleChange}
           selectedStatus={selectedStatus}
         />
-        {filtered.length > 0 ? (
-          filtered.map((supervise) => (
+        {supervising.length > 0 ? (
+          supervising.map((supervise) => (
             <SupervisingCard
               key={supervise.id}
               updateSupervising={updateSupervising}
