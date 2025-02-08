@@ -10,12 +10,17 @@ const Supervising = ({ colleagueId }) => {
   const { updateSupervising, supervisings, getColleagueSupervisingByStatus } =
     useSupervisings(colleagueId);
 
-  const [selectedStatus, setSelectedStatus] = useState("IN_PROGRESS");
+  const [selectedStatus, setSelectedStatus] = useState("All");
 
   useEffect(() => {
     getColleagueSupervisingByStatus(colleagueId, selectedStatus);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatus]);
+
+  const filtered = supervisings.filter(
+    (supervise) =>
+      selectedStatus === "All" || supervise.status === selectedStatus
+  );
 
   const handleChange = (event) => {
     setSelectedStatus(event.target.value);
@@ -35,8 +40,8 @@ const Supervising = ({ colleagueId }) => {
           handleChange={handleChange}
           selectedStatus={selectedStatus}
         />
-        {supervisings.length > 0 ? (
-          supervisings.map((supervise) => (
+        {filtered.length > 0 ? (
+          filtered.map((supervise) => (
             <SupervisingCard
               key={supervise.id}
               updateSupervising={updateSupervising}
