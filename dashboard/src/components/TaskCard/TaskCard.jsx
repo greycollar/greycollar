@@ -21,7 +21,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TaskCard = ({ task, getSteps, steps }) => {
   const [expanded, setExpanded] = useState(false);
@@ -36,6 +36,21 @@ const TaskCard = ({ task, getSteps, steps }) => {
     setOpen(true);
     getSteps(task.id);
   };
+
+  useEffect(() => {
+    let interval;
+    if (expanded) {
+      interval = setInterval(() => {
+        getSteps(task.id);
+      }, 2000);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [expanded]);
 
   return (
     <Box sx={{ mt: 2 }} data-cy="tasks-card">
@@ -202,7 +217,60 @@ const TaskCard = ({ task, getSteps, steps }) => {
                           ? new Date(step.createdAt).toLocaleTimeString()
                           : new Date(step.createdAt).toLocaleDateString()}
                       </TableCell>
-                      <TableCell>{step.status}</TableCell>
+                      <TableCell
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {step.status === "IN_PROGRESS" ? (
+                          <Fab
+                            sx={{
+                              bgcolor: "primary.main",
+                              "&:hover": {
+                                bgcolor: "primary.main",
+                              },
+                            }}
+                            size="small"
+                          >
+                            <Iconify
+                              color="white"
+                              width={16}
+                              height={16}
+                              icon="grommet-icons:in-progress"
+                              sx={{
+                                animation: "spin 1s linear infinite",
+                                "@keyframes spin": {
+                                  "0%": {
+                                    transform: "rotate(0deg)",
+                                  },
+                                  "100%": {
+                                    transform: "rotate(360deg)",
+                                  },
+                                },
+                              }}
+                            />
+                          </Fab>
+                        ) : (
+                          <Fab
+                            sx={{
+                              bgcolor: "success.main",
+                              "&:hover": {
+                                bgcolor: "success.main",
+                              },
+                            }}
+                            size="small"
+                          >
+                            <Iconify
+                              color="white"
+                              width={24}
+                              height={24}
+                              icon="material-symbols:done"
+                            />
+                          </Fab>
+                        )}
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
