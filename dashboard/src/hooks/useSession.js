@@ -14,7 +14,8 @@ function useSession(colleagueId) {
 
   useEffect(
     () => {
-      socketRef.current = io("http://localhost:4000", {
+      socketRef.current = io("http://localhost:3000", {
+        path: "/api/socket.io",
         auth: { token: storage.get(config.name, "accessToken") },
         query: { colleagueId },
       });
