@@ -116,4 +116,4 @@ async function init() {
   });
 }
 
-module.exports = { init };
+export default { init };
