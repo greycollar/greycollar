@@ -1,18 +1,18 @@
 async function init() {
-  const Task = require("./Task").default;
-  const Command = require("./Command").default;
-  const Colleague = require("./Colleague").default;
-  const ColleagueKnowledge = require("./ColleagueKnowledge").default;
-  const TeamDetails = require("./TeamDetails").default;
-  const Message = require("./Message").default;
-  const Session = require("./Session").default;
-  const Conversation = require("./Conversation").default;
-  const Supervising = require("./Supervising").default;
-  const Knowledge = require("./Knowledge").default;
-  const AIEngine = require("./AIEngine").default;
-  const Step = require("./Step").default;
-
   const { Project } = require("@nucleoidai/platform-express/models");
+
+  const Task = require("./Task");
+  const Command = require("./Command");
+  const Colleague = require("./Colleague");
+  const ColleagueKnowledge = require("./ColleagueKnowledge");
+  const TeamDetails = require("./TeamDetails");
+  const Message = require("./Message");
+  const Session = require("./Session");
+  const Conversation = require("./Conversation");
+  const Supervising = require("./Supervising");
+  const Knowledge = require("./Knowledge");
+  const AIEngine = require("./AIEngine");
+  const Step = require("./Step");
 
   Project.hasMany(Colleague, {
     foreignKey: "teamId",
@@ -28,10 +28,7 @@ async function init() {
   Project.hasMany(Command, { foreignKey: "teamId" });
   Command.belongsTo(Project, { foreignKey: "teamId" });
 
-  Task.Project.belongsToMany(ColleagueKnowledge, {
-    through: "ColleagueKnowledge",
-  });
-
+  Project.belongsToMany(ColleagueKnowledge, { through: "ColleagueKnowledge" });
   ColleagueKnowledge.belongsToMany(Project, { through: "ColleagueKnowledge" });
 
   Session.hasMany(Conversation, { foreignKey: "sessionId" });

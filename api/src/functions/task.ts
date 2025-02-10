@@ -27,18 +27,25 @@ async function create({
 
 async function update({
   taskId,
+  result,
   comment,
   status,
 }: {
   taskId: string;
+  result?: string;
   comment?: string;
   status: "COMPLETED" | "FAILED";
 }) {
-  return await Task.update({ comment, status }, { where: { id: taskId } });
+  await Task.update({ result, comment, status }, { where: { id: taskId } });
+
+  if (status === "COMPLETED") {
+    publish("TASK", "COMPLETED", { taskId, result, comment });
+  }
 }
 
 async function get({ taskId }: { taskId: string }) {
-  return await Task.findOne({ where: { id: taskId } });
+  const taskInstance = await Task.findOne({ where: { id: taskId } });
+  return taskInstance.toJSON();
 }
 
 async function list({
@@ -48,7 +55,7 @@ async function list({
   colleagueId: string;
   teamId: string;
 }) {
-  return await Task.findAll({
+  const taskInstances = await Task.findAll({
     include: [
       {
         model: Colleague,
@@ -59,6 +66,8 @@ async function list({
     ],
     where: { colleagueId },
   });
+
+  return taskInstances.map((task) => task.toJSON());
 }
 
 async function addStep({

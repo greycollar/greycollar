@@ -190,7 +190,20 @@ async function task({ taskId }: { taskId: string }) {
   });
 
   if (action === "COMPLETE") {
-    return await taskFunc.update({ taskId, comment, status: "COMPLETED" });
+    const steps = await taskFunc.listSteps({ taskId });
+
+    let result;
+
+    if (steps.length) {
+      result = steps[steps.length - 1].result;
+    }
+
+    return await taskFunc.update({
+      taskId,
+      result,
+      comment,
+      status: "COMPLETED",
+    });
   }
 
   await taskFunc.addStep({
@@ -218,7 +231,19 @@ async function step({ stepId, action, parameters }) {
       parameters,
     });
 
-    await taskFunc.updateStep({ stepId, result, status: "COMPLETED" });
+    let resultString;
+
+    if (result) {
+      resultString = JSON.stringify(result);
+    } else {
+      resultString = "No Result";
+    }
+
+    await taskFunc.updateStep({
+      stepId,
+      result: resultString,
+      status: "COMPLETED",
+    });
   } catch (err: unknown) {
     if (err instanceof Error) {
       await taskFunc.updateStep({

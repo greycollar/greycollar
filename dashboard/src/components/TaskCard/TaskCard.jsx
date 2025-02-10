@@ -238,7 +238,7 @@ const TaskCard = ({ task, getSteps, steps }) => {
                               color="white"
                               width={16}
                               height={16}
-                              icon="grommet-icons:in-progress"
+                              icon="material-symbols:progress-activity"
                               sx={{
                                 animation: "spin 1s linear infinite",
                                 "@keyframes spin": {

@@ -15,6 +15,10 @@ const Task = sequelize.define("Task", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  result: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   comment: {
     type: DataTypes.STRING,
     allowNull: true,
