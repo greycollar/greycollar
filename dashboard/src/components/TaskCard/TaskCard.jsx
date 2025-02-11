@@ -110,33 +110,34 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
             </Tooltip>
           </Box>
 
+          {task.status !== "IN_PROGRESS" && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: 15,
+                right: 126,
+              }}
+            >
+              <Tooltip title="Task Details">
+                <Fab
+                  data-cy="flow-button"
+                  size="small"
+                  sx={{
+                    textAlign: "center",
+                  }}
+                  onClick={handleTaskResult}
+                  color="default"
+                >
+                  <Iconify icon="material-symbols:table-eye-outline" />
+                </Fab>
+              </Tooltip>
+            </Box>
+          )}
           <Box
             sx={{
               position: "absolute",
               top: 15,
               right: 75,
-            }}
-          >
-            <Tooltip title="Task Details">
-              <Fab
-                data-cy="flow-button"
-                size="small"
-                sx={{
-                  textAlign: "center",
-                }}
-                onClick={handleTaskResult}
-                color="default"
-              >
-                <Iconify icon="material-symbols:table-eye-outline" />
-              </Fab>
-            </Tooltip>
-          </Box>
-
-          <Box
-            sx={{
-              position: "absolute",
-              top: 15,
-              right: 126,
             }}
           >
             <Tooltip title="Supervising">
@@ -153,6 +154,7 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
               </Fab>
             </Tooltip>
           </Box>
+
           <Box
             sx={{
               display: "flex",
