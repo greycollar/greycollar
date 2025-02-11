@@ -4,6 +4,7 @@ import FlowDialog from "../FlowDialog/FlowDialog";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
 import TaskIcon from "@mui/icons-material/Task";
+import TaskResultDialog from "../TaskResultDialog/TaskResultDialog";
 import TaskStepDialog from "../TaskStepDialog/TaskStepDialog";
 
 import {
@@ -11,12 +12,7 @@ import {
   Box,
   Card,
   Collapse,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   Fab,
-  FormControl,
-  FormLabel,
   ListItemText,
   Stack,
   Table,
@@ -33,6 +29,7 @@ const TaskCard = ({ task, getSteps, steps }) => {
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
   const [stepResult, setStepResult] = useState(false);
+  const [taskResult, setTaskResult] = useState(false);
   const [results, setResults] = useState([]);
 
   const handleExpand = () => {
@@ -63,6 +60,10 @@ const TaskCard = ({ task, getSteps, steps }) => {
   const handleStepResult = (step) => {
     setStepResult(true);
     setResults(step);
+  };
+
+  const handleTaskResult = () => {
+    setTaskResult(true);
   };
 
   return (
@@ -99,6 +100,28 @@ const TaskCard = ({ task, getSteps, steps }) => {
                 color="default"
               >
                 <AccountTreeIcon />
+              </Fab>
+            </Tooltip>
+          </Box>
+
+          <Box
+            sx={{
+              position: "absolute",
+              top: 15,
+              right: 90,
+            }}
+          >
+            <Tooltip title="Task Details">
+              <Fab
+                data-cy="flow-button"
+                size="small"
+                sx={{
+                  textAlign: "center",
+                }}
+                onClick={handleTaskResult}
+                color="default"
+              >
+                <Iconify icon="material-symbols:table-eye-outline" />
               </Fab>
             </Tooltip>
           </Box>
@@ -311,6 +334,8 @@ const TaskCard = ({ task, getSteps, steps }) => {
           </AccordionDetails>
         </Card>
       </Collapse>
+
+      <TaskResultDialog open={taskResult} setOpen={setTaskResult} task={task} />
 
       <TaskStepDialog
         open={stepResult}
