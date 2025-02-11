@@ -30,11 +30,12 @@ function useTasks(colleagueId) {
 
   const [taskStatus] = useEvent("TASK_STATUS_CHANGED", null);
   const [taskCreated] = useEvent("TASK_CREATED", null);
+  const [taskStepLoading] = useEvent("TASK_STEP_LOADING", null);
 
   useEffect(() => {
     getTasks(colleagueId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskStatus, taskCreated]);
+  }, [taskStatus, taskCreated, taskStepLoading]);
 
   const createTask = useCallback((task, colleagueId) => {
     handleResponse(
@@ -64,6 +65,7 @@ function useTasks(colleagueId) {
   const getSteps = useCallback((id) => {
     handleResponse(http.get(`/tasks/${id}/steps`), (response) => {
       setSteps(response.data);
+      publish("TASK_STEP_LOADING", response.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
