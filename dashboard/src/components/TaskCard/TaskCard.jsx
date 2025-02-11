@@ -4,13 +4,19 @@ import FlowDialog from "../FlowDialog/FlowDialog";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
 import TaskIcon from "@mui/icons-material/Task";
+import TaskStepDialog from "../TaskStepDialog/TaskStepDialog";
 
 import {
   AccordionDetails,
   Box,
   Card,
   Collapse,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Fab,
+  FormControl,
+  FormLabel,
   ListItemText,
   Stack,
   Table,
@@ -26,6 +32,8 @@ import React, { useEffect, useState } from "react";
 const TaskCard = ({ task, getSteps, steps }) => {
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
+  const [stepResult, setStepResult] = useState(false);
+  const [results, setResults] = useState([]);
 
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -51,6 +59,11 @@ const TaskCard = ({ task, getSteps, steps }) => {
       }
     };
   }, [expanded]);
+
+  const handleStepResult = (step) => {
+    setStepResult(true);
+    setResults(step);
+  };
 
   return (
     <Box sx={{ mt: 2 }} data-cy="tasks-card">
@@ -204,6 +217,7 @@ const TaskCard = ({ task, getSteps, steps }) => {
                   <TableCell>Comment</TableCell>
                   <TableCell>Date</TableCell>
                   <TableCell>Status</TableCell>
+                  <TableCell>Result</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -271,6 +285,25 @@ const TaskCard = ({ task, getSteps, steps }) => {
                           </Fab>
                         )}
                       </TableCell>
+                      <TableCell>
+                        <Fab
+                          sx={{
+                            bgcolor: "primary.main",
+                            "&:hover": {
+                              bgcolor: "primary.main",
+                            },
+                          }}
+                          onClick={() => handleStepResult(step)}
+                          size="small"
+                        >
+                          <Iconify
+                            color="white"
+                            width={16}
+                            height={16}
+                            icon="material-symbols:folder-eye-outline"
+                          />
+                        </Fab>
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
@@ -278,6 +311,12 @@ const TaskCard = ({ task, getSteps, steps }) => {
           </AccordionDetails>
         </Card>
       </Collapse>
+
+      <TaskStepDialog
+        open={stepResult}
+        setOpen={setStepResult}
+        results={results}
+      />
 
       <FlowDialog open={open} setOpen={setOpen} steps={steps} />
     </Box>
