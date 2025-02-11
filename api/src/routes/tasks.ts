@@ -105,4 +105,18 @@ router.get("/:taskId/steps", async (req, res) => {
   return res.status(200).json(steps);
 });
 
+router.post("/:taskId/supervising", async (req, res) => {
+  const { text, addToKnowledgeBase } = Joi.attempt(
+    req.body,
+    Joi.object({
+      text: Joi.string().required(),
+      addToKnowledgeBase: Joi.boolean().required(),
+    })
+  );
+
+  console.log(text, addToKnowledgeBase);
+
+  return res.status(200).end();
+});
+
 export default router;
