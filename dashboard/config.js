@@ -4,6 +4,10 @@ const config = {
   base: "/dashboard",
   beta: true,
   api: "http://localhost:3000/api",
+  socket: {
+    host: "http://localhost:3000",
+    path: "/api/socket.io",
+  },
   project: {
     github: {
       authUrl: "https://github.com/login/oauth/authorize",

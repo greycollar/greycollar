@@ -4,6 +4,10 @@ const config = {
   base: "/dashboard",
   beta: true,
   api: "https://land.greycollar.ai/api",
+  socket: {
+    host: "https://land.greycollar.ai",
+    path: "/api/socket.io",
+  },
   project: {
     github: {
       redirectUri: "https://land.greycollar.ai/dashboard/callback",
