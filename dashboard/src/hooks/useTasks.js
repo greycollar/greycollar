@@ -68,6 +68,19 @@ function useTasks(colleagueId) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const createTaskSupervising = useCallback((id, text, addToKnowledgeBase) => {
+    handleResponse(
+      http.post(`/tasks/${id}/supervising`, {
+        text: text,
+        addToKnowledgeBase: addToKnowledgeBase,
+      }),
+      (response) => {
+        return response.data;
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return {
     loading,
     error,
@@ -75,6 +88,7 @@ function useTasks(colleagueId) {
     getSteps,
     steps,
     createTask,
+    createTaskSupervising,
   };
 }
 
