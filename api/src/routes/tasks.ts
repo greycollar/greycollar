@@ -1,7 +1,7 @@
 import Colleague from "../models/Colleague";
 import Joi from "joi";
-import Step from "../models/Step";
 import { Project } from "@nucleoidai/platform-express/models";
+import Step from "../models/Step";
 import Task from "../models/Task";
 import express from "express";
 import task from "../functions/task";
@@ -116,7 +116,12 @@ router.post("/:taskId/supervising", async (req, res) => {
 
   console.log(text, addToKnowledgeBase);
 
-  return res.status(200).end();
+  const data = {
+    text: text,
+    addToKnowledgeBase: addToKnowledgeBase,
+  };
+
+  return res.status(200).json(data);
 });
 
 export default router;
