@@ -3,6 +3,7 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import FlowDialog from "../FlowDialog/FlowDialog";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
+import SupervisingTask from "../SupervisingTask/SupervisingTask";
 import TaskIcon from "@mui/icons-material/Task";
 import TaskResultDialog from "../TaskResultDialog/TaskResultDialog";
 import TaskStepDialog from "../TaskStepDialog/TaskStepDialog";
@@ -25,11 +26,12 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const TaskCard = ({ task, getSteps, steps }) => {
+const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
   const [stepResult, setStepResult] = useState(false);
   const [taskResult, setTaskResult] = useState(false);
+  const [supervisingTask, setSupervisingTask] = useState(false);
   const [results, setResults] = useState([]);
 
   const handleExpand = () => {
@@ -64,6 +66,10 @@ const TaskCard = ({ task, getSteps, steps }) => {
 
   const handleTaskResult = () => {
     setTaskResult(true);
+  };
+
+  const handleSupervisingTask = () => {
+    setSupervisingTask(true);
   };
 
   return (
@@ -108,7 +114,7 @@ const TaskCard = ({ task, getSteps, steps }) => {
             sx={{
               position: "absolute",
               top: 15,
-              right: 90,
+              right: 75,
             }}
           >
             <Tooltip title="Task Details">
@@ -122,6 +128,28 @@ const TaskCard = ({ task, getSteps, steps }) => {
                 color="default"
               >
                 <Iconify icon="material-symbols:table-eye-outline" />
+              </Fab>
+            </Tooltip>
+          </Box>
+
+          <Box
+            sx={{
+              position: "absolute",
+              top: 15,
+              right: 126,
+            }}
+          >
+            <Tooltip title="Supervising">
+              <Fab
+                data-cy="flow-button"
+                size="small"
+                sx={{
+                  textAlign: "center",
+                }}
+                onClick={handleSupervisingTask}
+                color="default"
+              >
+                <Iconify icon="material-symbols:supervised-user-circle" />
               </Fab>
             </Tooltip>
           </Box>
@@ -334,6 +362,13 @@ const TaskCard = ({ task, getSteps, steps }) => {
           </AccordionDetails>
         </Card>
       </Collapse>
+
+      <SupervisingTask
+        taskId={task.id}
+        open={supervisingTask}
+        setOpen={setSupervisingTask}
+        colleagueId={colleagueId}
+      />
 
       <TaskResultDialog open={taskResult} setOpen={setTaskResult} task={task} />
 
