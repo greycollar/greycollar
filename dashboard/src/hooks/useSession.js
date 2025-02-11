@@ -12,11 +12,15 @@ function useSession(colleagueId) {
   const [error, setError] = useState(null);
   const socketRef = useRef(null);
 
+  const { host, path } = config.socket;
+
+  const token = storage.get(config.name, "accessToken");
+
   useEffect(
     () => {
-      socketRef.current = io("http://localhost:3000", {
-        path: "/api/socket.io",
-        auth: { token: storage.get(config.name, "accessToken") },
+      socketRef.current = io(host, {
+        path,
+        auth: { token },
         query: { colleagueId },
       });
 
