@@ -105,15 +105,6 @@ async function init() {
       message.status = null;
     }
   });
-
-  Supervising.addHook("afterCreate", async (supervising) => {
-    await Conversation.create({
-      content:
-        "I couldn't find a suitable answer to this question, so I forwarded it to my supervisor.",
-      role: "ASSISTANT",
-      sessionId: supervising.sessionId,
-    });
-  });
 }
 
 export default { init };
