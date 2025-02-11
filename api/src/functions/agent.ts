@@ -233,10 +233,10 @@ async function step({ stepId, action, parameters }) {
 
     let resultString;
 
-    if (result) {
+    if (result && typeof result === "object") {
       resultString = JSON.stringify(result);
     } else {
-      resultString = "No Result";
+      resultString = result;
     }
 
     await taskFunc.updateStep({
