@@ -33,6 +33,7 @@ function Tasks({ colleagueId }) {
         {task.length > 0 ? (
           task.map((t, i) => (
             <TaskCard
+              colleagueId={colleagueId}
               task={t}
               key={i}
               getSteps={() => getSteps(t.id)}
