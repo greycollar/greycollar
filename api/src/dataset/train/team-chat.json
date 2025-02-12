@@ -1,0 +1,16 @@
+[
+  {
+    "content": "Hello",
+    "resource": null,
+    "function": null,
+    "parameters": {}
+  },
+  {
+    "content": "List tasks in progress",
+    "resource": "task",
+    "function": "list",
+    "parameters": {
+      "status": "IN_PROGRESS"
+    }
+  }
+]

@@ -38,7 +38,7 @@ async function create({
   });
 
   if (role === "USER") {
-    publish("Message", "USER_MESSAGED", messageInstance.toJSON());
+    publish("MESSAGE", "USER_MESSAGED", messageInstance.toJSON());
   }
 
   if (role === "ASSISTANT") {
@@ -48,12 +48,54 @@ async function create({
   return messageInstance.toJSON();
 }
 
-async function list({ teamId, offset }) {
+async function listMessages({
+  teamId,
+  offset,
+  limit = 50,
+}: {
+  teamId: string;
+  offset?: string;
+  limit?: number;
+}) {
   const where = {
     teamId,
   } as {
     teamId: string;
-    role: string;
+    createdAt?: {
+      [Op.gt]: Date;
+    };
+  };
+
+  if (offset) {
+    const date = new Date(offset);
+
+    where.createdAt = {
+      [Op.gt]: date,
+    };
+  }
+
+  const messageInstances = await Message.findAll({
+    where,
+    order: [["createdAt", "ASC"]],
+    limit,
+  });
+
+  return messageInstances.map((messageInstance) => messageInstance.toJSON());
+}
+
+async function list({
+  teamId,
+  offset,
+  limit = 50,
+}: {
+  teamId: string;
+  offset?: string;
+  limit?: number;
+}) {
+  const where = {
+    teamId,
+  } as {
+    teamId: string;
     createdAt?: {
       [Op.gt]: Date;
     };
@@ -68,9 +110,9 @@ async function list({ teamId, offset }) {
   }
 
   const messagePromise = Message.findAll({
-    where: where,
+    where,
     order: [["createdAt", "ASC"]],
-    limit: 50,
+    limit,
   });
 
   const supervisingPromise = Supervising.findAll({
@@ -110,7 +152,7 @@ async function list({ teamId, offset }) {
     knowledgePromise,
   ]);
 
-  const allMessages = [
+  return [
     ...messages,
     ...supervisings.map((supervising) => ({
       mode: "SUPERVISING",
@@ -128,8 +170,6 @@ async function list({ teamId, offset }) {
       ...knowledge.toJSON(),
     })),
   ];
-
-  return allMessages;
 }
 
-export default { create, list };
+export default { create, list, listMessages };

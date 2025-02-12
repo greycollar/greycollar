@@ -42,6 +42,9 @@ app.use("/tasks", tasks);
 app.use("/engines", engines);
 app.use("/organizations", organizations);
 
+subscribe("MESSAGE", "USER_MESSAGED", ({ teamId, content }) =>
+  agent.teamChat({ teamId, content })
+);
 subscribe(
   "SESSION",
   "USER_MESSAGED",
