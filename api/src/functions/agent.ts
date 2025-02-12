@@ -129,7 +129,7 @@ async function chat({
       dataset: [...dataset.policy, ...dataset.train.chat],
       context,
       content,
-      json_format: "{ answer: <ANSWER>, confidence: <0-1> }",
+      json_format: "{ answer: <ANSWER_IN_NLP>, confidence: <0-1> }",
     });
 
     console.debug(answer, confidence);

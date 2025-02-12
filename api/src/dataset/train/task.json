@@ -8,19 +8,60 @@
           "url": "http://www.example.com"
         },
         "result": "Example Coffee Shop - We are a coffee shop in the heart of the city. We serve the best coffee in town. Come and visit us today! or contact us at amy@example.com",
-        "comment": "example.com website is scraped"
+        "comment": "Scrapping example.com website"
       },
       {
         "action": "LLM",
         "parameters": {
           "message": "Find all emails in the scraped website"
         },
-        "comment": "All emails are found",
+        "comment": "Finding all emails",
         "result": "amy@example.com"
       },
       {
         "action": "COMPLETE",
-        "comment": "Task is completed"
+        "comment": "Completing task"
+      }
+    ]
+  },
+  {
+    "description": "Find phone number and address emails from example.com website",
+    "steps": [
+      {
+        "action": "SCRAPE_WEBSITE",
+        "parameters": {
+          "url": "http://www.example2.com"
+        },
+        "result": "Example2 Bakery Shop - We are a bakery shop in the heart of the city. We serve the best bread in town. Come and visit us today! or contact us at (914) 555-1234 and our address is 123 Main St.",
+        "comment": "Scrapping example2.com website"
+      },
+      {
+        "action": "LLM",
+        "parameters": {
+          "message": "Find phone number and address in the scraped website"
+        },
+        "comment": "Finding phone number and address",
+        "result": "(914) 555-1234, 123 Main St."
+      },
+      {
+        "action": "SUPERVISED",
+        "parameters": {
+          "message": "Format contact as name, phone number and address"
+        },
+        "comment": "Supervising with format",
+        "result": "Format contact as name, phone number and address"
+      },
+      {
+        "action": "LLM",
+        "parameters": {
+          "message": "Format (914) 555-1234 and 123 Main St. as name, phone number and address"
+        },
+        "comment": "Formating contact",
+        "result": "Example2 Bakery Shop, (914) 555-1234, 123 Main St."
+      },
+      {
+        "action": "COMPLETE",
+        "comment": "Completing task"
       }
     ]
   }

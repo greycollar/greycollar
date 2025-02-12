@@ -1,7 +1,5 @@
 import Colleague from "../models/Colleague";
 import Joi from "joi";
-import { Project } from "@nucleoidai/platform-express/models";
-import Step from "../models/Step";
 import Task from "../models/Task";
 import express from "express";
 import task from "../functions/task";
@@ -106,6 +104,7 @@ router.get("/:taskId/steps", async (req, res) => {
 });
 
 router.post("/:taskId/supervising", async (req, res) => {
+  const { taskId } = req.params;
   const { text, addToKnowledgeBase } = Joi.attempt(
     req.body,
     Joi.object({
@@ -114,7 +113,14 @@ router.post("/:taskId/supervising", async (req, res) => {
     })
   );
 
-  console.log(text, addToKnowledgeBase);
+  await task.addStep({
+    taskId,
+    action: "SUPERVISED",
+    comment: "Supervising: " + text,
+    parameters: {
+      message: text,
+    },
+  });
 
   const data = {
     text: text,
