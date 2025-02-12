@@ -58,9 +58,12 @@ async function init() {
 
   ColleagueKnowledge.belongsTo(Colleague, { foreignKey: "colleagueId" });
   Colleague.hasMany(ColleagueKnowledge, { foreignKey: "colleagueId" });
+
   Knowledge.hasMany(ColleagueKnowledge, { foreignKey: "knowledgeId" });
   ColleagueKnowledge.belongsTo(Knowledge, { foreignKey: "knowledgeId" });
-  Knowledge.hasMany(Task, { foreignKey: "knowledgeId" });
+
+  Knowledge.belongsTo(Task, { foreignKey: "taskId" });
+  Task.hasOne(Knowledge, { foreignKey: "taskId" });
 
   AIEngine.hasMany(Colleague, { foreignKey: "aiEngineId" });
   Colleague.belongsTo(AIEngine, { foreignKey: "aiEngineId" });

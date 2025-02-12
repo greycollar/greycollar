@@ -1,7 +1,7 @@
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
 import scrapper from "../actions/scrapper";
-import { publish } from "../lib/Event";
+import Task from "../models/Task";
 
 async function create({
   teamId,
@@ -46,8 +46,20 @@ async function create({
     throw new Error("INVALID_TASK_KNOWLEDGE");
   }
 
-  const knowledgeInstance = await Knowledge.create(knowledge);
+  if (knowledge.type === "TASK") {
+    const taskKnowledgeInstance = await Knowledge.findOne({
+      where: {
+        type: "TASK",
+        taskId: knowledge.taskId,
+      },
+    });
 
+    if (taskKnowledgeInstance) {
+      return taskKnowledgeInstance.toJSON();
+    }
+  }
+
+  const knowledgeInstance = await Knowledge.create(knowledge);
   await ColleagueKnowledge.create({
     knowledgeId: knowledgeInstance.id,
     colleagueId,
@@ -89,12 +101,18 @@ async function list({
     include: [
       {
         model: Knowledge,
+        required: false,
         where: knowledgeWhere,
+        include: {
+          model: Task,
+          required: false,
+          attributes: ["description"],
+        },
       },
     ],
   });
 
-  return colleagueKnowledge.map(({ Knowledge }) => Knowledge);
+  return colleagueKnowledge.map(({ Knowledge }) => Knowledge.toJSON());
 }
 
 export default { create, list };
