@@ -11,12 +11,13 @@ async function create({
   teamId?: string;
   colleagueId?: string;
   knowledge: {
-    type: string;
+    type: "QA" | "URL" | "TEXT" | "TASK";
     url?: string;
     text?: string;
     question?: string;
     answer?: string;
     content?: string;
+    taskId?: string;
   };
 }) {
   if (!teamId && !colleagueId) {
@@ -39,6 +40,10 @@ async function create({
     knowledge.content = await scrapper.run({
       parameters: { url: knowledge.url },
     });
+  }
+
+  if (knowledge.type === "TASK" && !knowledge.taskId) {
+    throw new Error("INVALID_TASK_KNOWLEDGE");
   }
 
   const knowledgeInstance = await Knowledge.create(knowledge);

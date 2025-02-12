@@ -3,6 +3,7 @@ import Joi from "joi";
 import Task from "../models/Task";
 import express from "express";
 import task from "../functions/task";
+import knowledge from "../functions/knowledge";
 
 const router = express.Router();
 
@@ -105,10 +106,13 @@ router.get("/:taskId/steps", async (req, res) => {
 
 router.post("/:taskId/supervising", async (req, res) => {
   const { taskId } = req.params;
-  const { text, addToKnowledgeBase } = Joi.attempt(
+  const { text, addToKnowledgeBase, colleagueId } = Joi.attempt(
     req.body,
     Joi.object({
       text: Joi.string().required(),
+      colleagueId: Joi.string()
+        .guid({ version: ["uuidv4"] })
+        .required(),
       addToKnowledgeBase: Joi.boolean().required(),
     })
   );
@@ -122,12 +126,17 @@ router.post("/:taskId/supervising", async (req, res) => {
     },
   });
 
-  const data = {
-    text: text,
-    addToKnowledgeBase: addToKnowledgeBase,
-  };
+  if (addToKnowledgeBase) {
+    await knowledge.create({
+      colleagueId,
+      knowledge: {
+        type: "TASK",
+        taskId,
+      },
+    });
+  }
 
-  return res.status(200).json(data);
+  return res.status(201).end();
 });
 
 export default router;

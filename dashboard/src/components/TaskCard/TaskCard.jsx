@@ -150,7 +150,7 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
                 onClick={handleSupervisingTask}
                 color="default"
               >
-                <Iconify icon="material-symbols:supervised-user-circle" />
+                <Iconify icon="solar:users-group-rounded-bold" />
               </Fab>
             </Tooltip>
           </Box>

@@ -48,6 +48,15 @@ async function get({ taskId }: { taskId: string }) {
   return taskInstance.toJSON();
 }
 
+async function getWithSteps({ taskId }: { taskId: string }) {
+  const taskInstance = await Task.findOne({
+    where: { id: taskId },
+    include: [Step],
+  });
+
+  return taskInstance.toJSON();
+}
+
 async function list({
   colleagueId,
   teamId,
@@ -78,7 +87,7 @@ async function addStep({
 }: {
   taskId: string;
   action: string;
-  parameters: string;
+  parameters: object;
   comment: string;
 }) {
   const step = await Step.create({
@@ -96,7 +105,7 @@ async function addStep({
     comment,
   });
 
-  return step;
+  return step.toJSON();
 }
 
 async function getStep({ stepId }: { stepId: string }) {
