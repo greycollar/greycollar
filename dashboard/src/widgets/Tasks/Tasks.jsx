@@ -9,6 +9,7 @@ import React, { useState } from "react";
 
 function Tasks({ colleagueId }) {
   const { tasks, getSteps, steps, createTask } = useTasks(colleagueId);
+  const [expandedTaskId, setExpandedTaskId] = useState(null);
 
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [open, setOpen] = useState(false);
@@ -20,6 +21,11 @@ function Tasks({ colleagueId }) {
 
   const handleChange = (event) => {
     setSelectedStatus(event.target.value);
+  };
+
+  const handleExpand = (taskId) => {
+    getSteps(taskId);
+    setExpandedTaskId((prevTaskId) => (prevTaskId === taskId ? null : taskId));
   };
 
   return (
