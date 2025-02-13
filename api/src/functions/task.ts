@@ -66,6 +66,19 @@ async function list({
   colleagueId?: string;
   status?: "IN_PROGRESS" | "COMPLETED" | "FAILED";
 }) {
+  const where: {
+    colleagueId?: string;
+    status?: "IN_PROGRESS" | "COMPLETED" | "FAILED";
+  } = {};
+
+  if (colleagueId) {
+    where.colleagueId = colleagueId;
+  }
+
+  if (status) {
+    where.status = status;
+  }
+
   const taskInstances = await Task.findAll({
     include: [
       {
@@ -75,7 +88,7 @@ async function list({
         required: true,
       },
     ],
-    where: { colleagueId, status },
+    where,
   });
 
   return taskInstances.map((task) => task.toJSON());
