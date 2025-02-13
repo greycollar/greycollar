@@ -2,6 +2,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import EnginesChart from "../AIMarketplace/AIMarketplaceCard";
+import ItemSummary from "../../components/ItemSummary/ItemSummary";
 import React from "react";
 import SelectAvatar from "../../components/AvatarSelector/AvatarSelector";
 import SparkleInput from "../../components/SparkleInput/SparkleInput";
@@ -315,7 +316,7 @@ function ColleagueWizard({
           />
         );
       case 5:
-        return <TeamSummary newItem={newItem} />;
+        return <ItemSummary newItem={newItem} />;
     }
   };
   return (
