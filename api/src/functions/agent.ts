@@ -1,10 +1,10 @@
 import { generate } from "../lib/llm";
 import session from "./session";
 import colleague from "./colleague";
-import knowledgeFunc from "./knowledge";
+import knowledgeFn from "./knowledge";
 import supervising from "./supervising";
 import dataset from "../dataset";
-import taskFunc from "./task";
+import taskFn from "./task";
 import actions from "../actions";
 
 async function info({ colleagueId }) {
@@ -26,7 +26,7 @@ async function info({ colleagueId }) {
 }
 
 async function knowledge({ colleagueId }) {
-  const knowledgeList = await knowledgeFunc.list({
+  const knowledgeList = await knowledgeFn.list({
     colleagueId,
     options: { includeSteps: true },
   });
@@ -162,14 +162,14 @@ async function chat({
 }
 
 async function task({ taskId }: { taskId: string }) {
-  const { colleagueId, description } = await taskFunc.get({ taskId });
+  const { colleagueId, description } = await taskFn.get({ taskId });
   const currentTask = {
     description,
-    steps: await taskFunc.listSteps({ taskId }),
+    steps: await taskFn.listSteps({ taskId }),
   };
 
   if (currentTask.steps.length > 10) {
-    return await taskFunc.update({
+    return await taskFn.update({
       taskId,
       status: "FAILED",
       comment: "Failed due to too many steps",
@@ -194,7 +194,7 @@ async function task({ taskId }: { taskId: string }) {
   });
 
   if (action === "COMPLETE") {
-    const steps = await taskFunc.listSteps({ taskId });
+    const steps = await taskFn.listSteps({ taskId });
 
     let result;
 
@@ -202,7 +202,7 @@ async function task({ taskId }: { taskId: string }) {
       result = steps[steps.length - 1].result;
     }
 
-    return await taskFunc.update({
+    return await taskFn.update({
       taskId,
       result,
       comment,
@@ -210,7 +210,7 @@ async function task({ taskId }: { taskId: string }) {
     });
   }
 
-  await taskFunc.addStep({
+  await taskFn.addStep({
     taskId,
     action,
     parameters,
@@ -220,14 +220,20 @@ async function task({ taskId }: { taskId: string }) {
 
 async function step({ stepId, action, parameters }) {
   try {
-    // @ts-ignore
-    const { lib } = actions.find(action);
-    const actionFunc = require(`../actions/${lib}`).default;
+    let actionFn;
 
-    const { taskId } = await taskFunc.getStep({ stepId });
-    const steps = await taskFunc.listSteps({ taskId });
+    if (action === "SUPERVISED") {
+      actionFn = require("../actions/supervised").default;
+    } else {
+      // @ts-ignore
+      const { lib } = actions.find(action);
+      actionFn = require(`../actions/${lib}`).default;
+    }
 
-    const result = await actionFunc.run({
+    const { taskId } = await taskFn.getStep({ stepId });
+    const steps = await taskFn.listSteps({ taskId });
+
+    const result = await actionFn.run({
       context: steps
         .filter((step) => step.result)
         .map(({ comment, result }) => `Comment: ${comment}\nResult: ${result}`)
@@ -243,14 +249,14 @@ async function step({ stepId, action, parameters }) {
       resultString = result;
     }
 
-    await taskFunc.updateStep({
+    await taskFn.updateStep({
       stepId,
       result: resultString,
       status: "COMPLETED",
     });
   } catch (err: unknown) {
     if (err instanceof Error) {
-      await taskFunc.updateStep({
+      await taskFn.updateStep({
         stepId,
         result: err.message,
         status: "FAILED",
