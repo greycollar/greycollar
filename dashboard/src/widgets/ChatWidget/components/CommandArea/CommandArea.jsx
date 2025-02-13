@@ -37,7 +37,6 @@ const CommandArea = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCommand, setSelectedCommand] = useState(null);
-  const [selectedMention, setSelectedMention] = useState(null);
   const [currentInput, setCurrentInput] = useState(null);
   const [filteredCommands, setFilteredCommands] = useState([]);
   const [mentionOpen, setMentionOpen] = useState(true);
@@ -334,7 +333,6 @@ const CommandArea = ({
   const handleMentionSelect = (mention) => {
     insertMention(mention.name, mention.id);
     setMentionOpen(false);
-    setSelectedMention(mention);
     ReactEditor.focus(editor);
   };
 
