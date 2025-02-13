@@ -7,6 +7,7 @@ import dataset from "../dataset";
 import taskFn from "./task";
 import actions from "../actions";
 import messagesFunc from "./message";
+import message from "./message";
 
 async function messages({ teamId }: { teamId: string }) {
   const messageInstances = await messagesFunc.listMessages({ teamId });
@@ -78,23 +79,41 @@ async function teamChat({
   const context = await messages({ teamId });
 
   const next = await generate({
-    dataset: [...dataset.train.teamChat],
+    dataset: [dataset.train.teamChat],
     context,
     content,
     json_format:
       "{ resource: <RESOURCE>, function: <FUNCTION>, parameters: <PARAMETERS> }",
   });
 
+  let data;
+
   if (next.resource && next.function && next.parameters) {
     try {
       const resource = require(`./${next.resource}`).default;
-      await resource[next.function]({ ...next.parameters, teamId });
+      data = await resource[next.function]({ ...next.parameters, teamId });
     } catch (err) {
       console.error(err);
     }
   }
 
-  console.log(next);
+  const { response } = await generate({
+    dataset: [],
+    context,
+    content:
+      next.resource && next.function && next.parameters
+        ? `${next.resource}.${next.function}(${JSON.stringify(
+            next.parameters
+          )})=${JSON.stringify(data)} ${content}`
+        : content,
+    json_format: "{ response: <RESPONSE> }",
+  });
+
+  await message.create({
+    role: "ASSISTANT",
+    content: response,
+    teamId,
+  });
 }
 
 async function chat({

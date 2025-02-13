@@ -21,11 +21,11 @@ export default {
         task_train: t,
       },
     })),
-    teamChat: teamChat.map((tc) => ({
+    teamChat: {
       role: "system" as "system" | "user" | "assistant",
       content: {
-        team_chat_train: tc,
+        team_chat_train: teamChat,
       },
-    })),
+    },
   },
 };

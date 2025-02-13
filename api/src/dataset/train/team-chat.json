@@ -6,10 +6,11 @@
     "parameters": {}
   },
   {
-    "content": "List tasks in progress",
+    "content": "List tasks for @{ colleagueId: '0f74f979-18fb-4f85-b6e6-fdc5cf691129' } in progress",
     "resource": "task",
     "function": "list",
     "parameters": {
+      "colleagueId": "0f74f979-18fb-4f85-b6e6-fdc5cf691129",
       "status": "IN_PROGRESS"
     }
   }
