@@ -37,9 +37,7 @@ async function generate({
     { role: "user", content: JSON.stringify(content) },
     {
       role: "system",
-      content: {
-        json_format,
-      },
+      content: `json_format: ${json_format}`,
     },
   ].map(({ role, content }) => ({
     role,

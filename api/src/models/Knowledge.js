@@ -15,7 +15,7 @@ const Knowledge = sequelize.define("Knowledge", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isIn: [["URL", "TEXT", "QA"]],
+      isIn: [["URL", "TEXT", "QA", "TASK"]],
     },
   },
   question: {
@@ -37,6 +37,14 @@ const Knowledge = sequelize.define("Knowledge", {
   content: {
     type: DataTypes.BLOB,
     allowNull: true,
+  },
+  taskId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    reference: {
+      model: "Task",
+      key: "id",
+    },
   },
   status: {
     type: DataTypes.STRING,
