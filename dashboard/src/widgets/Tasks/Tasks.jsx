@@ -9,6 +9,7 @@ import React, { useState } from "react";
 
 function Tasks({ colleagueId }) {
   const { tasks, getSteps, steps, createTask } = useTasks(colleagueId);
+  const [expandedTaskId, setExpandedTaskId] = useState(null);
 
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [open, setOpen] = useState(false);
@@ -20,6 +21,11 @@ function Tasks({ colleagueId }) {
 
   const handleChange = (event) => {
     setSelectedStatus(event.target.value);
+  };
+
+  const handleExpand = (taskId) => {
+    getSteps(taskId);
+    setExpandedTaskId((prevTaskId) => (prevTaskId === taskId ? null : taskId));
   };
 
   return (
@@ -37,6 +43,8 @@ function Tasks({ colleagueId }) {
               task={t}
               key={i}
               getSteps={() => getSteps(t.id)}
+              onExpand={() => handleExpand(t.id)}
+              expanded={expandedTaskId === t.id}
               steps={steps}
             />
           ))
@@ -55,6 +63,7 @@ function Tasks({ colleagueId }) {
             data-cy="add-task-button"
             onClick={() => {
               setOpen(true);
+              setExpandedTaskId(null);
             }}
           >
             <AddIcon />

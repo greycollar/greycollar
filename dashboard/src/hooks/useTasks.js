@@ -73,8 +73,9 @@ function useTasks(colleagueId) {
   const createTaskSupervising = useCallback((id, text, addToKnowledgeBase) => {
     handleResponse(
       http.post(`/tasks/${id}/supervising`, {
-        text: text,
-        addToKnowledgeBase: addToKnowledgeBase,
+        colleagueId,
+        text,
+        addToKnowledgeBase,
       }),
       (response) => {
         return response.data;

@@ -1,7 +1,8 @@
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
 import scrapper from "../actions/scrapper";
-import { publish } from "../lib/Event";
+import Task from "../models/Task";
+import Step from "../models/Step";
 
 async function create({
   teamId,
@@ -11,12 +12,13 @@ async function create({
   teamId?: string;
   colleagueId?: string;
   knowledge: {
-    type: string;
+    type: "QA" | "URL" | "TEXT" | "TASK";
     url?: string;
     text?: string;
     question?: string;
     answer?: string;
     content?: string;
+    taskId?: string;
   };
 }) {
   if (!teamId && !colleagueId) {
@@ -41,8 +43,24 @@ async function create({
     });
   }
 
-  const knowledgeInstance = await Knowledge.create(knowledge);
+  if (knowledge.type === "TASK" && !knowledge.taskId) {
+    throw new Error("INVALID_TASK_KNOWLEDGE");
+  }
 
+  if (knowledge.type === "TASK") {
+    const taskKnowledgeInstance = await Knowledge.findOne({
+      where: {
+        type: "TASK",
+        taskId: knowledge.taskId,
+      },
+    });
+
+    if (taskKnowledgeInstance) {
+      return taskKnowledgeInstance.toJSON();
+    }
+  }
+
+  const knowledgeInstance = await Knowledge.create(knowledge);
   await ColleagueKnowledge.create({
     knowledgeId: knowledgeInstance.id,
     colleagueId,
@@ -56,10 +74,12 @@ async function list({
   teamId,
   colleagueId,
   type,
+  options = { includeSteps: false },
 }: {
   teamId?: string;
   colleagueId?: string;
   type?: string;
+  options?: { includeSteps?: boolean };
 }) {
   const where = {} as {
     colleagueId?: string;
@@ -84,12 +104,36 @@ async function list({
     include: [
       {
         model: Knowledge,
+        required: false,
         where: knowledgeWhere,
+        include: {
+          model: Task,
+          required: false,
+          include: options.includeSteps
+            ? {
+                model: Step,
+                as: "steps",
+              }
+            : [],
+        },
       },
     ],
   });
 
-  return colleagueKnowledge.map(({ Knowledge }) => Knowledge);
+  return colleagueKnowledge
+    .map(({ Knowledge }) => Knowledge.toJSON())
+    .map((knowledge) => ({
+      ...knowledge,
+      Task: knowledge.Task && {
+        ...knowledge.Task,
+        steps:
+          knowledge.Task.steps &&
+          knowledge.Task.steps.map((step) => ({
+            ...step,
+            result: step.result && step.result.toString(),
+          })),
+      },
+    }));
 }
 
 export default { create, list };

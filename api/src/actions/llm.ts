@@ -21,7 +21,7 @@ async function run({ context, parameters: { message } }) {
       },
       {
         role: "system",
-        content: "{ json_format: { result: <RESULT> } }",
+        content: "json_format: { result: <RESULT_IN_NLP> }",
       },
     ],
   });

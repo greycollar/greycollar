@@ -26,18 +26,19 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
-  const [expanded, setExpanded] = useState(false);
+const TaskCard = ({
+  task,
+  getSteps,
+  steps,
+  colleagueId,
+  onExpand,
+  expanded,
+}) => {
   const [open, setOpen] = useState(false);
   const [stepResult, setStepResult] = useState(false);
   const [taskResult, setTaskResult] = useState(false);
   const [supervisingTask, setSupervisingTask] = useState(false);
   const [results, setResults] = useState([]);
-
-  const handleExpand = () => {
-    setExpanded((prevExpanded) => !prevExpanded);
-    getSteps(task.id);
-  };
 
   const handleFlowOpen = () => {
     setOpen(true);
@@ -150,7 +151,7 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
                 onClick={handleSupervisingTask}
                 color="default"
               >
-                <Iconify icon="material-symbols:supervised-user-circle" />
+                <Iconify icon="solar:users-group-rounded-bold" />
               </Fab>
             </Tooltip>
           </Box>
@@ -230,7 +231,7 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
               <Tooltip title="See Task Progress">
                 <Fab
                   data-cy="progress-button"
-                  onClick={handleExpand}
+                  onClick={onExpand}
                   size="small"
                   sx={{
                     textAlign: "center",
@@ -284,13 +285,7 @@ const TaskCard = ({ task, getSteps, steps, colleagueId }) => {
                           ? new Date(step.createdAt).toLocaleTimeString()
                           : new Date(step.createdAt).toLocaleDateString()}
                       </TableCell>
-                      <TableCell
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
+                      <TableCell>
                         {step.status === "IN_PROGRESS" ? (
                           <Fab
                             sx={{

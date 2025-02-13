@@ -1,10 +1,9 @@
 import Colleague from "../models/Colleague";
 import Joi from "joi";
-import { Project } from "@nucleoidai/platform-express/models";
-import Step from "../models/Step";
 import Task from "../models/Task";
 import express from "express";
 import task from "../functions/task";
+import knowledge from "../functions/knowledge";
 
 const router = express.Router();
 
@@ -106,22 +105,38 @@ router.get("/:taskId/steps", async (req, res) => {
 });
 
 router.post("/:taskId/supervising", async (req, res) => {
-  const { text, addToKnowledgeBase } = Joi.attempt(
+  const { taskId } = req.params;
+  const { text, addToKnowledgeBase, colleagueId } = Joi.attempt(
     req.body,
     Joi.object({
       text: Joi.string().required(),
+      colleagueId: Joi.string()
+        .guid({ version: ["uuidv4"] })
+        .required(),
       addToKnowledgeBase: Joi.boolean().required(),
     })
   );
 
-  console.log(text, addToKnowledgeBase);
+  await task.addStep({
+    taskId,
+    action: "SUPERVISED",
+    comment: "Supervising: " + text,
+    parameters: {
+      message: text,
+    },
+  });
 
-  const data = {
-    text: text,
-    addToKnowledgeBase: addToKnowledgeBase,
-  };
+  if (addToKnowledgeBase) {
+    await knowledge.create({
+      colleagueId,
+      knowledge: {
+        type: "TASK",
+        taskId,
+      },
+    });
+  }
 
-  return res.status(200).json(data);
+  return res.status(201).end();
 });
 
 export default router;

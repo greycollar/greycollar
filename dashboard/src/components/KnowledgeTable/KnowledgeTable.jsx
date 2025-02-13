@@ -88,6 +88,7 @@ function KnowledgeTable({
                           {row.type === "TEXT" && row.text}
                           {row.type === "QA" &&
                             `Q: ${row.question} A: ${row.answer}`}
+                          {row.type === "TASK" && row.Task.description}
                         </TableCell>
                         <TableCell>
                           {(() => {
