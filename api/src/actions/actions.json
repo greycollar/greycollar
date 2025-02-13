@@ -14,13 +14,6 @@
     }
   },
   {
-    "action": "SUPERVISED",
-    "lib": "supervise",
-    "parameters": {
-      "message": "<MESSAGE>"
-    }
-  },
-  {
     "action": "COMPLETE"
   }
 ]

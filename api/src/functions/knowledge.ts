@@ -2,6 +2,7 @@ import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
 import scrapper from "../actions/scrapper";
 import Task from "../models/Task";
+import Step from "../models/Step";
 
 async function create({
   teamId,
@@ -73,10 +74,12 @@ async function list({
   teamId,
   colleagueId,
   type,
+  options = { includeSteps: false },
 }: {
   teamId?: string;
   colleagueId?: string;
   type?: string;
+  options?: { includeSteps?: boolean };
 }) {
   const where = {} as {
     colleagueId?: string;
@@ -106,13 +109,31 @@ async function list({
         include: {
           model: Task,
           required: false,
-          attributes: ["description"],
+          include: options.includeSteps
+            ? {
+                model: Step,
+                as: "steps",
+              }
+            : [],
         },
       },
     ],
   });
 
-  return colleagueKnowledge.map(({ Knowledge }) => Knowledge.toJSON());
+  return colleagueKnowledge
+    .map(({ Knowledge }) => Knowledge.toJSON())
+    .map((knowledge) => ({
+      ...knowledge,
+      Task: knowledge.Task && {
+        ...knowledge.Task,
+        steps:
+          knowledge.Task.steps &&
+          knowledge.Task.steps.map((step) => ({
+            ...step,
+            result: step.result && step.result.toString(),
+          })),
+      },
+    }));
 }
 
 export default { create, list };

@@ -28,20 +28,24 @@ async function info({ colleagueId }) {
 async function knowledge({ colleagueId }) {
   const knowledgeList = await knowledgeFunc.list({
     colleagueId,
+    options: { includeSteps: true },
   });
 
-  return knowledgeList.map(({ type, question, answer, text, content }) => ({
-    role: "assistant",
-    content: {
-      knowledge: {
-        type,
-        question,
-        answer,
-        text,
-        content,
+  return knowledgeList.map(
+    ({ type, question, answer, text, content, Task }) => ({
+      role: "assistant",
+      content: {
+        knowledge: {
+          type,
+          question,
+          answer,
+          text,
+          content,
+          Task,
+        },
       },
-    },
-  }));
+    })
+  );
 }
 
 async function conversations({ sessionId }) {
