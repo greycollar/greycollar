@@ -1,12 +1,11 @@
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import PopChat from "../../components/PopChat";
 import { useEvent } from "@nucleoidai/react-event";
+import { useParams } from "react-router-dom";
 import useSession from "../../hooks/useSession";
-import { v4 as uuidv4 } from "uuid";
 
 import { Badge, Fab } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const PopupChatWidget = ({
   readOnly,
@@ -20,10 +19,6 @@ const PopupChatWidget = ({
   const [open, setOpen] = useState(false);
   const [unreadMessages, setUnreadMessages] = useState(false);
   const { conversations, sendMessage, getSession } = useSession(colleagueId);
-
-  const navigate = useNavigate();
-  const { pathname, search } = useLocation();
-  const searchParams = new URLSearchParams(search);
 
   const [aiResponded] = useEvent("AI_RESPONDED", null);
 
@@ -47,18 +42,6 @@ const PopupChatWidget = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openPopChat, sessionId]);
-
-  useEffect(() => {
-    if (open && !search) {
-      const id = uuidv4();
-      navigate(pathname + "?sessionId=" + id);
-      //  createSession(id, colleagueId, "CHAT");
-    } else if (openPopChat) {
-      const sessionId = searchParams.get("sessionId");
-      getSession(sessionId);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
 
   const handleNewUserMessage = async (content) => {
     const newMessage = {
