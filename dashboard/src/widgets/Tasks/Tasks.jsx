@@ -63,6 +63,7 @@ function Tasks({ colleagueId }) {
             data-cy="add-task-button"
             onClick={() => {
               setOpen(true);
+              setExpandedTaskId(null);
             }}
           >
             <AddIcon />
