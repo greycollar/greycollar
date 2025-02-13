@@ -6,6 +6,18 @@ import supervising from "./supervising";
 import dataset from "../dataset";
 import taskFn from "./task";
 import actions from "../actions";
+import messagesFunc from "./message";
+import message from "./message";
+
+async function messages({ teamId }: { teamId: string }) {
+  const messageInstances = await messagesFunc.listMessages({ teamId });
+
+  return messageInstances
+    .filter(
+      (message) => message.role === "USER" || message.role === "ASSISTANT"
+    )
+    .map(({ role, content }) => ({ role: role.toLowerCase(), content }));
+}
 
 async function info({ colleagueId }) {
   const { name, title, character, role } = await colleague.get({ colleagueId });
@@ -55,6 +67,53 @@ async function conversations({ sessionId }) {
     role: role.toLowerCase(),
     content,
   }));
+}
+
+async function teamChat({
+  content,
+  teamId,
+}: {
+  content: string;
+  teamId: string;
+}) {
+  const context = await messages({ teamId });
+
+  const next = await generate({
+    dataset: [dataset.train.teamChat],
+    context,
+    content,
+    json_format:
+      "{ resource: <RESOURCE>, function: <FUNCTION>, parameters: <PARAMETERS> }",
+  });
+
+  let data;
+
+  if (next.resource && next.function && next.parameters) {
+    try {
+      const resource = require(`./${next.resource}`).default;
+      data = await resource[next.function]({ ...next.parameters, teamId });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const { response } = await generate({
+    dataset: [],
+    context,
+    content:
+      next.resource && next.function && next.parameters
+        ? `${next.resource}.${next.function}(${JSON.stringify(
+            next.parameters
+          )})=${JSON.stringify(data)} ${content}`
+        : content,
+    json_format: "{ response: <RESPONSE> }",
+  });
+
+  await message.create({
+    role: "ASSISTANT",
+    content: response,
+    teamId,
+  });
 }
 
 async function chat({
@@ -265,4 +324,4 @@ async function step({ stepId, action, parameters }) {
   }
 }
 
-export default { chat, task, step };
+export default { teamChat, chat, task, step };
