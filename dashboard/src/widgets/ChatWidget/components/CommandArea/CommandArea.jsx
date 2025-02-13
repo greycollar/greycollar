@@ -37,7 +37,6 @@ const CommandArea = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCommand, setSelectedCommand] = useState(null);
-  const [selectedMention, setSelectedMention] = useState(null);
   const [currentInput, setCurrentInput] = useState(null);
   const [filteredCommands, setFilteredCommands] = useState([]);
   const [mentionOpen, setMentionOpen] = useState(true);
@@ -71,10 +70,15 @@ const CommandArea = ({
     Transforms.insertNodes(editor, command);
   };
 
-  const insertMention = (mentionName) => {
+  const insertMention = (mentionName, colleagueId) => {
     const mention = {
       type: "mention",
-      children: [{ text: `@ ${mentionName}` }],
+      children: [
+        {
+          text: `@${mentionName}`,
+          colleagueId: colleagueId,
+        },
+      ],
     };
     Transforms.insertNodes(editor, mention);
     const endOfMention = Editor.end(editor, []);
@@ -224,7 +228,7 @@ const CommandArea = ({
 
     const text = content[0].text;
     const isItCommand = !text && content[1].type === "commandText";
-    const isMention = !text && content[1].type === "mention";
+    const isMention = content[1].type === "mention";
 
     setReadOnly(true);
 
@@ -243,10 +247,20 @@ const CommandArea = ({
       setCurrentInput(null);
       setInputValue([]);
     } else if (isMention) {
+      let messageContent = content
+        .map((node) => {
+          if (node.type === "mention") {
+            return `@{ colleagueId: '${node.children[0].colleagueId}', name: '${node.children[0].text}' }`;
+          }
+          return node.text;
+        })
+        .join(" ")
+        .trim();
+
       const messageArray = {
         role: "USER",
         userId: userId.toString(),
-        content: selectedMention?.name,
+        content: messageContent,
       };
 
       createMessage(messageArray);
@@ -306,8 +320,12 @@ const CommandArea = ({
         }
         Transforms.insertText(editor, " ", { at: Editor.end(editor, []) });
       }
-    } else if (sentence.startsWith("@")) {
+    } else if (sentence.includes("@")) {
       setMentionOpen(true);
+
+      const atIndex = sentence.indexOf("@");
+      const beforeText = sentence.slice(0, atIndex);
+      const afterText = sentence.slice(atIndex + 1);
 
       if (types.find((type) => type === "mention")) {
         setMentionOpen(false);
@@ -315,7 +333,13 @@ const CommandArea = ({
 
         Transforms.removeNodes(editor, { at: path });
 
+        Transforms.insertText(editor, beforeText, {
+          at: Editor.end(editor, path),
+        });
         Transforms.insertText(editor, " ", { at: Editor.end(editor, []) });
+        Transforms.insertText(editor, afterText, {
+          at: Editor.end(editor, []),
+        });
       }
     } else {
       types = [];
@@ -327,9 +351,8 @@ const CommandArea = ({
   };
 
   const handleMentionSelect = (mention) => {
-    insertMention(mention.name);
+    insertMention(mention.name, mention.id);
     setMentionOpen(false);
-    setSelectedMention(mention);
     ReactEditor.focus(editor);
   };
 
