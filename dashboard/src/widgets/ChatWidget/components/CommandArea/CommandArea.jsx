@@ -71,10 +71,15 @@ const CommandArea = ({
     Transforms.insertNodes(editor, command);
   };
 
-  const insertMention = (mentionName) => {
+  const insertMention = (mentionName, colleagueId) => {
     const mention = {
       type: "mention",
-      children: [{ text: `@ ${mentionName}` }],
+      children: [
+        {
+          text: `@${mentionName}`,
+          colleagueId: colleagueId,
+        },
+      ],
     };
     Transforms.insertNodes(editor, mention);
     const endOfMention = Editor.end(editor, []);
@@ -327,7 +332,7 @@ const CommandArea = ({
   };
 
   const handleMentionSelect = (mention) => {
-    insertMention(mention.name);
+    insertMention(mention.name, mention.id);
     setMentionOpen(false);
     setSelectedMention(mention);
     ReactEditor.focus(editor);
