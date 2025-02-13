@@ -3,9 +3,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { fDateTime } from "../../../utils/formatTime";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 
 import { Avatar, Box, IconButton } from "@mui/material";
+import { alpha, useTheme } from "@mui/material";
 
 function ChatMessageItem({
   user,
@@ -25,20 +25,77 @@ function ChatMessageItem({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(500));
   const isMediumScreen = useMediaQuery(theme.breakpoints.between(500, 1075));
 
-  function truncateMessage(content) {
-    if (isSmallScreen) {
-      return content?.substring(0, 250);
+  const formatContent = (content) => {
+    if (typeof content === "string" && content.includes("@{")) {
+      const mentionObject = content.match(/@{.*?}/g);
+      if (mentionObject) {
+        const nameMatch = mentionObject[0].match(/name: '([^']+)'/);
+        if (nameMatch) {
+          const name = nameMatch[1];
+          const mentionIndex = content.indexOf(mentionObject[0]);
+          const remainingContent = content.replace(mentionObject[0], "").trim();
+          const remainingIndex = content.indexOf(remainingContent);
+
+          const mentionBox = (
+            <Box
+              sx={{
+                backgroundColor: alpha(theme.palette.background.neutral, 0.1),
+                color: "white",
+                borderRadius: "5px 8px 8px 5px",
+                padding: "0 0.5rem",
+                fontSize: "0.9rem",
+                display: "inline-flex",
+                flexDirection: "row",
+                alignItems: "center",
+                height: "37px",
+              }}
+            >
+              {name}
+            </Box>
+          );
+
+          if (remainingIndex < mentionIndex) {
+            return (
+              <span>
+                <span>{remainingContent} </span>
+                {mentionBox}
+              </span>
+            );
+          } else {
+            return (
+              <span>
+                {mentionBox}
+                <span>{` ${remainingContent}`}</span>
+              </span>
+            );
+          }
+        }
+      }
     }
     return content;
+  };
+
+  function truncateMessage(content) {
+    const formattedContent = formatContent(content);
+    if (isSmallScreen) {
+      return typeof formattedContent === "string"
+        ? formattedContent.substring(0, 250)
+        : formattedContent;
+    }
+    return formattedContent;
   }
 
   function truncateContent(content) {
-    if (isSmallScreen) {
-      return content?.substring(0, 115);
-    } else if (isMediumScreen) {
-      return content?.substring(0, 120);
+    const formattedContent = formatContent(content);
+    if (typeof formattedContent !== "string") {
+      return formattedContent;
     }
-    return content?.substring(0, 290);
+    if (isSmallScreen) {
+      return formattedContent.substring(0, 115);
+    } else if (isMediumScreen) {
+      return formattedContent.substring(0, 120);
+    }
+    return formattedContent.substring(0, 290);
   }
 
   const renderInfo = message.createdAt ? (
