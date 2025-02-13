@@ -228,7 +228,7 @@ const CommandArea = ({
 
     const text = content[0].text;
     const isItCommand = !text && content[1].type === "commandText";
-    const isMention = content[1].type === "mention";
+    const isMention = content[1]?.type === "mention";
 
     setReadOnly(true);
 
