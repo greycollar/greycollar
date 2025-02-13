@@ -43,6 +43,8 @@ function Tasks({ colleagueId }) {
               task={t}
               key={i}
               getSteps={() => getSteps(t.id)}
+              onExpand={() => handleExpand(t.id)}
+              expanded={expandedTaskId === t.id}
               steps={steps}
             />
           ))
