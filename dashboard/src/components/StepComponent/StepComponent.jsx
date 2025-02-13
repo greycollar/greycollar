@@ -75,7 +75,7 @@ export default function StepComponent({
           Back
         </Button>
         <Box sx={{ flex: "1 1 auto" }} />
-        {activeStep === steps.length ? (
+        {activeStep === steps.length - 1 ? (
           <Button
             variant="contained"
             data-cy="colleague-finish-button"
