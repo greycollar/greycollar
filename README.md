@@ -9,7 +9,7 @@
   <a href="https://discord.gg/wN49SNssUw"><img src="https://img.shields.io/badge/Discord-lightgrey?style=for-the-badge&logo=discord" alt="Discord" /></a>
 </p>
 
-![GreyCollar Banner)](https://github.com/user-attachments/assets/0b9740e3-2d43-4e4b-b408-82fcec6903dd)
+![GreyCollar Banner](https://github.com/user-attachments/assets/5da016f0-e281-492a-9285-7d108b1b4815)
 
 ## Event-Driven AI Agent Platform
 
