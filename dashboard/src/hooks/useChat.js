@@ -49,7 +49,7 @@ function useChat() {
   const intervalId = useRef();
 
   useEffect(() => {
-    intervalId.current = setInterval(() => {
+    const fetchMessages = async () => {
       if (messages.length > 0) {
         let lastMessageDate = null;
         for (let i = messages.length - 1; i >= 0; i--) {
@@ -58,7 +58,18 @@ function useChat() {
             break;
           }
         }
-        getMessagesByDate(lastMessageDate);
+
+        const newMessages = await getMessagesByDate(lastMessageDate);
+        console.log("newMessages", newMessages);
+        const filteredMessages = newMessages.filter(
+          (newMessage) =>
+            !messages.some((message) => message.id === newMessage.id)
+        );
+
+        if (filteredMessages.length > 0) {
+          setMessages((prevMessages) => [...prevMessages, ...filteredMessages]);
+          publish("MESSAGE_LOADED", { message: filteredMessages });
+        }
         if (onChatPage && !document.hidden) {
           updateMessageStatus(lastMessageDate);
         }
