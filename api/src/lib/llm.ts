@@ -10,7 +10,8 @@ if (process.env.LLM === "AZURE") {
 
 async function generate({
   model,
-  dataset = [],
+  dataset,
+  policy,
   context = [],
   content,
   json_format,
@@ -18,13 +19,17 @@ async function generate({
   max_tokens,
 }: {
   model?: string;
-  dataset: {
-    role: "system" | "user" | "assistant";
-    content: object | object[];
-  }[];
-  context: {
-    role: "system" | "user" | "assistant";
-    content: object | object[];
+  policy?: {
+    role: "system";
+    content: string;
+  };
+  dataset?: {
+    role: "system";
+    content: string;
+  };
+  context?: {
+    role: "user" | "system" | "assistant";
+    content: string | object | object[];
   }[];
   content: string | object;
   json_format: string;
@@ -32,8 +37,10 @@ async function generate({
   max_tokens?: number;
 }) {
   const messages = [
-    ...dataset,
-    ...context,
+    ...context.map(({ role, content }) => ({
+      role,
+      content: JSON.stringify(content),
+    })),
     { role: "user", content: JSON.stringify(content) },
     {
       role: "system",
@@ -43,6 +50,14 @@ async function generate({
     role,
     content: JSON.stringify(content),
   }));
+
+  if (dataset) {
+    messages.unshift(dataset);
+  }
+
+  if (policy) {
+    messages.unshift(policy);
+  }
 
   return await llm.generate({
     model,

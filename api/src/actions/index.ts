@@ -8,6 +8,9 @@ function list() {
   return {
     role: "system",
     content: { actions },
+  } as {
+    role: "user" | "system" | "assistant";
+    content: object;
   };
 }
 

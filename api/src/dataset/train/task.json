@@ -25,6 +25,47 @@
     ]
   },
   {
+    "description": "List emails from example.com website",
+    "steps": [
+      {
+        "action": "SCRAPE_WEBSITE",
+        "parameters": {
+          "url": "http://www.example.com"
+        },
+        "result": "Example Coffee Shop - We are a coffee shop in the heart of the city. We serve the best coffee in town. Come and visit us today! or contact us at amy@example.com and alex@example.com",
+        "comment": "Scrapping example.com website"
+      },
+      {
+        "action": "LLM",
+        "parameters": {
+          "message": "Find all emails in the scraped website"
+        },
+        "comment": "Finding all emails",
+        "result": "amy@example.com"
+      },
+      {
+        "action": "SUPERVISED",
+        "parameters": {
+          "message": "List emails with numbers"
+        },
+        "comment": "Supervising with listing",
+        "result": "List emails with numbers"
+      },
+      {
+        "action": "LLM",
+        "parameters": {
+          "message": "List emails with numbers"
+        },
+        "comment": "listing emails with numbers",
+        "result": "1.amy@example.com 2.alex@example.com "
+      },
+      {
+        "action": "COMPLETE",
+        "comment": "Completing task"
+      }
+    ]
+  },
+  {
     "description": "Find phone number and address emails from example.com website",
     "steps": [
       {

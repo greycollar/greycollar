@@ -4,28 +4,28 @@ import task from "./train/task.json";
 import teamChat from "./train/team-chat.json";
 
 export default {
-  policy: policy.map((p) => ({
-    role: "system" as "system" | "user" | "assistant",
-    content: p,
-  })),
+  policy: {
+    role: "system" as const,
+    content: JSON.stringify({ policy }),
+  },
   train: {
-    chat: chat.map((c) => ({
-      role: "system" as "system" | "user" | "assistant",
-      content: {
-        chat_train: c,
-      },
-    })),
-    task: task.map((t) => ({
-      role: "system" as "system" | "user" | "assistant",
-      content: {
-        task_train: t,
-      },
-    })),
+    chat: {
+      role: "system" as const,
+      content: JSON.stringify({
+        train: chat,
+      }),
+    },
+    task: {
+      role: "system" as const,
+      content: JSON.stringify({
+        train: task,
+      }),
+    },
     teamChat: {
-      role: "system" as "system" | "user" | "assistant",
-      content: {
-        team_chat_train: teamChat,
-      },
+      role: "system" as const,
+      content: JSON.stringify({
+        train: teamChat,
+      }),
     },
   },
 };

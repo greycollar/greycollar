@@ -21,43 +21,58 @@ async function messages({ teamId }: { teamId: string }) {
 
 async function info({ colleagueId }) {
   const { name, title, character, role } = await colleague.get({ colleagueId });
-  return [
-    {
-      role: "assistant",
-      content: {
-        colleague_info: {
-          name,
-          character,
-          title,
-          role,
-          job: "GreyCollar AI Assistant",
-        },
+  return {
+    role: "system",
+    content: {
+      ai_assistant_info: {
+        name,
+        character,
+        title,
+        role,
+        job: "GreyCollar AI Assistant",
       },
     },
-  ];
+  } as {
+    role: "user" | "system" | "assistant";
+    content: object;
+  };
 }
 
-async function knowledge({ colleagueId }) {
+async function knowledge({
+  colleagueId,
+  taskId,
+}: {
+  colleagueId: string;
+  taskId?: string;
+}) {
   const knowledgeList = await knowledgeFn.list({
     colleagueId,
     options: { includeSteps: true },
   });
 
-  return knowledgeList.map(
-    ({ type, question, answer, text, content, Task }) => ({
-      role: "assistant",
-      content: {
-        knowledge: {
-          type,
-          question,
-          answer,
-          text,
-          content,
-          Task,
-        },
-      },
-    })
-  );
+  const knowledge_base = knowledgeList
+    .filter(
+      (knowledge) =>
+        taskId && !(knowledge.type === "TASK" && knowledge.taskId === taskId)
+    )
+    .map(({ type, question, answer, text, content, Task }) => ({
+      type,
+      question,
+      answer,
+      text,
+      content,
+      Task,
+    }));
+
+  return {
+    role: "system",
+    content: {
+      knowledge_base,
+    },
+  } as {
+    role: "user" | "system" | "assistant";
+    content: object;
+  };
 }
 
 async function conversations({ sessionId }) {
@@ -79,7 +94,7 @@ async function teamChat({
   const context = await messages({ teamId });
 
   const next = await generate({
-    dataset: [dataset.train.teamChat],
+    dataset: dataset.train.teamChat,
     context,
     content,
     json_format:
@@ -98,7 +113,6 @@ async function teamChat({
   }
 
   const { response } = await generate({
-    dataset: [],
     context,
     content:
       next.resource && next.function && next.parameters
@@ -138,7 +152,7 @@ async function chat({
   ];
 
   const { evaluation } = await generate({
-    dataset: [...dataset.train.chat],
+    dataset: dataset.train.chat,
     context,
     content,
     json_format: "{ evaluation: { is_answer_known: <true|false> } }",
@@ -189,7 +203,8 @@ async function chat({
 
   if (evaluation.is_answer_known) {
     const { answer, confidence } = await generate({
-      dataset: [...dataset.policy, ...dataset.train.chat],
+      policy: dataset.policy,
+      dataset: dataset.train.chat,
       context,
       content,
       json_format: "{ answer: <ANSWER_IN_NLP>, confidence: <0-1> }",
@@ -237,7 +252,10 @@ async function task({ taskId }: { taskId: string }) {
 
   const context = [
     ...(
-      await Promise.all([info({ colleagueId }), knowledge({ colleagueId })])
+      await Promise.all([
+        info({ colleagueId }),
+        knowledge({ colleagueId, taskId }),
+      ])
     ).flat(),
     actions.list(),
   ];
@@ -245,7 +263,7 @@ async function task({ taskId }: { taskId: string }) {
   const {
     next_step: { action, parameters, comment },
   } = await generate({
-    dataset: [...dataset.train.task],
+    dataset: dataset.train.task,
     context,
     content: currentTask,
     json_format:
