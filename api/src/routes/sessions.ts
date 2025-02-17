@@ -44,7 +44,7 @@ router.post("/:sessionId", async (req, res) => {
     })
   );
 
-  const session = await Session.find({
+  const session = await Session.findOne({
     include: [{ model: Colleague, where: { teamId } }],
     where: { id: sessionId },
   });
