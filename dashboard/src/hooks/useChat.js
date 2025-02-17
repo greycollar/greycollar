@@ -31,14 +31,20 @@ function useChat() {
   const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
   const [taskStatus] = useEvent("TASK_STATUS_CHANGED", null);
   const [taskCreated] = useEvent("TASK_CREATED", null);
-
+  const [knowledgeStatusChanged] = useEvent("KNOWLEDGE_STATUS_CHANGED", null);
   // TODO - Research self-call events
 
   useEffect(() => {
     getMessages();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageCreated, supervisingAnswered, taskStatus, taskCreated]);
+  }, [
+    messageCreated,
+    supervisingAnswered,
+    taskStatus,
+    taskCreated,
+    knowledgeStatusChanged,
+  ]);
 
   const intervalId = useRef();
 
