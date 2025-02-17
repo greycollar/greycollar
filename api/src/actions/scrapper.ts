@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import os from "os";
 
 async function run({
   parameters: { url, maxDepth = 1 },
@@ -10,7 +11,8 @@ async function run({
 }) {
   const browser = await puppeteer.launch({
     executablePath:
-      process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
+      process.env.PUPPETEER_EXECUTABLE_PATH ||
+      (os.platform() === "linux" ? "/usr/bin/chromium" : undefined),
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
