@@ -8,23 +8,58 @@ import session from "../functions/session";
 
 const router = express.Router();
 
-router.post("/:sessionId", async (req, res) => {
-  const { sessionId } = req.params;
+router.post("/", async (req, res) => {
   const { projectId: teamId } = req.session;
 
-  // TODO Verify authorization against teamId
-
-  const { type, colleagueId, content } = Joi.attempt(
+  const { type, colleagueId } = Joi.attempt(
     req.body,
-    schemas.Session.schema
+    Joi.object({
+      type: Joi.string().valid("CHAT", "EMAIL").required(),
+      colleagueId: Joi.string().uuid().required(),
+    })
   );
+
+  const colleague = await Colleague.findByPk(colleagueId);
+
+  if (!colleague || colleague.teamId !== teamId) {
+    return res.status(401).end();
+  }
+
+  const sessionInstance = await session.create({
+    type,
+    colleagueId,
+  });
+
+  return res.status(200).json(sessionInstance);
+});
+
+router.post("/:sessionId", async (req, res) => {
+  const { projectId: teamId } = req.session;
+  const { sessionId } = req.params;
+
+  const { content } = Joi.attempt(
+    req.body,
+    Joi.object({
+      content: Joi.object().required(),
+    })
+  );
+
+  const session = await Session.find({
+    include: [{ model: Colleague, where: { teamId } }],
+    where: { id: sessionId },
+  });
+
+  if (!session) {
+    return res.status(404).end();
+  }
 
   const conversation = await session.addConversation({
     sessionId,
-    role: type,
-    colleagueId,
+    role: "USER",
+    colleagueId: session.colleagueId,
     content,
   });
+
   return res.status(200).json(conversation);
 });
 
