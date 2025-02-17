@@ -72,9 +72,27 @@ function useChat() {
         }
         if (onChatPage && !document.hidden) {
           updateMessageStatus(lastMessageDate);
+          const updatedStatus = newMessages.filter(
+            (message) => message.status === "READ"
+          );
+          if (updatedStatus.length > 0) {
+            setMessages((prevMessages) =>
+              prevMessages.map((message) => {
+                const updatedMessage = updatedStatus.find(
+                  (newMessage) => newMessage.id === message.id
+                );
+                return updatedMessage
+                  ? { ...message, status: "READ" }
+                  : message;
+              })
+            );
+            publish("MESSAGE_STATUS_UPDATED", { message: updatedStatus });
+          }
         }
       }
-    }, 2000);
+    };
+
+    intervalId.current = setInterval(fetchMessages, 2000);
 
     return () => clearInterval(intervalId.current);
   });
