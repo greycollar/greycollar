@@ -1,8 +1,10 @@
 import ReplyIcon from "@mui/icons-material/Reply";
+import SourcedAvatar from "../../../components/SourcedAvatar/SourcedAvatar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { fDateTime } from "../../../utils/formatTime";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import useTeamDetails from "../../../hooks/useTeamDetails";
 
 import { Avatar, Box, IconButton } from "@mui/material";
 import { alpha, useTheme } from "@mui/material";
@@ -17,6 +19,8 @@ function ChatMessageItem({
   handleClick,
 }) {
   const repliedMessage = messages?.find((msg) => msg.id === message.replyTo);
+
+  const { teamDetails } = useTeamDetails();
 
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm")); // 0 - 600
@@ -118,7 +122,7 @@ function ChatMessageItem({
         color: "text.disabled",
       }}
     >
-      {isAI ? "AI" : user.name}
+      {isAI ? teamDetails.coach : user.name}
     </Typography>
   );
 
@@ -189,7 +193,10 @@ function ChatMessageItem({
                 {!isAI ? (
                   <Avatar src={user.avatarUrl} />
                 ) : (
-                  <Avatar alt={"AI"}>AI</Avatar>
+                  <SourcedAvatar
+                    source={"MINIMAL"}
+                    avatarUrl={teamDetails.coachAvatar}
+                  />
                 )}
                 {renderSender}
                 {renderInfo}
@@ -277,7 +284,10 @@ function ChatMessageItem({
               {!isAI ? (
                 <Avatar src={user.avatarUrl} />
               ) : (
-                <Avatar alt={"AI"}>AI</Avatar>
+                <SourcedAvatar
+                  source={"MINIMAL"}
+                  avatarUrl={teamDetails.coachAvatar}
+                />
               )}
               {renderSender}
               {renderInfo}
