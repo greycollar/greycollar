@@ -1,33 +1,52 @@
-import React from "react";
+import CodeBlock from "../CodeBlock/CodeBlock";
+import { Iconify } from "@nucleoidai/platform/minimal/components";
+import { InfoCard } from "../InfoCard/InfoCard";
+import { ResultTable } from "../ResultTable/ResultTable";
+import { parseJsonResult } from "../../utils/formatters";
 
 import {
   Box,
-  Card,
+  Button,
   Dialog,
   DialogContent,
   DialogTitle,
-  FormControl,
-  FormLabel,
   Typography,
 } from "@mui/material";
+import React, { useCallback, useState } from "react";
 
 const TaskResultDialog = ({ open, setOpen, task }) => {
+  const [viewMode, setViewMode] = useState("table");
+  const { isJson, parsedResult } = parseJsonResult(task.result);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const toggleViewMode = useCallback(() => {
+    setViewMode((prev) => (prev === "table" ? "text" : "table"));
+  }, []);
+
+  const renderResult = () => {
+    if (!isJson) {
+      return <Typography variant="body1">{parsedResult}</Typography>;
+    }
+
+    return viewMode === "table" ? (
+      <ResultTable data={parsedResult} />
+    ) : (
+      <CodeBlock>{JSON.stringify(parsedResult, null, 2)}</CodeBlock>
+    );
+  };
+
   return (
-    <Dialog
-      open={open}
-      onClose={() => {
-        setOpen(false);
-      }}
-      fullWidth
-      maxWidth="sm"
-    >
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle
         sx={{
           backgroundColor: (theme) => theme.palette.background.default,
           textAlign: "center",
         }}
       >
-        {`Task details`}
+        Task details
       </DialogTitle>
       <DialogContent
         sx={{
@@ -39,54 +58,39 @@ const TaskResultDialog = ({ open, setOpen, task }) => {
         }}
       >
         <Box>
-          <Card sx={{ mb: 2, p: 2 }}>
-            <FormControl fullWidth>
-              <FormLabel>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Comment
-                </Typography>
-              </FormLabel>
-              <Typography variant="body1">{task.comment}</Typography>
-            </FormControl>
-          </Card>
-          <Card sx={{ mb: 2, p: 2 }}>
-            <FormControl fullWidth>
-              <FormLabel>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Status
-                </Typography>
-              </FormLabel>
-              <Typography variant="body1">
-                {task.status === "IN_PROGRESS" ? "In Progress" : "Done"}
-              </Typography>
-            </FormControl>
-          </Card>
-
-          <Card sx={{ mb: 2, p: 2 }}>
-            <FormControl fullWidth>
-              <FormLabel>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Created At
-                </Typography>
-              </FormLabel>
-              <Typography variant="body1">
-                {new Date(task.createdAt).toLocaleTimeString()}
-              </Typography>
-            </FormControl>
-          </Card>
-
-          <Card sx={{ mb: 2, p: 2 }}>
-            <FormControl fullWidth>
-              <FormLabel>
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  Result
-                </Typography>
-              </FormLabel>
-              <Typography variant="body1">
-                {task.result?.replace(/\\n/g, "").replace(/\\/g, "")}
-              </Typography>
-            </FormControl>
-          </Card>
+          <InfoCard label="Comment" value={task.comment} />
+          <InfoCard
+            label="Status"
+            value={task.status === "IN_PROGRESS" ? "In Progress" : "Done"}
+          />
+          <InfoCard
+            label="Created At"
+            value={new Date(task.createdAt).toLocaleTimeString()}
+          />
+          <InfoCard
+            label="Result"
+            sx={{ position: "relative" }}
+            value={
+              <>
+                {isJson && (
+                  <Button
+                    size="small"
+                    sx={{ position: "absolute", top: -5, right: 8 }}
+                    onClick={toggleViewMode}
+                  >
+                    <Iconify
+                      icon={
+                        viewMode === "table"
+                          ? "material-symbols:file-json-outline-sharp"
+                          : "material-symbols:aod-tablet-outline"
+                      }
+                    />
+                  </Button>
+                )}
+                {renderResult()}
+              </>
+            }
+          />
         </Box>
       </DialogContent>
     </Dialog>
