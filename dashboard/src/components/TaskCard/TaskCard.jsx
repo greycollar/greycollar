@@ -47,7 +47,7 @@ const TaskCard = ({
 
   useEffect(() => {
     let interval;
-    if (expanded) {
+    if (expanded || open) {
       interval = setInterval(() => {
         getSteps(task.id);
       }, 2000);
@@ -58,7 +58,7 @@ const TaskCard = ({
         clearInterval(interval);
       }
     };
-  }, [expanded]);
+  }, [expanded, open]);
 
   const handleStepResult = (step) => {
     setStepResult(true);
@@ -89,34 +89,12 @@ const TaskCard = ({
             height: 250,
           }}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: 15,
-              right: 24,
-            }}
-          >
-            <Tooltip title="Flow">
-              <Fab
-                data-cy="flow-button"
-                size="small"
-                sx={{
-                  textAlign: "center",
-                }}
-                onClick={handleFlowOpen}
-                color="default"
-              >
-                <AccountTreeIcon />
-              </Fab>
-            </Tooltip>
-          </Box>
-
           {task.status !== "IN_PROGRESS" && (
             <Box
               sx={{
                 position: "absolute",
-                top: 15,
-                right: 126,
+                top: 22,
+                right: 84,
               }}
             >
               <Tooltip title="Task Details">
@@ -137,19 +115,22 @@ const TaskCard = ({
           <Box
             sx={{
               position: "absolute",
-              top: 15,
-              right: 75,
+              top: 18,
+              right: 22,
             }}
           >
             <Tooltip title="Supervising">
               <Fab
                 data-cy="flow-button"
-                size="small"
+                size="medium"
                 sx={{
                   textAlign: "center",
+                  backgroundColor: (theme) => theme.palette.success.main,
+                  "&:hover": {
+                    backgroundColor: (theme) => theme.palette.success.dark,
+                  },
                 }}
                 onClick={handleSupervisingTask}
-                color="default"
               >
                 <Iconify icon="solar:users-group-rounded-bold" />
               </Fab>
@@ -219,16 +200,34 @@ const TaskCard = ({
 
             <Box
               sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "flex-end",
-                flexDirection: "column",
-                gap: 2,
-                flex: 4,
-                paddingTop: 2,
+                position: "absolute",
+                bottom: 22,
+                right: 84,
               }}
             >
-              <Tooltip title="See Task Progress">
+              <Tooltip title="Task Flow">
+                <Fab
+                  data-cy="flow-button"
+                  size="small"
+                  sx={{
+                    textAlign: "center",
+                  }}
+                  onClick={handleFlowOpen}
+                  color="default"
+                >
+                  <AccountTreeIcon />
+                </Fab>
+              </Tooltip>
+            </Box>
+
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 22,
+                right: 28,
+              }}
+            >
+              <Tooltip title="Task Steps">
                 <Fab
                   data-cy="progress-button"
                   onClick={onExpand}
