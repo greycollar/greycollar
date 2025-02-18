@@ -40,7 +40,7 @@ router.post("/:sessionId", async (req, res) => {
   const { content } = Joi.attempt(
     req.body,
     Joi.object({
-      content: Joi.object().required(),
+      content: Joi.string().required(),
     })
   );
 
@@ -61,7 +61,7 @@ router.post("/:sessionId", async (req, res) => {
   const conversation = await session.addConversation({
     sessionId,
     role: "USER",
-    colleagueId: session.colleagueId,
+    colleagueId: sessionInstance.colleagueId,
     content,
   });
 
