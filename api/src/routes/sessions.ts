@@ -44,13 +44,18 @@ router.post("/:sessionId", async (req, res) => {
     })
   );
 
-  const session = await Session.findOne({
-    include: [{ model: Colleague, where: { teamId } }],
-    where: { id: sessionId },
-  });
+  const sessionInstance = await Session.findByPk(sessionId);
 
-  if (!session) {
+  if (!sessionInstance) {
     return res.status(404).end();
+  }
+
+  const colleagueInstance = await Colleague.findByPk(
+    sessionInstance.colleagueId
+  );
+
+  if (colleagueInstance.teamId !== teamId) {
+    return res.status(401).end();
   }
 
   const conversation = await session.addConversation({
