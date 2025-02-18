@@ -47,7 +47,7 @@ const TaskCard = ({
 
   useEffect(() => {
     let interval;
-    if (expanded) {
+    if (expanded || open) {
       interval = setInterval(() => {
         getSteps(task.id);
       }, 2000);
@@ -58,7 +58,7 @@ const TaskCard = ({
         clearInterval(interval);
       }
     };
-  }, [expanded]);
+  }, [expanded, open]);
 
   const handleStepResult = (step) => {
     setStepResult(true);
