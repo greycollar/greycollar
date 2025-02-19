@@ -16,11 +16,13 @@ export const ResultTable = ({ data }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table size="small" sx={{ mt: 2 }}>
         <TableHead>
           <TableRow>
             {keys.map((key) => (
-              <TableCell key={key}>{formatKey(key)}</TableCell>
+              <TableCell key={key} sx={{ lineHeight: ".8rem" }}>
+                {formatKey(key)}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -29,7 +31,10 @@ export const ResultTable = ({ data }) => {
             data.map((item, index) => (
               <TableRow key={index}>
                 {keys.map((key) => (
-                  <TableCell key={`${index}-${key}`}>
+                  <TableCell
+                    key={`${index}-${key}`}
+                    sx={{ lineHeight: ".8rem" }}
+                  >
                     {item[key] !== undefined
                       ? JSON.stringify(item[key])
                       : "N/A"}
@@ -40,7 +45,7 @@ export const ResultTable = ({ data }) => {
           ) : (
             <TableRow>
               {keys.map((key) => (
-                <TableCell key={key}>
+                <TableCell key={key} sx={{ lineHeight: ".8rem" }}>
                   {data && typeof data === "object"
                     ? JSON.stringify(data[key])
                     : "N/A"}
