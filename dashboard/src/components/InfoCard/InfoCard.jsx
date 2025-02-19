@@ -2,10 +2,10 @@ import React from "react";
 
 import { Card, FormControl, FormLabel, Typography } from "@mui/material";
 
-export const InfoCard = ({ label, value, sx = {} }) => (
+const InfoCard = ({ label, value, sx }) => (
   <Card sx={{ mb: 2, p: 2, ...sx }}>
     <FormControl fullWidth>
-      <FormLabel>
+      <FormLabel sx={{ color: "#637381!important" }}>
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
           {label}
         </Typography>
@@ -18,3 +18,5 @@ export const InfoCard = ({ label, value, sx = {} }) => (
     </FormControl>
   </Card>
 );
+
+export default InfoCard;
