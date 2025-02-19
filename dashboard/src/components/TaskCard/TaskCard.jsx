@@ -342,6 +342,7 @@ const TaskCard = ({
                           }}
                           onClick={() => handleStepResult(step)}
                           size="small"
+                          disabled={step.status === "IN_PROGRESS"}
                         >
                           <Iconify
                             color="white"
