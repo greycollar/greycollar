@@ -9,6 +9,8 @@ const CodeBlock = ({ children }) => {
         padding: "0.5em",
         borderRadius: "4px",
         display: "block",
+        marginTop: "16px",
+        fontSize: "14px",
       }}
     >
       {children}
