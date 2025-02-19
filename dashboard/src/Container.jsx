@@ -1,3 +1,4 @@
+import Onboarding from "./components/Onboarding/Onboarding";
 import { Outlet } from "react-router-dom";
 import TeamWizard from "./widgets/TeamWizard/TeamWizard";
 import { useEffect } from "react";
@@ -41,6 +42,7 @@ function Container() {
         }}
         onSubmit={handleTeamWizardSubmit}
       />
+      <Onboarding />
       <Outlet />
     </>
   );
