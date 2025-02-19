@@ -1,6 +1,6 @@
 import CodeBlock from "../CodeBlock/CodeBlock";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
-import { InfoCard } from "../InfoCard/InfoCard";
+import InfoCard from "../InfoCard/InfoCard";
 import { ResultTable } from "../ResultTable/ResultTable";
 import { parseJsonResult } from "../../utils/formatters";
 
@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Switch,
   Typography,
 } from "@mui/material";
 import React, { useCallback, useState } from "react";
@@ -73,19 +74,33 @@ const TaskResultDialog = ({ open, setOpen, task }) => {
             value={
               <>
                 {isJson && (
-                  <Button
-                    size="small"
-                    sx={{ position: "absolute", top: -5, right: 8 }}
-                    onClick={toggleViewMode}
-                  >
-                    <Iconify
-                      icon={
-                        viewMode === "table"
-                          ? "material-symbols:file-json-outline-sharp"
-                          : "material-symbols:aod-tablet-outline"
-                      }
+                  <>
+                    <Switch
+                      checked={viewMode === "table"}
+                      onChange={toggleViewMode}
+                      color="background.paper"
+                      sx={{
+                        position: "absolute",
+                        top: -5,
+                        right: -12,
+                        transform: "scale(0.8)",
+                      }}
                     />
-                  </Button>
+                    <Typography
+                      variant="body2"
+                      color={
+                        viewMode === "table" ? "text.disabled" : "text.primary"
+                      }
+                      sx={{
+                        position: "absolute",
+                        top: 3,
+                        right: 33,
+                        transform: "scale(0.8)",
+                      }}
+                    >
+                      JSON
+                    </Typography>
+                  </>
                 )}
                 {renderResult()}
               </>
