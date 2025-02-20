@@ -49,6 +49,7 @@ function ColleaguesWidget({ teamId, colleagueId }) {
           md: "repeat(3, 1fr)",
         }}
         sx={{
+          marginTop: -10,
           "@media (max-width:600px)": {
             position: "relative",
             left: "50%",
