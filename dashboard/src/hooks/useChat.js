@@ -31,19 +31,25 @@ function useChat() {
   const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
   const [taskStatus] = useEvent("TASK_STATUS_CHANGED", null);
   const [taskCreated] = useEvent("TASK_CREATED", null);
-
+  const [knowledgeStatusChanged] = useEvent("KNOWLEDGE_STATUS_CHANGED", null);
   // TODO - Research self-call events
 
   useEffect(() => {
     getMessages();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageCreated, supervisingAnswered, taskStatus, taskCreated]);
+  }, [
+    messageCreated,
+    supervisingAnswered,
+    taskStatus,
+    taskCreated,
+    knowledgeStatusChanged,
+  ]);
 
   const intervalId = useRef();
 
   useEffect(() => {
-    intervalId.current = setInterval(() => {
+    const fetchMessages = async () => {
       if (messages.length > 0) {
         let lastMessageDate = null;
         for (let i = messages.length - 1; i >= 0; i--) {
@@ -52,12 +58,41 @@ function useChat() {
             break;
           }
         }
-        getMessagesByDate(lastMessageDate);
+
+        const newMessages = await getMessagesByDate(lastMessageDate);
+        console.log("newMessages", newMessages);
+        const filteredMessages = newMessages.filter(
+          (newMessage) =>
+            !messages.some((message) => message.id === newMessage.id)
+        );
+
+        if (filteredMessages.length > 0) {
+          setMessages((prevMessages) => [...prevMessages, ...filteredMessages]);
+          publish("MESSAGE_LOADED", { message: filteredMessages });
+        }
         if (onChatPage && !document.hidden) {
           updateMessageStatus(lastMessageDate);
+          const updatedStatus = newMessages.filter(
+            (message) => message.status === "READ"
+          );
+          if (updatedStatus.length > 0) {
+            setMessages((prevMessages) =>
+              prevMessages.map((message) => {
+                const updatedMessage = updatedStatus.find(
+                  (newMessage) => newMessage.id === message.id
+                );
+                return updatedMessage
+                  ? { ...message, status: "READ" }
+                  : message;
+              })
+            );
+            publish("MESSAGE_STATUS_UPDATED", { message: updatedStatus });
+          }
         }
       }
-    }, 2000);
+    };
+
+    intervalId.current = setInterval(fetchMessages, 2000);
 
     return () => clearInterval(intervalId.current);
   });

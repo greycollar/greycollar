@@ -101,12 +101,6 @@ const ChatMessageContent = memo(function ChatMessageList({
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
         <Box>
           {messages.map((message, index) => renderMessages(message, index))}
-          {event !== null && (
-            <ActionMessageItem
-              loading={event.status === "IN_PROGRESS" ? true : false}
-              action={event}
-            />
-          )}
         </Box>
       </Scrollbar>
       {isReplying && (

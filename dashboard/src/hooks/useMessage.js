@@ -36,14 +36,21 @@ function useChat() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getMessagesByDate = useCallback((date) => {
-    handleResponse(http.get(`/messages?offset=${date}`), (response) => {
-      const messages = response.data;
-      publish("MESSAGES_LOADED_BY_DATE", { messages });
-      return messages;
-    });
+  const getMessagesByDate = useCallback(
+    async (date) => {
+      const response = await handleResponse(
+        http.get(`/messages?offset=${date}`),
+        (response) => {
+          const messages = response.data;
+          publish("MESSAGES_LOADED_BY_DATE", { messages });
+          return messages;
+        }
+      );
+      return response;
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    []
+  );
 
   return {
     loading,

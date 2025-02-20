@@ -59,7 +59,6 @@ const taskAction = async (command) => {
   const { data: createdTask } = await http.post(`/tasks`, {
     description: task,
     colleagueId: colleague.id,
-    status: "IN_PROGRESS",
   });
 
   publish("TASK_STATUS_CHANGED", {
