@@ -48,6 +48,16 @@ Human-in-the-Loop (HITL) is a collaborative approach where AI agents work alongs
 - **Safe AI** – Human oversight prevents biases, ensures fairness, and mitigates unintended consequences.
 - **Task Optimization** – AI streamlines repetitive processes while humans focus on strategic and complex decision-making.
 
+## Get Started
+
+```
+git clone https://github.com/greycollar/greycollar.git
+npm install
+npm start
+```
+
+This will start three applications simultaneously: Dashboard, API Server and Proxy Server. Once started, the dashboard should be accessible in your browser at http://localhost:3000
+
 ## Event-Driven AI Agent Platform
 
 GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.
