@@ -49,7 +49,6 @@ function ColleaguesWidget({ teamId, colleagueId }) {
           md: "repeat(3, 1fr)",
         }}
         sx={{
-          marginTop: -10,
           "@media (max-width:600px)": {
             position: "relative",
             left: "50%",
@@ -89,7 +88,7 @@ function ColleaguesWidget({ teamId, colleagueId }) {
               />
             ))}
       </Box>
-      <Grid container justifyContent="center" mt={5} spacing={2}>
+      <Grid container justifyContent="center" mt={0} spacing={2}>
         <ColleagueWizard
           open={uiState.formOpen}
           onClose={() => {
