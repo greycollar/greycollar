@@ -37,6 +37,17 @@ Autonomous workflows are self-driven processes where AI agents can independently
    - Uses human feedback to improve models through supervised learning.
    - Helps refine edge cases and prevents unintended consequences.
 
+## Human-AI Collabs (Human-in-the-Loop)
+
+Human-in-the-Loop (HITL) is a collaborative approach where AI agents work alongside human experts to enhance decision-making, automate processes, and refine task execution. In this model, human supervision plays a key role in guiding, correcting, and improving AI-driven workflows.
+
+### **Benefits**
+
+- **Enhanced Accuracy** – Human feedback helps the AI refine its responses and correct errors in real-time.
+- **Adaptive Learning** – AI models improve continuously by integrating human insights, ensuring adaptability to evolving tasks.
+- **Safe AI** – Human oversight prevents biases, ensures fairness, and mitigates unintended consequences.
+- **Task Optimization** – AI streamlines repetitive processes while humans focus on strategic and complex decision-making.
+
 ## Event-Driven AI Agent Platform
 
 GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.
