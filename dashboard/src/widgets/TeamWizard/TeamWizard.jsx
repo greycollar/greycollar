@@ -165,8 +165,10 @@ function TeamWizard({ onSubmit, open, onClose }) {
       maxWidth={activeStep === 4 ? "xl" : "sm"}
       open={open}
       onClose={() => {
-        onClose();
-        setActiveStep(0);
+        if (organizations.length !== 0) {
+          onClose();
+          setActiveStep(0);
+        }
       }}
     >
       <>
