@@ -66,21 +66,69 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
               color="primary"
               variant="filled"
             />
-            <Typography variant="body2" color="grey.500" sx={{ mx: 1 }}>
+            <Typography variant="body2" color="grey.500" sx={{ ml: 1 }}>
               {knowledge.status === "COMPLETED"
-                ? "learned"
+                ? "used"
                 : knowledge.status === "IN_PROGRESS"
-                ? "is learning"
+                ? "is using"
                 : ""}
             </Typography>
             <Label
               sx={{
                 backgroundColor: "rgba(2,136,209, .6)",
                 color: "rgba(79,195,247, .6)",
+                mx: 1,
+                textTransform: "none",
               }}
             >
-              {knowledge.type}
+              /learn-{knowledge.type?.toLowerCase()}
             </Label>
+            <Typography variant="body2" color="grey.500" sx={{ mr: 1 }}>
+              with
+            </Typography>
+            {knowledge.type === "TEXT" ? (
+              <Label
+                sx={{
+                  backgroundColor: "rgba(2,136,209, .6)",
+                  color: "rgba(79,195,247, .6)",
+                  textTransform: "none",
+                }}
+              >
+                {knowledge.text}
+              </Label>
+            ) : knowledge.type === "QA" ? (
+              <>
+                <Label
+                  sx={{
+                    backgroundColor: "rgba(2,136,209, .6)",
+                    color: "rgba(79,195,247, .6)",
+                    mr: 1,
+                    textTransform: "none",
+                  }}
+                >
+                  {knowledge.question}
+                </Label>
+                <Label
+                  sx={{
+                    backgroundColor: "rgba(2,136,209, .6)",
+                    color: "rgba(79,195,247, .6)",
+                    textTransform: "none",
+                  }}
+                >
+                  {knowledge.answer}
+                </Label>
+              </>
+            ) : knowledge.type === "URL" ? (
+              <Label
+                sx={{
+                  backgroundColor: "rgba(2,136,209, .6)",
+                  color: "rgba(79,195,247, .6)",
+                  textTransform: "none",
+                }}
+              >
+                {knowledge.url}
+              </Label>
+            ) : null}
           </Stack>
         </Stack>
 
