@@ -18,183 +18,175 @@ import React, { useState } from "react";
 
 const mockData = [
   {
-    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
-    title: "Coding",
-    description:
-      "Expert in writing efficient code, creating seamless apps like Spotify delivers music.",
-    logo: "logos:spotify-icon",
+    id: "1e87e69f-8dbe-4f56-a8a7-1c87226f9c41",
+    title: "Slack",
+    description: "Receive messages and notifications from Slack",
+    logo: "logos:slack",
+    direction: "INCOMING",
+  },
+  {
+    id: "2a65d8be-6c17-4d0b-bdc8-5c1f7fdd6e45",
+    title: "Slack",
+    description: "Send messages and automate workflows in Slack",
+    logo: "logos:slack",
+    direction: "OUTGOING",
     acquired: true,
   },
   {
-    id: "6p5o4n3m-2l1k-0j9i-8h7g-6f5e4d3c2b1a",
-    title: "Data Analysis",
-    description:
-      "Skilled in uncovering insights, much like YouTube’s personalized recommendations.",
-    logo: "logos:youtube-icon",
-    acquired: false,
-  },
-  {
-    id: "7p6o5n4m-3l2k-1j0i-9h8g-7f6e5d4c3b2a",
-    title: "Communication",
-    description:
-      "Strong communication skills, connecting people like Instagram's creative platform.",
-    logo: "skill-icons:instagram",
+    id: "3f4721a3-9d8b-420f-996c-4c8d6d315d24",
+    title: "Discord",
+    description: "Receive messages from Discord bots and users",
+    logo: "logos:discord",
+    direction: "INCOMING",
     acquired: true,
   },
   {
-    id: "5p4o3n2m-1l0k-9j8i-7h6g-5f4e3d2c1b0a",
-    title: "Problem-Solving",
-    description:
-      "Effective at solving challenges, similar to Google's innovative solutions.",
-    logo: "logos:google-icon",
+    id: "4e91db99-fc99-40b7-bb5d-d5758a67b34b",
+    title: "Discord",
+    description: "Send bot messages and notifications in Discord",
+    logo: "logos:discord",
+    direction: "OUTGOING",
+  },
+  {
+    id: "7a8e29d1-8f2a-4c1e-88ab-df3a1f64728e",
+    title: "Jira",
+    description: "Receive issue updates and new tickets",
+    logo: "logos:jira",
+    direction: "INCOMING",
     acquired: true,
   },
   {
-    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
-    title: "Teamwork",
-    description:
-      "Collaborates effectively, fostering synergy like Slack unites teams.",
-    logo: "logos:slack-icon",
+    id: "8a913f60-f76f-40cd-b7c2-e32c92c03e02",
+    title: "Jira",
+    description: "Create tickets and update issue statuses",
+    logo: "logos:jira",
+    direction: "OUTGOING",
+  },
+  {
+    id: "9b31e5c9-2e41-482e-9d0c-ecb58d8b26f3",
+    title: "GitHub",
+    description: "Monitor pull requests, issues, and commits",
+    logo: "logos:github",
+    direction: "INCOMING",
     acquired: true,
   },
   {
-    id: "8q7r6s5t-4u3v-2w1x-0y9z-8a7b6c5d4e3f",
-    title: "Marketing",
-    description:
-      "Drives results with creativity, like TikTok sets global trends.",
-    logo: "logos:tiktok-icon",
+    id: "10b1f843-d13a-4d14-9386-271ac8b2f60b",
+    title: "GitHub",
+    description: "Create issues, merge PRs, and trigger workflows",
+    logo: "logos:github",
+    direction: "OUTGOING",
+  },
+  {
+    id: "11d4a8c2-3f93-4681-874f-14cd52d8c5fa",
+    title: "Google Drive",
+    description: "Fetch documents and files from Google Drive",
+    logo: "logos:google-drive",
+    direction: "INCOMING",
     acquired: true,
   },
   {
-    id: "9q8r7s6t-5u4v-3w2x-1y0z-9a8b7c6d5e4f",
-    title: "Marketing",
-    description:
-      "Delivers exceptional service, echoing Zendesk's customer focus.",
-    logo: "logos:tiktok-icon",
-    acquired: false,
+    id: "12e7d95a-8ef1-4b1e-9d5e-4325f1d5e5d4",
+    title: "Google Drive",
+    description: "Upload and manage files on Google Drive",
+    logo: "logos:google-drive",
+    direction: "OUTGOING",
   },
   {
-    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
-    title: "Leadership",
-    description:
-      "Motivates teams to success, much like LinkedIn inspires growth.",
-    logo: "logos:linkedin-icon",
+    id: "21f5e3a9-0b5c-4d8a-95a1-937e6c3c4c72",
+    title: "Notion",
+    description: "Sync data and fetch notes from Notion",
+    logo: "logos:notion",
+    direction: "INCOMING",
+  },
+  {
+    id: "22b3c1f4-2f3e-4e8d-9e37-6d72c58c4e41",
+    title: "Notion",
+    description: "Create and update pages in Notion",
+    logo: "logos:notion",
+    direction: "OUTGOING",
+  },
+  {
+    id: "23a72f9d-91a2-4b31-8c3f-7c4d8e9b5f64",
+    title: "Trello",
+    description: "Monitor board updates and task changes",
+    logo: "logos:trello",
+    direction: "INCOMING",
     acquired: true,
   },
   {
-    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
-    title: "Problem-Solving",
-    description:
-      "Brings fresh ideas to the table, much like Pinterest inspires endless possibilities.",
-    logo: "logos:google-icon",
-    acquired: false,
-  },
-  {
-    id: "0a1b2c3d-4e5f-6g7h-8i9j-0k1l2m3n4o5p",
-    title: "Teamwork",
-    description:
-      "Pioneers new solutions, echoing Tesla's drive for technological advancement.",
-    logo: "logos:slack-icon",
-    acquired: false,
-  },
-  {
-    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
-    title: "Leadership",
-    description:
-      "Excels in managing time effectively, much like Trello organizes tasks seamlessly.",
-    logo: "logos:linkedin-icon",
-    acquired: false,
-  },
-  {
-    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
-    title: "Data Analysis",
-    description:
-      "Skilled in online sales strategies, much like Amazon’s mastery of global commerce.",
-    logo: "logos:youtube-icon",
-    acquired: false,
-  },
-  {
-    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
-    title: "Content Creation",
-    description:
-      "Crafts visually stunning experiences, much like Canva empowers creativity.",
-    logo: "logos:netflix-icon",
-    acquired: false,
-  },
-  {
-    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
-    title: "Content Creation",
-    description:
-      "Produces engaging content, much like Netflix captivates its audience.",
-    logo: "logos:netflix-icon",
+    id: "24b8d1e7-4c3a-4029-9e5f-27c4b1d6f739",
+    title: "Trello",
+    description: "Add tasks and manage workflows in Trello",
+    logo: "logos:trello",
+    direction: "OUTGOING",
     acquired: true,
   },
   {
-    id: "5a6b7c8d-9e0f-1g2h-3i4j-5k6l7m8n9o0p",
-    title: "Communication",
-    description:
-      "Masters the art of numbers, similar to Tableau's visual storytelling with data.",
-    logo: "skill-icons:instagram",
-    acquired: false,
+    id: "25f9c8b3-1d2e-4a3f-9c8d-4b7a2e5c6d19",
+    title: "HubSpot",
+    description: "Receive CRM updates and lead notifications",
+    logo: "logos:hubspot",
+    direction: "INCOMING",
+    acquired: true,
   },
   {
-    id: "6a7b8c9d-0e1f-2g3h-4i5j-6k7l8m9n0o1p",
-    title: "Coding",
-    description:
-      "Builds loyal audiences, much like Spotify retains its subscribers with unique experiences.",
-    logo: "logos:spotify-icon",
-    acquired: false,
+    id: "26d7b4e1-5a2c-4f89-8e3b-6d27c9f1b6d3",
+    title: "HubSpot",
+    description: "Update leads and contacts in HubSpot",
+    logo: "logos:hubspot",
+    direction: "OUTGOING",
   },
 ];
 
 const mockIntegrations = [
   {
-    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
-    title: "Coding",
-    logo: "logos:spotify-icon",
-    provider: "Spotify",
-  },
-  {
-    id: "2a3b4c5d-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
-    title: "Data Analysis",
-    logo: "logos:youtube-icon",
-    provider: "YouTube",
-  },
-  {
-    id: "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
-    title: "Communication",
-    logo: "skill-icons:instagram",
-    provider: "Instagram",
-  },
-  {
-    id: "4a5b6c7d-8e9f-0g1h-2i3j-4k5l6m7n8o9p",
-    title: "Problem-Solving",
-    logo: "logos:google-icon",
-    provider: "Google",
-  },
-  {
-    id: "5a6b7c8d-9e0f-1g2h-3i4j-5k6l7m8n9o0p",
-    title: "Teamwork",
-    logo: "logos:slack-icon",
+    id: "deb57fdb-4d92-4335-979c-edbce3bd6b00",
+    title: "Slack",
+    logo: "logos:slack",
     provider: "Slack",
   },
   {
-    id: "6a7b8c9d-0e1f-2g3h-4i5j-6k7l8m9n0o1p",
-    title: "Marketing",
-    logo: "logos:tiktok-icon",
-    provider: "Tiktok",
+    id: "262705b3-a4d5-4df7-8820-5ea4e1b362d4",
+    title: "Discord",
+    logo: "logos:discord",
+    provider: "Discord",
   },
   {
-    id: "7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p",
-    title: "Leadership",
-    logo: "logos:linkedin-icon",
-    provider: "LinkedIn",
+    id: "3d75adcb-c7c3-4f8e-aec6-029091366b48",
+    title: "Jira",
+    logo: "logos:jira",
+    provider: "Jira",
   },
   {
-    id: "8a9b0c1d-2e3f-4g5h-6i7j-8k9l0m1n2o3p",
-    title: "Content Creation",
-    logo: "logos:netflix-icon",
-    provider: "Netflix",
+    id: "bd37432b-56d1-4226-9814-9163ed80c887",
+    title: "GitHub",
+    logo: "logos:github",
+    provider: "GitHub",
+  },
+  {
+    id: "b44c14d5-9d94-4a98-a6a3-6ec086f0e2e6",
+    title: "Notion",
+    logo: "logos:notion",
+    provider: "Notion",
+  },
+  {
+    id: "0919fcbe-d48d-4db5-afae-5777586f7df3",
+    title: "Google Drive",
+    logo: "logos:google-drive",
+    provider: "Google Drive",
+  },
+  {
+    id: "67784b37-dbc7-4878-899c-71c86880de11",
+    title: "Trello",
+    logo: "logos:trello",
+    provider: "Trello",
+  },
+  {
+    id: "4f117ca8-ca0d-44b3-86e5-8eb1e8e10cdc",
+    title: "HubSpot",
+    logo: "logos:hubspot",
+    provider: "HubSpot",
   },
 ];
 
@@ -292,10 +284,6 @@ const IntegrationWidget = () => {
                     width="40"
                     height="40"
                   />
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {integration.provider}
-                  </Typography>
-
                   <Typography variant="h6">{integration.title}</Typography>
                 </Box>
               </Card>

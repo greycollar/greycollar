@@ -12,59 +12,131 @@ import { Box, Container, Grid } from "@mui/material";
 const ColleagueIntegration = () => {
   const integrations = [
     {
-      id: "8e62c90f-1f37-4ba3-b968-340f124bd4d4",
-      title: "Coding",
-      description:
-        "Expert in writing efficient code, creating seamless apps like Spotify delivers music.",
-      logo: "logos:spotify-icon",
+      id: "1e87e69f-8dbe-4f56-a8a7-1c87226f9c41",
+      title: "Slack",
+      description: "Receive messages and notifications from Slack",
+      logo: "logos:slack",
+      direction: "INCOMING",
       acquired: true,
     },
     {
-      id: "7920fcf9-6156-43b3-9bd1-46afa3f2d5a6",
-      title: "Communication",
-      description:
-        "Strong communication skills, connecting people like Instagram's creative platform.",
-      logo: "skill-icons:instagram",
+      id: "2a65d8be-6c17-4d0b-bdc8-5c1f7fdd6e45",
+      title: "Slack",
+      description: "Send messages and automate workflows in Slack",
+      logo: "logos:slack",
+      direction: "OUTGOING",
       acquired: true,
     },
     {
-      id: "d5f8c3e7-1b4b-4e7c-b8d3-9e9b5f8e4c6d",
-      title: "Problem-Solving",
-      description:
-        "Effective at solving challenges, similar to Google's innovative solutions.",
-      logo: "logos:google-icon",
+      id: "3f4721a3-9d8b-420f-996c-4c8d6d315d24",
+      title: "Discord",
+      description: "Receive messages from Discord bots and users",
+      logo: "logos:discord",
+      direction: "INCOMING",
       acquired: true,
     },
     {
-      id: "e7c8f9a3-8d7b-4a9b-9a8e-7d8f9b3e4a6c",
-      title: "Teamwork",
-      description:
-        "Collaborates effectively, fostering synergy like Slack unites teams.",
-      logo: "logos:slack-icon",
+      id: "4e91db99-fc99-40b7-bb5d-d5758a67b34b",
+      title: "Discord",
+      description: "Send bot messages and notifications in Discord",
+      logo: "logos:discord",
+      direction: "OUTGOING",
       acquired: true,
     },
     {
-      id: "b9c8d7e6-5f4a-4b8d-9e8f-6c7d8f9b4a7e",
-      title: "Marketing",
-      description:
-        "Drives results with creativity, like TikTok sets global trends.",
-      logo: "logos:tiktok-icon",
+      id: "7a8e29d1-8f2a-4c1e-88ab-df3a1f64728e",
+      title: "Jira",
+      description: "Receive issue updates and new tickets",
+      logo: "logos:jira",
+      direction: "INCOMING",
       acquired: true,
     },
     {
-      id: "a7b9c8d6-5f4e-4a7b-9d8f-6e7d8f9a4c6d",
-      title: "Leadership",
-      description:
-        "Motivates teams to success, much like LinkedIn inspires growth.",
-      logo: "logos:linkedin-icon",
+      id: "8a913f60-f76f-40cd-b7c2-e32c92c03e02",
+      title: "Jira",
+      description: "Create tickets and update issue statuses",
+      logo: "logos:jira",
+      direction: "OUTGOING",
       acquired: true,
     },
     {
-      id: "9e8f7d6c-5b4a-4d8e-9a7b-6c7d8f9b5a6e",
-      title: "Content Creation",
-      description:
-        "Produces engaging content, much like Netflix captivates its audience.",
-      logo: "logos:netflix-icon",
+      id: "9b31e5c9-2e41-482e-9d0c-ecb58d8b26f3",
+      title: "GitHub",
+      description: "Monitor pull requests, issues, and commits",
+      logo: "logos:github",
+      direction: "INCOMING",
+      acquired: true,
+    },
+    {
+      id: "10b1f843-d13a-4d14-9386-271ac8b2f60b",
+      title: "GitHub",
+      description: "Create issues, merge PRs, and trigger workflows",
+      logo: "logos:github",
+      direction: "OUTGOING",
+      acquired: true,
+    },
+    {
+      id: "11d4a8c2-3f93-4681-874f-14cd52d8c5fa",
+      title: "Google Drive",
+      description: "Fetch documents and files from Google Drive",
+      logo: "logos:google-drive",
+      direction: "INCOMING",
+      acquired: true,
+    },
+    {
+      id: "12e7d95a-8ef1-4b1e-9d5e-4325f1d5e5d4",
+      title: "Google Drive",
+      description: "Upload and manage files on Google Drive",
+      logo: "logos:google-drive",
+      direction: "OUTGOING",
+      acquired: true,
+    },
+    {
+      id: "21f5e3a9-0b5c-4d8a-95a1-937e6c3c4c72",
+      title: "Notion",
+      description: "Sync data and fetch notes from Notion",
+      logo: "logos:notion",
+      direction: "INCOMING",
+      acquired: true,
+    },
+    {
+      id: "22b3c1f4-2f3e-4e8d-9e37-6d72c58c4e41",
+      title: "Notion",
+      description: "Create and update pages in Notion",
+      logo: "logos:notion",
+      direction: "OUTGOING",
+      acquired: true,
+    },
+    {
+      id: "23a72f9d-91a2-4b31-8c3f-7c4d8e9b5f64",
+      title: "Trello",
+      description: "Monitor board updates and task changes",
+      logo: "logos:trello",
+      direction: "INCOMING",
+      acquired: true,
+    },
+    {
+      id: "24b8d1e7-4c3a-4029-9e5f-27c4b1d6f739",
+      title: "Trello",
+      description: "Add tasks and manage workflows in Trello",
+      logo: "logos:trello",
+      direction: "OUTGOING",
+      acquired: true,
+    },
+    {
+      id: "25f9c8b3-1d2e-4a3f-9c8d-4b7a2e5c6d19",
+      title: "HubSpot",
+      description: "Receive CRM updates and lead notifications",
+      logo: "logos:hubspot",
+      direction: "INCOMING",
+      acquired: true,
+    },
+    {
+      id: "26d7b4e1-5a2c-4f89-8e3b-6d27c9f1b6d3",
+      title: "HubSpot",
+      description: "Update leads and contacts in HubSpot",
+      logo: "logos:hubspot",
+      direction: "OUTGOING",
       acquired: true,
     },
   ];
@@ -138,31 +210,35 @@ const ColleagueIntegration = () => {
 
         {selectedTab === 0 && (
           <Grid container spacing={2}>
-            {integrations.slice(0, 1).map((skill) => (
-              <Integrations
-                key={skill.id}
-                title={skill.title}
-                description={skill.description}
-                logo={skill.logo}
-                acquired={skill.acquired}
-                onSkillClick={handleSkillClick}
-              />
-            ))}
+            {integrations
+              .filter((skill) => skill.direction === "INCOMING")
+              .map((skill) => (
+                <Integrations
+                  key={skill.id}
+                  title={skill.title}
+                  description={skill.description}
+                  logo={skill.logo}
+                  acquired={skill.acquired}
+                  onSkillClick={handleSkillClick}
+                />
+              ))}
           </Grid>
         )}
 
         {selectedTab === 1 && (
           <Grid container spacing={2}>
-            {integrations.map((skill) => (
-              <Integrations
-                key={skill.id}
-                title={skill.title}
-                description={skill.description}
-                logo={skill.logo}
-                acquired={skill.acquired}
-                onSkillClick={handleSkillClick}
-              />
-            ))}
+            {integrations
+              .filter((skill) => skill.direction === "OUTGOING")
+              .map((skill) => (
+                <Integrations
+                  key={skill.id}
+                  title={skill.title}
+                  description={skill.description}
+                  logo={skill.logo}
+                  acquired={skill.acquired}
+                  onSkillClick={handleSkillClick}
+                />
+              ))}
           </Grid>
         )}
 

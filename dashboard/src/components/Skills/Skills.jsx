@@ -31,7 +31,7 @@ const Skills = ({ title, description, logo, onSkillClick, acquired }) => {
           padding: 2,
         }}
       >
-        <Icon icon={logo} width="20" height="20" />
+        <Icon icon={logo} width="30" height="30" />
       </Box>
       <CardContent>
         <Typography variant="h4" sx={{ mb: 2 }}>
