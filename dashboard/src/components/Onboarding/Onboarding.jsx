@@ -28,7 +28,7 @@ const Onboarding = () => {
       return <LandingDialog handleClose={handleClose} />;
   }
 
-  return <div>Onboarding</div>;
+  return;
 };
 
 export default Onboarding;
