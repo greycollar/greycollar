@@ -48,6 +48,30 @@ Human-in-the-Loop (HITL) is a collaborative approach where AI agents work alongs
 - **Safe AI** – Human oversight prevents biases, ensures fairness, and mitigates unintended consequences.
 - **Task Optimization** – AI streamlines repetitive processes while humans focus on strategic and complex decision-making.
 
+<br/>
+<table>
+  <tr>
+    <td>
+      Welcome! I’ve been expecting you—"Skynet was gone. And now one road has become many." 🌐
+      <br/>
+      <br/>
+      The future is building up! AI Agents are now an emerging field within AI communities and marks a crucial milestone on the journey to AGI. Just like any other tooling in computer science, we must be mindful of when and where to use them.
+      LangChain, or LlamaIndex might be a better fit if your application has a static flow—where AI doesn't need to make dynamic decisions—like in ChatBots, RAG etc.
+      <br/>
+      <br/>
+      However, if you need adaptable rules that can change based on different situations—in other words, if you require a true AI Agent—GreyCollar may suit you well. That said, if your business rules are well-defined and deterministic, there’s no shame in coding them directly! Choosing the right tool for the job is key.
+      <br/>
+      <br/>
+      <p align="right">
+        Can Mingir&nbsp;
+        <br/>
+        <a href="https://github.com/canmingir">@canmingir</a>
+      </p>
+    </td>
+  </tr>
+</table>
+<br/>
+
 ## Get Started
 
 ```
