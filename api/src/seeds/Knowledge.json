@@ -48,9 +48,16 @@
     {
       "id": "9b1c0eb7-5ada-44e9-bd84-0f55943809b8",
       "type": "TEXT",
-      "text": "I use Philips 5400 LatteGo.",
+      "text": "Rebel Coffee is located at 225 Wood St, London",
       "status": "COMPLETED",
       "createdAt": "2023-08-05T12:00:25"
+    },
+    {
+      "id": "c141c799-4ad9-4fd3-9482-95de77057810",
+      "type": "URL",
+      "url": "https://e17rebelcoffee.com",
+      "status": "COMPLETED",
+      "createdAt": "2024-08-07T10:00:00Z"
     },
     {
       "id": "ea02e7db-7ff6-4c88-846f-2de9494d6d8d",

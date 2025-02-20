@@ -487,7 +487,7 @@ describe("Colleague page", () => {
 
     cy.getBySel("answer-supervise").should("exist");
 
-    cy.getBySel("answer-supervise").eq(0).type("It is here");
+    cy.getBySel("answer-supervise").eq(0).type("We are 7/24 coffee shop");
 
     cy.intercept(
       "PATCH",
@@ -515,7 +515,10 @@ describe("Colleague page", () => {
 
     cy.getBySel("supervise-card").should("have.length", 1);
 
-    cy.getBySel("supervise-card").should("contain.text", "It is here");
+    cy.getBySel("supervise-card").should(
+      "contain.text",
+      "We are 7/24 coffee shop"
+    );
   });
 
   it("goes task page", function () {
@@ -551,7 +554,9 @@ describe("Colleague page", () => {
 
     cy.getBySel("add-task-button").click();
 
-    cy.getBySel("add-task-description").type("Where is the roses?");
+    cy.getBySel("add-task-description").type(
+      "Order napoli coffee bean from our provider"
+    );
 
     cy.intercept("POST", `/tasks`, {
       fixture: "tasks/task.single.json",
@@ -565,7 +570,7 @@ describe("Colleague page", () => {
 
     cy.getBySel("tasks-card")
       .eq(1)
-      .should("contain.text", "Where is the roses?");
+      .should("contain.text", "Order napoli coffee bean from our provider");
   });
 
   it("shows task progresses", function () {

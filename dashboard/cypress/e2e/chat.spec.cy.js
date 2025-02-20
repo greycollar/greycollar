@@ -167,7 +167,7 @@ describe("Chat widget", () => {
     cy.getBySel("reply-button").last().click();
     cy.getBySel("reply-button").last().click();
 
-    cy.typeMessageInput("It is here");
+    cy.typeMessageInput("We are 7/24 coffee shop");
 
     cy.intercept(
       "PATCH",
@@ -185,7 +185,7 @@ describe("Chat widget", () => {
   });
 
   it("sorts by date", () => {
-    cy.typeMessageInput("It is here");
+    cy.typeMessageInput("We are 7/24 coffee shop");
 
     cy.intercept("POST", `/messages`, {
       fixture: "chat-page/messages/messages.json",

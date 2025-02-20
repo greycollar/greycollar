@@ -7,13 +7,13 @@
     "answer": null,
     "status": "IN_PROGRESS",
     "createdAt": "2023-08-05T12:00:50Z",
-    "question": "What came first, the chicken or the egg?"
+    "question": "What time do you close?"
   },
   {
     "id": "wwf6dfa4-45ba-4da2-bc5c-5a529610b52f",
     "role": "USER",
     "userId": "1001",
-    "content": "It is here",
+    "content": "We are 7/24 coffee shop",
     "createdAt": "2023-08-05T12:00:10Z",
     "projectId": "e6d4744d-a11b-4c75-acad-e24a02903729"
   }

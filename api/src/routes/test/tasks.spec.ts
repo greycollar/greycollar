@@ -12,8 +12,7 @@ describe("Tasks service", () => {
     const { body } = await request(app)
       .post("/tasks")
       .send({
-        description:
-          "Search for the answer to the question: What came first, the chicken or the egg?",
+        description: "Find closing hours of Dark-sided Coffee Shop",
         status: "IN_PROGRESS",
         colleagueId: "00db1bd4-4829-40f2-8b99-d2e42342157e",
       })
@@ -21,8 +20,7 @@ describe("Tasks service", () => {
 
     deepEqual(body, {
       id: body.id,
-      description:
-        "Search for the answer to the question: What came first, the chicken or the egg?",
+      description: "Find closing hours of Dark-sided Coffee Shop",
       status: "IN_PROGRESS",
       createdAt: body.createdAt,
       colleagueId: "00db1bd4-4829-40f2-8b99-d2e42342157e",
@@ -37,8 +35,7 @@ describe("Tasks service", () => {
     deepEqual(body, [
       {
         id: "8c88d077-99f1-482a-8575-879187b11ec9",
-        description:
-          "Search for the answer to the question: What came first, the chicken or the egg?",
+        description: "Find closing hours of Dark-sided Coffee Shop",
         status: "IN_PROGRESS",
         commandId: "3fbb3f27-57e1-419d-8d21-82b523b1e7d5",
         createdAt: "2025-01-19T10:34:20.094Z",
@@ -74,8 +71,7 @@ describe("Tasks service", () => {
 
     deepEqual(body, {
       id: "8c88d077-99f1-482a-8575-879187b11ec9",
-      description:
-        "Search for the answer to the question: What came first, the chicken or the egg?",
+      description: "Find closing hours of Dark-sided Coffee Shop",
       status: "IN_PROGRESS",
       commandId: "3fbb3f27-57e1-419d-8d21-82b523b1e7d5",
       createdAt: "2025-01-19T10:34:20.094Z",

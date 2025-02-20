@@ -65,7 +65,7 @@ describe("Session service", () => {
       {
         id: "93dcd933-9bd8-45c0-b347-2dc12a0b2658",
         role: "USER",
-        content: "What came first, the chicken or the egg?",
+        content: "What time do you close?",
         createdAt: "2023-08-05T12:00:30.000Z",
         sessionId: "b9901597-8625-43d9-a925-ed5e0ad7b1e4",
       },
@@ -111,7 +111,7 @@ describe("Session service", () => {
       {
         id: "93dcd933-9bd8-45c0-b347-2dc12a0b2658",
         role: "USER",
-        content: "What came first, the chicken or the egg?",
+        content: "What time do you close?",
         createdAt: "2023-08-05T12:00:30.000Z",
         sessionId: "b9901597-8625-43d9-a925-ed5e0ad7b1e4",
       },
