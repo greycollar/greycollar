@@ -86,6 +86,26 @@ This will start three applications simultaneously: Dashboard, API Server and Pro
 
 GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.
 
+## Features
+
+### Teams and Colleagues
+
+![Colleague Page](https://github.com/user-attachments/assets/0bd9cc8a-9305-4892-9d82-6a88338dda01)
+
+![Organization Chart](https://github.com/user-attachments/assets/6a393d89-3e74-4433-89fa-2072b331f754)
+
+### Async Chat
+
+![Async Chat](https://github.com/user-attachments/assets/ed48676c-0537-4d51-b281-0f2a9193d1d3)
+
+### Team Chat
+
+![Team Chat](https://github.com/user-attachments/assets/d23ff8ed-2bd5-42f4-8401-6133a4abb6e5)
+
+### AI Marketplace
+
+![AI Marketplace](https://github.com/user-attachments/assets/8ad20c2a-756b-4a4f-87e2-483eb67454f2)
+
 ### Event API
 
 ```
