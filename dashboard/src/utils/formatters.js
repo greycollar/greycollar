@@ -22,7 +22,7 @@ export const parseJsonResult = (result) => {
 
 export const getAllKeys = (data) => {
   if (Array.isArray(data)) {
-    return [...new Set(data.flatMap((obj) => Object.keys(obj)))];
+    return data.map((_, index) => `Value ${index + 1}`);
   }
   if (typeof data === "object" && data !== null) {
     return Object.keys(data);

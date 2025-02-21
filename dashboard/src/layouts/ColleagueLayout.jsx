@@ -46,7 +46,7 @@ function ColleagueLayout({ colleague }) {
 
   return (
     <>
-      <Stack margin={2} sx={{ position: "relative" }}>
+      <Stack margin={2} sx={{ position: "relative", marginTop: -2 }}>
         <ProfileCard
           TABS={TABS}
           currentTab={currentTab}

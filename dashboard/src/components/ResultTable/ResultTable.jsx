@@ -19,40 +19,28 @@ export const ResultTable = ({ data }) => {
       <Table size="small" sx={{ mt: 2 }}>
         <TableHead>
           <TableRow>
-            {keys.map((key) => (
-              <TableCell key={key} sx={{ lineHeight: ".8rem" }}>
-                {formatKey(key)}
-              </TableCell>
-            ))}
+            <TableCell sx={{ lineHeight: ".8rem" }}>Key</TableCell>
+            <TableCell sx={{ lineHeight: ".8rem" }}>Value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.isArray(data) ? (
-            data.map((item, index) => (
-              <TableRow key={index}>
-                {keys.map((key) => (
-                  <TableCell
-                    key={`${index}-${key}`}
-                    sx={{ lineHeight: ".8rem" }}
-                  >
-                    {item[key] !== undefined
-                      ? JSON.stringify(item[key])
-                      : "N/A"}
+          {Array.isArray(data)
+            ? data.map((value, index) => (
+                <TableRow key={index}>
+                  <TableCell sx={{ lineHeight: ".8rem" }}>
+                    {keys[index]}
                   </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              {keys.map((key) => (
-                <TableCell key={key} sx={{ lineHeight: ".8rem" }}>
-                  {data && typeof data === "object"
-                    ? JSON.stringify(data[key])
-                    : "N/A"}
-                </TableCell>
+                  <TableCell sx={{ lineHeight: ".8rem" }}>{value}</TableCell>
+                </TableRow>
+              ))
+            : Object.entries(data).map(([key, value], index) => (
+                <TableRow key={index}>
+                  <TableCell sx={{ lineHeight: ".8rem" }}>
+                    {formatKey(key)}
+                  </TableCell>
+                  <TableCell sx={{ lineHeight: ".8rem" }}>{value}</TableCell>
+                </TableRow>
               ))}
-            </TableRow>
-          )}
         </TableBody>
       </Table>
     </TableContainer>

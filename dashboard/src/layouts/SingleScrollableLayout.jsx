@@ -8,7 +8,7 @@ function SingleScorllableLayout({ title, children }) {
       <Typography sx={{ textAlign: "center", fontSize: "3rem", marginTop: 4 }}>
         {title}
       </Typography>
-      <Box sx={{ padding: 10 }}>
+      <Box sx={{ paddingX: 10 }}>
         <Grid container spacing={4} sx={{ display: "flex" }}>
           {children}
         </Grid>
