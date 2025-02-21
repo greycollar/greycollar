@@ -64,12 +64,6 @@ const subscribe = (...args) => {
 
   subscriptions[type][id] = registry;
 
-  const last = messages.get(type);
-
-  if (last) {
-    callback(last, registry);
-  }
-
   return registry;
 };
 
@@ -91,7 +85,11 @@ const publish = (...args) => {
     const registry = subscriptions[type][key];
 
     setTimeout(() => {
-      registry.callback(payload, registry);
+      try {
+        registry.callback(payload, registry);
+      } catch (err) {
+        console.error("node-event", "error", type, err);
+      }
     }, 0);
   });
 };

@@ -125,7 +125,7 @@ async function teamChat({
 
   await message.create({
     role: "ASSISTANT",
-    content: response,
+    content: typeof response === "object" ? JSON.stringify(response) : response,
     teamId,
   });
 }
