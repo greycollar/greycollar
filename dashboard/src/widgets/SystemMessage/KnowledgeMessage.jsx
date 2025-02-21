@@ -31,25 +31,29 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
         sx={{
           flexDirection: "row",
           alignItems: "center",
+          width: "100%",
         }}
       >
         <Stack
           sx={{
             p: 1.5,
             minWidth: 48,
-            maxWidth: 750,
+            maxWidth: "100%",
             borderRadius: 1,
             typography: "body2",
             color: "grey.800",
             background: (theme) => alpha(theme.palette.background.default, 1),
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
+            width: "100%",
           }}
         >
           <Stack
             sx={{
               flexDirection: "row",
               alignItems: "center",
+              flexWrap: "wrap",
+              width: "100%",
             }}
           >
             <Chip
@@ -66,7 +70,7 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
               color="primary"
               variant="filled"
             />
-            <Typography variant="body2" color="grey.500" sx={{ ml: 1 }}>
+            <Typography variant="body2" color="grey.500" sx={{ ml: 1, my: 1 }}>
               {knowledge.status === "COMPLETED"
                 ? "used"
                 : knowledge.status === "IN_PROGRESS"
@@ -92,27 +96,42 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
                   backgroundColor: "rgba(2,136,209, .6)",
                   color: "rgba(79,195,247, .6)",
                   textTransform: "none",
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+                  my: 0.2,
                 }}
               >
                 {knowledge.text}
               </Label>
             ) : knowledge.type === "QA" ? (
               <>
+                <Typography variant="body2" color="grey.500" sx={{ mr: 1 }}>
+                  question
+                </Typography>
                 <Label
                   sx={{
                     backgroundColor: "rgba(2,136,209, .6)",
                     color: "rgba(79,195,247, .6)",
                     mr: 1,
                     textTransform: "none",
+                    whiteSpace: "normal",
+                    wordBreak: "break-word",
+                    my: 0.2,
                   }}
                 >
                   {knowledge.question}
                 </Label>
+                <Typography variant="body2" color="grey.500" sx={{ mr: 1 }}>
+                  answer
+                </Typography>
                 <Label
                   sx={{
                     backgroundColor: "rgba(2,136,209, .6)",
                     color: "rgba(79,195,247, .6)",
                     textTransform: "none",
+                    whiteSpace: "normal",
+                    wordBreak: "break-word",
+                    my: 0.2,
                   }}
                 >
                   {knowledge.answer}
@@ -124,6 +143,9 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
                   backgroundColor: "rgba(2,136,209, .6)",
                   color: "rgba(79,195,247, .6)",
                   textTransform: "none",
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+                  my: 0.2,
                 }}
               >
                 {knowledge.url}
