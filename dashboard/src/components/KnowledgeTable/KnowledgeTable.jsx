@@ -69,7 +69,7 @@ function KnowledgeTable({
       <TableContainer sx={{ position: "relative", overflow: "unset" }}>
         <TableSelectedAction dense={table.dense} />
         <Scrollbar>
-          <Table size={table.dense ? "small" : "medium"} sx={{ minWidth: 960 }}>
+          <Table size={table.dense ? "small" : "medium"}>
             <TableHeadCustom
               order={table.order}
               orderBy={table.orderBy}
