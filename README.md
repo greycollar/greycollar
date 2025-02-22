@@ -112,6 +112,8 @@ This feature transforms AI agents from passive tools into active collaborators, 
 
 ### AI Marketplace
 
+You can use any LLM, or even bring your own—we support and welcome them all. 🚀
+
 ![AI Marketplace](https://github.com/user-attachments/assets/8ad20c2a-756b-4a4f-87e2-483eb67454f2)
 
 ## Event-Driven AI Agent Platform
