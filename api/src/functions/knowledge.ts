@@ -1,8 +1,10 @@
+import Colleague from "../models/Colleague";
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
-import scrapper from "../actions/scrapper";
-import Task from "../models/Task";
+import { Op } from "sequelize";
 import Step from "../models/Step";
+import Task from "../models/Task";
+import scrapper from "../actions/scrapper";
 
 async function create({
   teamId,
@@ -81,59 +83,76 @@ async function list({
   type?: string;
   options?: { includeSteps?: boolean };
 }) {
-  const where = {} as {
-    colleagueId?: string;
-    teamId?: string;
-  };
   const knowledgeWhere = {} as {
     type?: string;
   };
-
-  if (colleagueId) {
-    where.colleagueId = colleagueId as string;
-  } else {
-    where.teamId = teamId;
-  }
 
   if (type) {
     knowledgeWhere.type = type as string;
   }
 
-  const colleagueKnowledge = await ColleagueKnowledge.findAll({
-    where,
+  let colleagueTeamId;
+  if (colleagueId) {
+    const colleague = await Colleague.findOne({
+      where: { id: colleagueId },
+      attributes: ["teamId"],
+    });
+    colleagueTeamId = colleague?.teamId;
+  }
+
+  const knowledge = await Knowledge.findAll({
+    where: knowledgeWhere,
     include: [
       {
-        model: Knowledge,
-        required: false,
-        where: knowledgeWhere,
-        include: {
-          model: Task,
-          required: false,
-          include: options.includeSteps
-            ? {
-                model: Step,
-                as: "steps",
-              }
-            : [],
+        model: ColleagueKnowledge,
+        where: {
+          [Op.or]: [
+            ...(colleagueId
+              ? [{ colleagueId }, { teamId: colleagueTeamId }]
+              : [{ teamId }, { teamId: null }]),
+          ],
         },
+        include: [
+          {
+            model: Colleague,
+            required: false,
+          },
+        ],
+      },
+      {
+        model: Task,
+        required: false,
+        include: options.includeSteps
+          ? {
+              model: Step,
+              as: "steps",
+            }
+          : [],
       },
     ],
   });
 
-  return colleagueKnowledge
-    .map(({ Knowledge }) => Knowledge.toJSON())
-    .map((knowledge) => ({
-      ...knowledge,
-      Task: knowledge.Task && {
-        ...knowledge.Task,
+  return knowledge.map((entry) => {
+    const { ColleagueKnowledges, ...knowledgeData } = entry.toJSON();
+    const colleagueKnowledge = ColleagueKnowledges?.[0];
+
+    return {
+      ...knowledgeData,
+      colleagueId: colleagueKnowledge?.colleagueId || null,
+      teamId: colleagueKnowledge?.colleagueId
+        ? null
+        : colleagueKnowledge?.teamId || teamId,
+      Task: knowledgeData.Task && {
+        ...knowledgeData.Task,
         steps:
-          knowledge.Task.steps &&
-          knowledge.Task.steps.map((step) => ({
+          knowledgeData.Task.steps &&
+          knowledgeData.Task.steps.map((step) => ({
             ...step,
             result: step.result && step.result.toString(),
           })),
       },
-    }));
+    };
+  });
 }
 
 export default { create, list };
