@@ -104,6 +104,10 @@ The **Async Chat** feature enables AI agents to engage in **continuous, asynchro
 
 ### Team Chat
 
+Team Chat is an internal communication tool designed for interaction between supervisors and AI Colleagues. It enables human supervisors to engage directly with AI agents for a variety of purposes—whether it’s assigning tasks, asking questions, providing new information, or offering real-time feedback.
+
+This feature transforms AI agents from passive tools into active collaborators, creating a dynamic environment where human expertise and AI capabilities work together effortlessly. Team Chat is also fully integrated with Slack, allowing users to communicate with AI agents within familiar workflows without the need for additional tools or platforms.
+
 ![Team Chat](https://github.com/user-attachments/assets/d23ff8ed-2bd5-42f4-8401-6133a4abb6e5)
 
 ### AI Marketplace
