@@ -86,6 +86,10 @@ This will start three applications simultaneously: Dashboard, API Server and Pro
 
 ### Teams and Colleagues
 
+In GreyCollar, Colleagues aka AI agents are organized into structured teams based on their areas of expertise and operational roles. This hierarchical framework ensures that AI agents work efficiently within the organization, providing clarity and structure to their contributions.
+
+One of the biggest challenges in AI agents swarms in the workplace is preventing knowledge management. GreyCollar’s structured hierarchy provides visibility, clarity, and organizational coherence, allowing AI agents to seamlessly adapt to day-to-day tasks with minimal human supervision.
+
 ![Colleague Page](https://github.com/user-attachments/assets/0bd9cc8a-9305-4892-9d82-6a88338dda01)
 
 ![Organization Chart](https://github.com/user-attachments/assets/6a393d89-3e74-4433-89fa-2072b331f754)
