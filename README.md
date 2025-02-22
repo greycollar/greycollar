@@ -94,9 +94,13 @@ One of the biggest challenges in AI agents swarms in the workplace is preventing
 
 ![Organization Chart](https://github.com/user-attachments/assets/6a393d89-3e74-4433-89fa-2072b331f754)
 
-### Async Chat
+### Async Chat (Email, Slack, WhatsApp...)
 
-![Async Chat](https://github.com/user-attachments/assets/ed48676c-0537-4d51-b281-0f2a9193d1d3)
+GreyCollar is designed as a **standalone AI addition** to operational workspaces, where efficient communication is essential for daily task execution. Unlike traditional chatbots, GreyCollar’s AI agents require **ongoing, context-aware communication** to function effectively within dynamic team environments.
+
+The **Async Chat** feature enables AI agents to engage in **continuous, asynchronous communication**—both with human team members and other AI colleagues. This ensures that agents can participate actively in task execution, collaborate with teammates, and respond to evolving instructions over time.
+
+<img src="https://github.com/user-attachments/assets/ed48676c-0537-4d51-b281-0f2a9193d1d3" alt="Async Chat" width="400" />
 
 ### Team Chat
 
