@@ -82,10 +82,6 @@ npm start
 
 This will start three applications simultaneously: Dashboard, API Server and Proxy Server. Once started, the dashboard should be accessible in your browser at http://localhost:3000
 
-## Event-Driven AI Agent Platform
-
-GreyCollar is a supervised AI agent that can be used to automate tasks, manage workflows, and provide insights. It is designed to be event-driven and can be integrated with various platforms and services.
-
 ## Features
 
 ### Teams and Colleagues
@@ -106,33 +102,79 @@ GreyCollar is a supervised AI agent that can be used to automate tasks, manage w
 
 ![AI Marketplace](https://github.com/user-attachments/assets/8ad20c2a-756b-4a4f-87e2-483eb67454f2)
 
-### Event API
+## Event-Driven AI Agent Platform
+
+GreyCollar is an **Event-Driven AI Agent Platform** designed for dynamic and adaptive AI workflows and autonomous decision-making. While frameworks like LangChain and LlamaIndex are specialized in creating static flows, but it is significantly more challenging to have flexible AI agent compared to event-drive architecture.
+
+Key Advantages:
+
+**⚡ Dynamic Workflows:**
+
+- Instead of a rigid sequence of actions, GreyCollar agents react to events in real-time. These events could be anything: a new email, a sensor reading, a user interaction, or even the output of another AI agent.
+- This allows for highly adaptable and context-aware behavior. The agent's next action is determined by the current situation, not a pre-programmed path.
+
+**🧠 Autonomous Decision-Making:**
+
+- Agents can make decisions without constant human intervention. They can monitor their environment, identify relevant events, and take appropriate actions based on predefined rules or learned behaviors.
+- This is crucial for applications that require rapid response times or operate in dynamic environments.
+
+**🔄 Modularity and Scalability:**
+
+- Event-driven systems are naturally modular. Agents can be designed as independent components that communicate with each other through events.
+- This makes it easier to build complex systems by combining smaller, specialized agents. It also allows for easier scaling, as new agents can be added without disrupting the existing system.
+
+**🔍 Real-time responsiveness:**
+
+- Because the system is based on events, it can react very quickly to changes in the enviroment. This is very important for applications that need to be up to date.
+
+### Hello World
 
 ```
-Session
+Customer: "Do you have a parking spot at your store?"
+> SESSION.USER_MESSAGED
 {
-  id: uuid,
-  appId: uuid,
-  organizationId: uuid,
-  projectId: uuid,
-  userId: string,
-  roles: string[],
-  timestamp: timestamp,
+  sessionId: "2116847c",
+  content: "Do you ... at your store?"
 }
-```
 
-```
-SESSION.CUSTOMER_MESSAGED
+AI: "Please wait a moment while working on the answer."
+> SUPERVISING.RAISED
 {
-  session: Session,
-  content: string,
+  sessionId: "2116847c",
+  question: "Do you ... at your store?"
 }
-```
 
-```
-SESSION.AI_MESSAGED
+Supervisor: "Yes, we have a parking spot in the back of the store."
+> SUPERVISING.ANSWERED
 {
-  session: Session,
-  content: string,
+  sessionId: "2116847c",
+  question: "Yes, we have ... of the store."
+}
+
+# Knowledge is stored for future reference. 🧠
+
+AI: "Yes, we have a parking spot in the back of the store."
+
+> SESSION.USER_MESSAGED
+{
+  sessionId: "2116847c",
+  question: "Yes, we have ... of the store."
+}
+
+# A Few Moments Later... 🍍
+
+Customer #2: "Planning to come down there, how is parking situation?"
+
+> SESSION.USER_MESSAGED
+{
+  sessionId: "3746a52b",
+  content: "Planning ... situation?"
+}
+
+AI: "Yes, most certainly, we have a parking spot in the back. 😎"
+> SESSION.USER_MESSAGED
+{
+  sessionId: "3746a52b",
+  question: "Yes, most ... in the back."
 }
 ```
