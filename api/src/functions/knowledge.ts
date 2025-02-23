@@ -2,6 +2,7 @@ import Colleague from "../models/Colleague";
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
 import { Op } from "sequelize";
+import { Project } from "@nucleoidai/platform-express/models";
 import Step from "../models/Step";
 import Task from "../models/Task";
 import scrapper from "../actions/scrapper";
@@ -78,7 +79,7 @@ async function list({
   type,
   options = { includeSteps: false },
 }: {
-  teamId?: string;
+  teamId: string;
   colleagueId?: string;
   type?: string;
   options?: { includeSteps?: boolean };
@@ -88,16 +89,55 @@ async function list({
   };
 
   if (type) {
-    knowledgeWhere.type = type as string;
+    knowledgeWhere.type = type;
   }
 
-  let colleagueTeamId;
+  type WhereClauseType = {
+    colleagueId?: string | null;
+    teamId?: string | null;
+    organizationId?: string;
+  };
+
+  const whereClause: WhereClauseType[] = [];
+
+  const project = await Project.findOne({
+    where: { id: teamId },
+    attributes: ["organizationId"],
+  });
+
+  const organizationId = project?.organizationId;
+
   if (colleagueId) {
     const colleague = await Colleague.findOne({
-      where: { id: colleagueId },
+      where: { id: colleagueId, teamId },
       attributes: ["teamId"],
     });
-    colleagueTeamId = colleague?.teamId;
+
+    if (!colleague) {
+      throw new Error("INVALID_COLLEAGUE");
+    }
+
+    whereClause.push({ colleagueId });
+
+    if (teamId) {
+      whereClause.push({ teamId, colleagueId: null });
+    }
+
+    if (organizationId) {
+      whereClause.push({ organizationId, colleagueId: null });
+    }
+
+    whereClause.push({ teamId: null, colleagueId: null });
+  } else {
+    if (teamId) {
+      whereClause.push({ teamId, colleagueId: null });
+    }
+
+    if (organizationId) {
+      whereClause.push({ organizationId, colleagueId: null });
+    }
+
+    whereClause.push({ teamId: null, colleagueId: null });
   }
 
   const knowledge = await Knowledge.findAll({
@@ -106,11 +146,7 @@ async function list({
       {
         model: ColleagueKnowledge,
         where: {
-          [Op.or]: [
-            ...(colleagueId
-              ? [{ colleagueId }, { teamId: colleagueTeamId }]
-              : [{ teamId }, { teamId: null }]),
-          ],
+          [Op.or]: whereClause,
         },
         include: [
           {
@@ -136,12 +172,23 @@ async function list({
     const { ColleagueKnowledges, ...knowledgeData } = entry.toJSON();
     const colleagueKnowledge = ColleagueKnowledges?.[0];
 
+    let returnTeamId: string | null = null;
+    let returnColleagueId: string | null = null;
+    let returnOrganizationId: string | null = null;
+
+    if (colleagueKnowledge?.organizationId) {
+      returnOrganizationId = colleagueKnowledge.organizationId;
+    } else if (colleagueKnowledge?.teamId) {
+      returnTeamId = colleagueKnowledge.teamId;
+    } else if (colleagueKnowledge?.colleagueId) {
+      returnColleagueId = colleagueKnowledge.colleagueId;
+    }
+
     return {
       ...knowledgeData,
-      colleagueId: colleagueKnowledge?.colleagueId || null,
-      teamId: colleagueKnowledge?.colleagueId
-        ? null
-        : colleagueKnowledge?.teamId || teamId,
+      colleagueId: returnColleagueId,
+      teamId: returnTeamId,
+      organizationId: returnOrganizationId,
       Task: knowledgeData.Task && {
         ...knowledgeData.Task,
         steps:
@@ -156,3 +203,4 @@ async function list({
 }
 
 export default { create, list };
+
