@@ -169,19 +169,18 @@ async function list({
   });
 
   return knowledge.map((entry) => {
-    const { ColleagueKnowledges, ...knowledgeData } = entry.toJSON();
-    const colleagueKnowledge = ColleagueKnowledges?.[0];
+    const { ColleagueKnowledge, ...knowledgeData } = entry.toJSON();
 
     let returnTeamId: string | null = null;
     let returnColleagueId: string | null = null;
     let returnOrganizationId: string | null = null;
 
-    if (colleagueKnowledge?.organizationId) {
-      returnOrganizationId = colleagueKnowledge.organizationId;
-    } else if (colleagueKnowledge?.teamId) {
-      returnTeamId = colleagueKnowledge.teamId;
-    } else if (colleagueKnowledge?.colleagueId) {
-      returnColleagueId = colleagueKnowledge.colleagueId;
+    if (ColleagueKnowledge?.organizationId) {
+      returnOrganizationId = ColleagueKnowledge.organizationId;
+    } else if (ColleagueKnowledge?.teamId) {
+      returnTeamId = ColleagueKnowledge.teamId;
+    } else if (ColleagueKnowledge?.colleagueId) {
+      returnColleagueId = ColleagueKnowledge.colleagueId;
     }
 
     return {
@@ -203,4 +202,3 @@ async function list({
 }
 
 export default { create, list };
-
