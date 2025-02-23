@@ -1,13 +1,13 @@
-import { generate } from "../lib/llm";
-import session from "./session";
-import colleague from "./colleague";
-import knowledgeFn from "./knowledge";
-import supervising from "./supervising";
-import dataset from "../dataset";
-import taskFn from "./task";
 import actions from "../actions";
-import messagesFunc from "./message";
+import colleague from "./colleague";
+import dataset from "../dataset";
+import { generate } from "../lib/llm";
+import knowledgeFn from "./knowledge";
 import message from "./message";
+import messagesFunc from "./message";
+import session from "./session";
+import supervising from "./supervising";
+import taskFn from "./task";
 
 async function messages({ teamId }: { teamId: string }) {
   const messageInstances = await messagesFunc.listMessages({ teamId });
@@ -46,7 +46,9 @@ async function knowledge({
   taskId?: string;
 }) {
   const knowledgeList = await knowledgeFn.list({
-    colleagueId,
+    // Prevent TS error
+    teamId: (await colleague.get({ colleagueId })).teamId,
+    colleagueId: colleagueId,
     options: { includeSteps: true },
   });
 
@@ -343,3 +345,4 @@ async function step({ stepId, action, parameters }) {
 }
 
 export default { teamChat, chat, task, step };
+
