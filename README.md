@@ -9,7 +9,7 @@
   <a href="https://discord.gg/wN49SNssUw"><img src="https://img.shields.io/badge/Discord-lightgrey?style=for-the-badge&logo=discord" alt="Discord" /></a>
 </p>
 
-![GreyCollar Banner](https://github.com/user-attachments/assets/5da016f0-e281-492a-9285-7d108b1b4815)
+![GreyCollar Banner](https://github.com/user-attachments/assets/064fdd2f-b1de-4fca-9cd6-1dbf1e55e470)
 
 ## What is Supervised AI Agent?
 
