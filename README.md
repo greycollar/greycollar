@@ -77,6 +77,15 @@ Human-in-the-Loop (HITL) is a collaborative approach where AI agents work alongs
 ```
 git clone https://github.com/greycollar/greycollar.git
 npm install
+
+// Add env variables
+JWT_SECRET=<JWT_SECRET>
+LLM=OPENAI
+OAUTH_CLIENT_SECRET=<OAUTH_CLIENT_SECRET>
+OPENAI_API_KEY=<OPENAI_API_KEY>
+```
+
+```
 npm start
 ```
 
