@@ -5,7 +5,7 @@ import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Joi from "joi";
 import Knowledge from "../models/Knowledge";
 import { Op } from "sequelize";
-import express from "express";
+import express, { query } from "express";
 import schemas from "../schemas";
 import knowledge from "../functions/knowledge";
 
@@ -49,12 +49,32 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const { projectId: teamId } = req.session;
-  const { colleagueId, type } = req.query as {
+  const {
+    colleagueId,
+    type,
+    teamId: queryTeamId,
+  } = req.query as {
+    teamId?: string;
     colleagueId?: string;
     type?: string;
   };
 
-  const knowledgeList = await knowledge.list({ teamId, colleagueId, type });
+  if (queryTeamId && queryTeamId !== teamId) {
+    return res.status(401).end();
+  }
+
+  if (colleagueId) {
+    const colleagueInstance = await Colleague.findByPk(colleagueId);
+    if (!colleagueInstance) {
+      return res.status(404).end();
+    }
+
+    if (colleagueInstance.teamId !== teamId) {
+      return res.status(401).end();
+    }
+  }
+
+  const knowledgeList = await knowledge.list({ colleagueId, teamId, type });
   res.json(knowledgeList);
 });
 

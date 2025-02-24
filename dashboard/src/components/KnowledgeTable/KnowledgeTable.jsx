@@ -1,3 +1,4 @@
+import { Label } from "@nucleoidai/platform/minimal/components";
 import MoreVertButton from "../MoreButton/MoreButton";
 
 import {
@@ -59,11 +60,42 @@ function KnowledgeTable({
         return [{ id: "status", label: "Status" }];
     }
   };
+
+  const statusLabel = (row, status) => {
+    return row.teamId != null ? (
+      <>
+        {status}{" "}
+        <Label
+          sx={{
+            backgroundColor: "rgba(97, 97, 97, 0.2)",
+            color: "white",
+          }}
+        >
+          TEAM
+        </Label>
+      </>
+    ) : (
+      <>{status}</>
+    );
+  };
+
+  const getStatus = (row) => {
+    switch (row.status) {
+      case "IN_PROGRESS":
+        return statusLabel(row, "In Progress");
+      case "COMPLETED":
+        return statusLabel(row, "Completed");
+      default:
+        return statusLabel(row, row.status);
+    }
+  };
+
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
   return (
     <Card>
       <TableContainer sx={{ position: "relative", overflow: "unset" }}>
@@ -90,18 +122,7 @@ function KnowledgeTable({
                             `Q: ${row.question} A: ${row.answer}`}
                           {row.type === "TASK" && row.Task.description}
                         </TableCell>
-                        <TableCell>
-                          {(() => {
-                            switch (row.status) {
-                              case "IN_PROGRESS":
-                                return "In Progress";
-                              case "COMPLETED":
-                                return "Completed";
-                              default:
-                                return row.status;
-                            }
-                          })()}
-                        </TableCell>
+                        <TableCell>{getStatus(row)}</TableCell>
                         <TableCell>
                           {new Date(row.createdAt).toLocaleDateString()}
                         </TableCell>
@@ -110,18 +131,7 @@ function KnowledgeTable({
                     {selectedType === "URL" && (
                       <>
                         <TableCell>{row.url}</TableCell>
-                        <TableCell>
-                          {(() => {
-                            switch (row.status) {
-                              case "IN_PROGRESS":
-                                return "In Progress";
-                              case "COMPLETED":
-                                return "Completed";
-                              default:
-                                return row.status;
-                            }
-                          })()}
-                        </TableCell>
+                        <TableCell>{getStatus(row)}</TableCell>
                         <TableCell>
                           {new Date(row.createdAt).toLocaleDateString()}
                         </TableCell>
@@ -130,18 +140,7 @@ function KnowledgeTable({
                     {selectedType === "TEXT" && (
                       <>
                         <TableCell>{row.text}</TableCell>
-                        <TableCell>
-                          {(() => {
-                            switch (row.status) {
-                              case "IN_PROGRESS":
-                                return "In Progress";
-                              case "COMPLETED":
-                                return "Completed";
-                              default:
-                                return row.status;
-                            }
-                          })()}
-                        </TableCell>
+                        <TableCell>{getStatus(row)}</TableCell>
                         <TableCell>
                           {new Date(row.createdAt).toLocaleDateString()}
                         </TableCell>
@@ -151,18 +150,7 @@ function KnowledgeTable({
                       <>
                         <TableCell>{row.question}</TableCell>
                         <TableCell>{row.answer}</TableCell>
-                        <TableCell>
-                          {(() => {
-                            switch (row.status) {
-                              case "IN_PROGRESS":
-                                return "In Progress";
-                              case "COMPLETED":
-                                return "Completed";
-                              default:
-                                return row.status;
-                            }
-                          })()}
-                        </TableCell>
+                        <TableCell>{getStatus(row)}</TableCell>
                         <TableCell>
                           {new Date(row.createdAt).toLocaleDateString()}
                         </TableCell>

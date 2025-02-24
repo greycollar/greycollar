@@ -40,7 +40,7 @@ const TABS = [
   },
 ];
 
-function ColleagueLayout({ colleague }) {
+function ColleagueLayout({ colleague, loading }) {
   const [currentTab, setCurrentTab] = useState("profile");
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
@@ -55,6 +55,7 @@ function ColleagueLayout({ colleague }) {
           avatarUrl={colleague.avatar}
           coverUrl={getBackgroundUrl(colleague.id)}
           role={colleague.role}
+          loading={loading}
         />
         <Stack
           sx={{

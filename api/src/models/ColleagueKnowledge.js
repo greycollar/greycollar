@@ -15,6 +15,10 @@ const ColleagueKnowledge = sequelize.define("ColleagueKnowledge", {
     type: DataTypes.UUID,
     allowNull: false,
   },
+  organizationId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+  },
   colleagueId: {
     type: DataTypes.UUID,
     allowNull: true,

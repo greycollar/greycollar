@@ -80,6 +80,13 @@
       "answer": "Key qualities of an effective barista include strong communication skills, empathy, problem-solving abilities, patience, and product knowledge.",
       "status": "COMPLETED",
       "createdAt": "2024-08-07T10:00:00Z"
+    },
+    {
+      "id": "18a6dc62-9c58-49db-ae61-eef9042102b2",
+      "type": "TEXT",
+      "text": "In-progress report on coffee service trends and improvements.",
+      "status": "COMPLETED",
+      "createdAt": "2024-08-07T10:00:00Z"
     }
   ]
 }

@@ -5,12 +5,12 @@ import useColleague from "../hooks/useColleague";
 import { useParams } from "react-router-dom";
 function Colleague() {
   const { colleagueId } = useParams();
-  const { colleague } = useColleague(colleagueId);
+  const { colleague, loading } = useColleague(colleagueId);
 
   return (
     <>
       <Page name={"Colleague"} />
-      <ColleagueLayout colleague={colleague} />
+      <ColleagueLayout colleague={colleague} loading={loading} />
     </>
   );
 }

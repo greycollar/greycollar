@@ -55,7 +55,11 @@
       "id": "2f6f4fa1-a047-4b6c-b3ea-b49ef91eae20",
       "knowledgeId": "78324f23-6b55-4ef1-871c-34177b312481",
       "colleagueId": "ef906c5d-cafe-4518-9edc-b80c605df58e"
+    },
+    {
+      "id": "efa12ea4-bcf6-40da-99f1-d55c47953858",
+      "organizationId": "dfb990bb-81dd-4584-82ce-050eb8f6a12f",
+      "knowledgeId": "18a6dc62-9c58-49db-ae61-eef9042102b2"
     }
   ]
 }
-

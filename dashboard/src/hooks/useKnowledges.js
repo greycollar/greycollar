@@ -19,8 +19,6 @@ function useKnowledges(colleagueId) {
   useEffect(() => {
     if (colleagueId) {
       getColeagueKnowledge(colleagueId);
-    } else {
-      getKnowledges();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -79,15 +77,6 @@ function useKnowledges(colleagueId) {
     },
     [handleResponse]
   );
-
-  const getKnowledges = useCallback(() => {
-    handleResponse(http.get(`/knowledge`), (response) => {
-      setKnowledges(response.data);
-      publish("KNOWLEDGE_LOADED", { knowledge: response.data });
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const getColeagueKnowledge = useCallback((colleagueId) => {
     handleResponse(
