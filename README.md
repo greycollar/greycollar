@@ -91,6 +91,8 @@ npm start
 
 This will start three applications simultaneously: Dashboard, API Server and Proxy Server. Once started, the dashboard should be accessible in your browser at http://localhost:3000
 
+Learn more at [https://greycollar.ai/docs](https://greycollar.ai/docs)
+
 ## Features
 
 ### Teams and Colleagues
