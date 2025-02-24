@@ -5,7 +5,7 @@ import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Joi from "joi";
 import Knowledge from "../models/Knowledge";
 import { Op } from "sequelize";
-import express from "express";
+import express, { query } from "express";
 import schemas from "../schemas";
 import knowledge from "../functions/knowledge";
 
@@ -63,7 +63,18 @@ router.get("/", async (req, res) => {
     return res.status(401).end();
   }
 
-  const knowledgeList = await knowledge.list({ colleagueId, type });
+  if (colleagueId) {
+    const colleagueInstance = await Colleague.findByPk(colleagueId);
+    if (!colleagueInstance) {
+      return res.status(404).end();
+    }
+
+    if (colleagueInstance.teamId !== teamId) {
+      return res.status(401).end();
+    }
+  }
+
+  const knowledgeList = await knowledge.list({ colleagueId, teamId, type });
   res.json(knowledgeList);
 });
 
