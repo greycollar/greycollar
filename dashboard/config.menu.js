@@ -8,6 +8,11 @@ const menuConfig = {
       subheader: "Colleague",
       items: [
         {
+          title: "Dashboard",
+          icon: "ic:outline-dashboard",
+          path: "/",
+        },
+        {
           title: "Colleagues",
           icon: "solar:chart-line-duotone",
           path: "/colleagues",
