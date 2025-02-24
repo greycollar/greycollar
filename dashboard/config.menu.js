@@ -5,7 +5,7 @@ const menuConfig = {
   topMenu: [],
   sideMenu: [
     {
-      subheader: "Colleague",
+      subheader: "Dashboard",
       items: [
         {
           title: "Dashboard",
