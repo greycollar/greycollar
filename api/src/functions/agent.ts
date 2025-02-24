@@ -46,16 +46,14 @@ async function knowledge({
   taskId?: string;
 }) {
   const knowledgeList = await knowledgeFn.list({
-    // Prevent TS error
-    teamId: (await colleague.get({ colleagueId })).teamId,
-    colleagueId: colleagueId,
+    colleagueId,
     options: { includeSteps: true },
   });
 
   const knowledge_base = knowledgeList
     .filter(
       (knowledge) =>
-        taskId && !(knowledge.type === "TASK" && knowledge.taskId === taskId)
+        !taskId || !(knowledge.type === "TASK" && knowledge.taskId === taskId)
     )
     .map(({ type, question, answer, text, content, Task }) => ({
       type,
@@ -345,4 +343,3 @@ async function step({ stepId, action, parameters }) {
 }
 
 export default { teamChat, chat, task, step };
-

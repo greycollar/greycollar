@@ -74,86 +74,58 @@ async function create({
 }
 
 async function list({
-  teamId,
   colleagueId,
+  teamId,
   type,
   options = { includeSteps: false },
 }: {
-  teamId: string;
+  teamId?: string;
   colleagueId?: string;
   type?: string;
   options?: { includeSteps?: boolean };
 }) {
-  const knowledgeWhere = {} as {
+  if ((colleagueId && teamId) || (!colleagueId && !teamId)) {
+    throw new Error("INVALID_QUERY_KNOWLEDGE");
+  }
+
+  const typeWhere = {} as {
     type?: string;
   };
 
   if (type) {
-    knowledgeWhere.type = type;
+    typeWhere.type = type;
   }
 
-  type WhereClauseType = {
-    colleagueId?: string | null;
-    teamId?: string | null;
-    organizationId?: string;
-  };
-
-  const whereClause: WhereClauseType[] = [];
-
-  const project = await Project.findOne({
-    where: { id: teamId },
-    attributes: ["organizationId"],
-  });
-
-  const organizationId = project?.organizationId;
+  const knowledgeWhere: {
+    colleagueId?: string;
+    teamId?: string;
+  }[] = [];
 
   if (colleagueId) {
-    const colleague = await Colleague.findOne({
-      where: { id: colleagueId, teamId },
-      attributes: ["teamId"],
-    });
+    const colleagueInstance = await Colleague.findByPk(colleagueId);
 
-    if (!colleague) {
+    if (!colleagueInstance) {
       throw new Error("INVALID_COLLEAGUE");
     }
 
-    whereClause.push({ colleagueId });
+    const teamId = colleagueInstance.toJSON().teamId;
 
-    if (teamId) {
-      whereClause.push({ teamId, colleagueId: null });
-    }
-
-    if (organizationId) {
-      whereClause.push({ organizationId, colleagueId: null });
-    }
-
-    whereClause.push({ teamId: null, colleagueId: null });
-  } else {
-    if (teamId) {
-      whereClause.push({ teamId, colleagueId: null });
-    }
-
-    if (organizationId) {
-      whereClause.push({ organizationId, colleagueId: null });
-    }
-
-    whereClause.push({ teamId: null, colleagueId: null });
+    knowledgeWhere.push({ colleagueId });
+    knowledgeWhere.push({ teamId });
   }
 
-  const knowledge = await Knowledge.findAll({
-    where: knowledgeWhere,
+  if (teamId) {
+    knowledgeWhere.push({ teamId });
+  }
+
+  const knowledgeInstances = await Knowledge.findAll({
+    where: typeWhere,
     include: [
       {
         model: ColleagueKnowledge,
         where: {
-          [Op.or]: whereClause,
+          [Op.or]: knowledgeWhere,
         },
-        include: [
-          {
-            model: Colleague,
-            required: false,
-          },
-        ],
       },
       {
         model: Task,
@@ -168,26 +140,14 @@ async function list({
     ],
   });
 
-  return knowledge.map((entry) => {
-    const { ColleagueKnowledge, ...knowledgeData } = entry.toJSON();
-
-    let returnTeamId: string | null = null;
-    let returnColleagueId: string | null = null;
-    let returnOrganizationId: string | null = null;
-
-    if (ColleagueKnowledge?.organizationId) {
-      returnOrganizationId = ColleagueKnowledge.organizationId;
-    } else if (ColleagueKnowledge?.teamId) {
-      returnTeamId = ColleagueKnowledge.teamId;
-    } else if (ColleagueKnowledge?.colleagueId) {
-      returnColleagueId = ColleagueKnowledge.colleagueId;
-    }
-
-    return {
+  return knowledgeInstances
+    .map((knowledge) => knowledge.toJSON())
+    .map(({ ColleagueKnowledge, ...knowledgeData }) => ({
       ...knowledgeData,
-      colleagueId: returnColleagueId,
-      teamId: returnTeamId,
-      organizationId: returnOrganizationId,
+      colleagueId: ColleagueKnowledge.colleagueId
+        ? ColleagueKnowledge.colleagueId
+        : null,
+      teamId: ColleagueKnowledge.teamId ? ColleagueKnowledge.teamId : null,
       Task: knowledgeData.Task && {
         ...knowledgeData.Task,
         steps:
@@ -197,8 +157,7 @@ async function list({
             result: step.result && step.result.toString(),
           })),
       },
-    };
-  });
+    }));
 }
 
 export default { create, list };

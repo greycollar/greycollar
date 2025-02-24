@@ -49,12 +49,21 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const { projectId: teamId } = req.session;
-  const { colleagueId, type } = req.query as {
+  const {
+    colleagueId,
+    type,
+    teamId: queryTeamId,
+  } = req.query as {
+    teamId?: string;
     colleagueId?: string;
     type?: string;
   };
 
-  const knowledgeList = await knowledge.list({ teamId, colleagueId, type });
+  if (queryTeamId && queryTeamId !== teamId) {
+    return res.status(401).end();
+  }
+
+  const knowledgeList = await knowledge.list({ colleagueId, type });
   res.json(knowledgeList);
 });
 
