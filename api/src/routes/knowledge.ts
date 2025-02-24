@@ -74,7 +74,11 @@ router.get("/", async (req, res) => {
     }
   }
 
-  const knowledgeList = await knowledge.list({ colleagueId, teamId, type });
+  const knowledgeList = await knowledge.list({
+    colleagueId,
+    teamId: queryTeamId,
+    type,
+  });
   res.json(knowledgeList);
 });
 
