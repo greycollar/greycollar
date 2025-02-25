@@ -7,7 +7,6 @@ import React from "react";
 import SelectAvatar from "../../components/AvatarSelector/AvatarSelector";
 import SparkleInput from "../../components/SparkleInput/SparkleInput";
 import StepComponent from "../../components/StepComponent/StepComponent";
-import TeamSummary from "../../components/ItemSummary/TeamSummary";
 
 import {
   Box,
@@ -57,6 +56,7 @@ function ColleagueWizard({
   ];
 
   const steps = ["Name", "Avatar", "Character", "Role", "Engine", "Summary"];
+
   const stepExp = [
     "Give colleague a name.",
     "Select an avatar that reflects your colleague.",
