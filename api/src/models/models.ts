@@ -71,6 +71,9 @@ async function init() {
   Task.hasMany(Step, { foreignKey: "taskId", as: "steps" });
   Step.belongsTo(Task, { foreignKey: "taskId", as: "task" });
 
+  Project.hasOne(TeamDetails, { foreignKey: "id" });
+  TeamDetails.belongsTo(Project, { foreignKey: "id" });
+
   Project.addHook("beforeDestroy", async (project) => {
     await Colleague.destroy({
       where: {
