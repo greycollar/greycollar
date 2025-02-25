@@ -56,19 +56,19 @@ const LandingDialog = () => {
               <ListItemAvatar>
                 <Avatar src={NumberOne}></Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Write your business logic in TypeScript" />
+              <ListItemText primary="Create your team" />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
                 <Avatar src={NumberTwo}></Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Nucleoid renders your codes with AI" />
+              <ListItemText primary="Build your AI Colleague" />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
                 <Avatar src={NumberThree}></Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Creates APIs with built-in datastore" />
+              <ListItemText primary="Supervise them!" />
             </ListItem>
           </List>
         </Box>
@@ -82,7 +82,7 @@ const LandingDialog = () => {
             style={{ marginBottom: "1rem" }}
           />
           <br />
-          Happy coding!
+          Happy Supervising!
         </Box>
       </DialogContent>
       <DialogActions></DialogActions>

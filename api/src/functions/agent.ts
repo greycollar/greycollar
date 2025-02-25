@@ -1,13 +1,13 @@
-import { generate } from "../lib/llm";
-import session from "./session";
-import colleague from "./colleague";
-import knowledgeFn from "./knowledge";
-import supervising from "./supervising";
-import dataset from "../dataset";
-import taskFn from "./task";
 import actions from "../actions";
-import messagesFunc from "./message";
+import colleague from "./colleague";
+import dataset from "../dataset";
+import { generate } from "../lib/llm";
+import knowledgeFn from "./knowledge";
 import message from "./message";
+import messagesFunc from "./message";
+import session from "./session";
+import supervising from "./supervising";
+import taskFn from "./task";
 
 async function messages({ teamId }: { teamId: string }) {
   const messageInstances = await messagesFunc.listMessages({ teamId });
@@ -53,7 +53,7 @@ async function knowledge({
   const knowledge_base = knowledgeList
     .filter(
       (knowledge) =>
-        taskId && !(knowledge.type === "TASK" && knowledge.taskId === taskId)
+        !taskId || !(knowledge.type === "TASK" && knowledge.taskId === taskId)
     )
     .map(({ type, question, answer, text, content, Task }) => ({
       type,
@@ -125,7 +125,7 @@ async function teamChat({
 
   await message.create({
     role: "ASSISTANT",
-    content: response,
+    content: typeof response === "object" ? JSON.stringify(response) : response,
     teamId,
   });
 }

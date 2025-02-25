@@ -54,12 +54,21 @@ function Tasks({ colleagueId }) {
           </Stack>
         )}
 
-        <Stack sx={{ display: "flex", alignItems: "flex-end" }}>
+        <Stack
+          sx={{
+            position: "fixed",
+            bottom: 10,
+            right: 10,
+          }}
+        >
           <Fab
             variant="button"
             color="default"
-            size="small"
-            sx={{ mt: 2, zIndex: 0 }}
+            size="medium"
+            sx={{
+              mt: 2,
+              zIndex: 0,
+            }}
             data-cy="add-task-button"
             onClick={() => {
               setOpen(true);

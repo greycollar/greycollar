@@ -52,9 +52,8 @@ jobs:
           registryUsername: canmingir
           registryUrl: registry.hub.docker.com
           registryPassword: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-          containerAppName: greycollar
+          containerAppName: greycollar-land
           resourceGroup: NucGroup
           imageToDeploy: registry.hub.docker.com/canmingir/greycollar:land-${{ github.run_id }}
           targetPort: 3000
           ingress: 'external'
-

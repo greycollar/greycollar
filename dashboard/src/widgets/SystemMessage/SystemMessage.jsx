@@ -87,7 +87,7 @@ function SystemMessage({ loading, type, id, message, handleClick }) {
         borderStyle: "none none none solid",
         borderColor: currentTypeStyle.borderColor,
         backgroundColor: currentTypeStyle.background,
-        width: smAndMd ? "87vw" : smDown ? "84vw" : "97%",
+        width: smAndMd ? "87vw" : smDown ? "84vw" : "50%",
         ml: 2,
         p: 1,
         borderRadius: 1,

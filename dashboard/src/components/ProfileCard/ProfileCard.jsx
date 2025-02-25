@@ -1,7 +1,6 @@
 import Card from "@mui/material/Card";
 import ProfileCover from "../ProfileCover/ProfileCover";
 import TabBar from "../Tabs/Tabs";
-import useKnowledges from "../../hooks/useKnowledges";
 
 function ProfileCard({
   name,
@@ -11,9 +10,8 @@ function ProfileCard({
   currentTab,
   setCurrentTab,
   TABS,
+  loading,
 }) {
-  const { loading } = useKnowledges();
-
   return (
     <Card variant="profile-card" sx={{ position: "relative" }}>
       <ProfileCover

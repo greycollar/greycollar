@@ -61,7 +61,7 @@ const PopupChatWidget = ({
   return (
     <>
       <PopChat
-        title={`Async Chat Session`}
+        title={`Test Chat Session`}
         open={openPopChat || open}
         handleClose={handleClose}
         history={messages}

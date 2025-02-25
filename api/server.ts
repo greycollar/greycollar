@@ -9,6 +9,14 @@ import sessions from "./src/socket/sessions";
 
 dotenv.config();
 
+process.on("uncaughtException", (err) => {
+  console.error(`Uncaught Exception: ${err.message}`);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.log(`Unhandled Rejection: ${reason}`);
+});
+
 platform.init(config).then(() => {
   const app = require("./src/app").default;
   const server = http.createServer(app);

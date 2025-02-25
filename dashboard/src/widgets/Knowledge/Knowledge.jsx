@@ -7,7 +7,7 @@ import TypeToolbar from "../../components/TypeToolbar/TypeToolbar";
 import useKnowledges from "../../hooks/useKnowledges";
 import { useTable } from "@nucleoidai/platform/minimal/components";
 
-import { Container, Fab, Stack } from "@mui/material";
+import { Box, Container, Fab, Stack, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 
 function Knowledge({ colleagueId }) {
@@ -23,6 +23,8 @@ function Knowledge({ colleagueId }) {
     if (b === "URL") return 1;
     return 0;
   });
+
+  const lgScreen = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const ADD_ITEM_TYPES = ALL_KNOWLEDGE_TYPES.filter((type) => type !== "ALL");
 
@@ -113,34 +115,46 @@ function Knowledge({ colleagueId }) {
           handleChange={handleChange}
         />
 
-        {filteredKnowledges.length > 0 ? (
-          <KnowledgeTable
-            table={table}
-            selectedType={selectedType}
-            knowledges={filteredKnowledges}
-            handleEdit={handleEdit}
-            handleDeleteClick={handleDeleteClick}
-          />
-        ) : (
-          <Stack sx={{ textAlign: "center", my: 4, color: "text.secondary" }}>
-            No data available for {selectedType} type
-          </Stack>
-        )}
+        <Box
+          sx={{
+            position: "relative",
+          }}
+        >
+          {filteredKnowledges.length > 0 ? (
+            <KnowledgeTable
+              table={table}
+              selectedType={selectedType}
+              knowledges={filteredKnowledges}
+              handleEdit={handleEdit}
+              handleDeleteClick={handleDeleteClick}
+            />
+          ) : (
+            <Stack sx={{ textAlign: "center", my: 4, color: "text.secondary" }}>
+              No data available for {selectedType} type
+            </Stack>
+          )}
 
-        <Stack sx={{ display: "flex", alignItems: "flex-end" }}>
-          <Fab
-            variant="button"
-            color="default"
-            size="small"
-            sx={{ mt: 2, zIndex: 0 }}
-            data-cy="add-knowledge-button"
-            onClick={() => {
-              setOpen(true);
+          <Stack
+            sx={{
+              position: lgScreen ? "absolute" : "fixed",
+              bottom: lgScreen ? -60 : 10,
+              right: lgScreen ? 0 : 5,
             }}
           >
-            <AddIcon />
-          </Fab>
-        </Stack>
+            <Fab
+              variant="button"
+              color="default"
+              size="medium"
+              sx={{ mt: 2, zIndex: 0 }}
+              data-cy="add-knowledge-button"
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              <AddIcon />
+            </Fab>
+          </Stack>
+        </Box>
 
         <EditDialog
           openEdit={openEdit}

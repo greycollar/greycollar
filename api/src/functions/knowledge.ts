@@ -1,8 +1,11 @@
+import Colleague from "../models/Colleague";
 import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Knowledge from "../models/Knowledge";
-import scrapper from "../actions/scrapper";
-import Task from "../models/Task";
+import { Op } from "sequelize";
+import { Project } from "@nucleoidai/platform-express/models";
 import Step from "../models/Step";
+import Task from "../models/Task";
+import scrapper from "../actions/scrapper";
 
 async function create({
   teamId,
@@ -71,8 +74,8 @@ async function create({
 }
 
 async function list({
-  teamId,
   colleagueId,
+  teamId,
   type,
   options = { includeSteps: false },
 }: {
@@ -81,54 +84,75 @@ async function list({
   type?: string;
   options?: { includeSteps?: boolean };
 }) {
-  const where = {} as {
-    colleagueId?: string;
-    teamId?: string;
-  };
-  const knowledgeWhere = {} as {
+  if ((colleagueId && teamId) || (!colleagueId && !teamId)) {
+    throw new Error("INVALID_QUERY_KNOWLEDGE");
+  }
+
+  const typeWhere = {} as {
     type?: string;
   };
 
-  if (colleagueId) {
-    where.colleagueId = colleagueId as string;
-  } else {
-    where.teamId = teamId;
-  }
-
   if (type) {
-    knowledgeWhere.type = type as string;
+    typeWhere.type = type;
   }
 
-  const colleagueKnowledge = await ColleagueKnowledge.findAll({
-    where,
+  const knowledgeWhere: {
+    colleagueId?: string;
+    teamId?: string;
+  }[] = [];
+
+  if (colleagueId) {
+    const colleagueInstance = await Colleague.findByPk(colleagueId);
+
+    if (!colleagueInstance) {
+      throw new Error("INVALID_COLLEAGUE");
+    }
+
+    const teamId = colleagueInstance.toJSON().teamId;
+
+    knowledgeWhere.push({ colleagueId });
+    knowledgeWhere.push({ teamId });
+  }
+
+  if (teamId) {
+    knowledgeWhere.push({ teamId });
+  }
+
+  const knowledgeInstances = await Knowledge.findAll({
+    where: typeWhere,
     include: [
       {
-        model: Knowledge,
-        required: false,
-        where: knowledgeWhere,
-        include: {
-          model: Task,
-          required: false,
-          include: options.includeSteps
-            ? {
-                model: Step,
-                as: "steps",
-              }
-            : [],
+        model: ColleagueKnowledge,
+        where: {
+          [Op.or]: knowledgeWhere,
         },
+      },
+      {
+        model: Task,
+        required: false,
+        include: options.includeSteps
+          ? {
+              model: Step,
+              as: "steps",
+            }
+          : [],
       },
     ],
   });
 
-  return colleagueKnowledge
-    .map(({ Knowledge }) => Knowledge.toJSON())
-    .map((knowledge) => ({
-      ...knowledge,
-      Task: knowledge.Task && {
-        ...knowledge.Task,
+  return knowledgeInstances
+    .map((knowledge) => knowledge.toJSON())
+    .map(({ ColleagueKnowledge, ...knowledgeData }) => ({
+      ...knowledgeData,
+      colleagueId: ColleagueKnowledge.colleagueId
+        ? ColleagueKnowledge.colleagueId
+        : null,
+      teamId: ColleagueKnowledge.teamId ? ColleagueKnowledge.teamId : null,
+      Task: knowledgeData.Task && {
+        ...knowledgeData.Task,
         steps:
-          knowledge.Task.steps &&
-          knowledge.Task.steps.map((step) => ({
+          knowledgeData.Task.steps &&
+          knowledgeData.Task.steps.map((step) => ({
             ...step,
             result: step.result && step.result.toString(),
           })),

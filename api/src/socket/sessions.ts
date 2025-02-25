@@ -61,6 +61,10 @@ const setup = (io: Server) => {
     }
   });
 
+  io.on("error", (err) => {
+    console.error("Socket error:", err);
+  });
+
   subscribe("SESSION", "AI_MESSAGED", ({ sessionId, content }) => {
     const socketId = sockets[sessionId];
     if (socketId) {

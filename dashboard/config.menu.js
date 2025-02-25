@@ -5,8 +5,13 @@ const menuConfig = {
   topMenu: [],
   sideMenu: [
     {
-      subheader: "Colleague",
+      subheader: "Dashboard",
       items: [
+        {
+          title: "Dashboard",
+          icon: "ic:outline-dashboard",
+          path: "/",
+        },
         {
           title: "Colleagues",
           icon: "solar:chart-line-duotone",
