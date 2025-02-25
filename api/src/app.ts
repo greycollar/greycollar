@@ -17,6 +17,8 @@ import agent from "./functions/agent";
 declare module "express-serve-static-core" {
   interface Request {
     session: {
+      userId: string;
+      appId: string;
       organizationId: string;
       projectId: string;
     };
