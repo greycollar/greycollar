@@ -95,6 +95,8 @@ const roles = [
 ];
 
 function TeamWizard({ open, onClose }) {
+  const projectId = storage.get("projectId");
+
   const [teamSelected] = useEvent("PROJECT_SELECTED", { projectId: null });
 
   const { organizations, loading } = useOrganizations();
@@ -460,7 +462,7 @@ function TeamWizard({ open, onClose }) {
       maxWidth={`xl`}
       open={open}
       onClose={() => {
-        if (organizations.length !== 0) {
+        if (organizations.length !== 0 && projectId) {
           onClose();
           setTeam({});
           setOrganization({});
