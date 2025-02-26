@@ -9,7 +9,7 @@ import useTeam from "../../hooks/useTeam";
 
 import { Box, Container, Grid } from "@mui/material";
 
-const ColleagueIntegration = () => {
+const ColleagueIntegration = ({ colleague }) => {
   const integrations = [
     {
       id: "1e87e69f-8dbe-4f56-a8a7-1c87226f9c41",
@@ -169,8 +169,6 @@ const ColleagueIntegration = () => {
 
   const { teamById } = useTeam(teamId);
 
-  const { colleagues } = useColleagues();
-
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [skillDialogOpen, setSkillDialogOpen] = React.useState(false);
   const [selectedSkill, setSelectedSkill] = React.useState([]);
@@ -247,7 +245,7 @@ const ColleagueIntegration = () => {
           handleClose={handleSkillDialogClose}
           skill={selectedSkill}
           team={teamById}
-          colleagues={colleagues}
+          colleague={colleague}
         />
 
         <IncomingDrawer
@@ -255,7 +253,7 @@ const ColleagueIntegration = () => {
           instructions={instructions}
           drawerOpen={drawerOpen}
           handleDrawerClose={handleDrawerClose}
-          colleagues={colleagues}
+          colleague={colleague}
         />
       </Box>
     </Container>

@@ -78,7 +78,9 @@ function ColleagueLayout({ colleague, loading }) {
         <Supervising colleagueId={colleague.id} />
       )}
       {currentTab === "task" && <Tasks colleagueId={colleague.id} />}
-      {currentTab === "integration" && <ColleagueIntegration />}
+      {currentTab === "integration" && (
+        <ColleagueIntegration colleague={colleague} />
+      )}
     </>
   );
 }
