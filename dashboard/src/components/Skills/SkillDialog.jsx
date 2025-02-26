@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const SkillDialog = ({ open, handleClose, skill, team, colleague }) => {
+const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);
 
@@ -111,15 +111,17 @@ const SkillDialog = ({ open, handleClose, skill, team, colleague }) => {
                 </Box>
               </MenuItem>
 
-              <MenuItem value={colleague.name}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <SourcedAvatar
-                    source={"MINIMAL"}
-                    avatarUrl={colleague.avatar}
-                  />
-                  <Box sx={{ ml: 1 }}>{colleague.name}</Box>
-                </Box>
-              </MenuItem>
+              {colleagues.map((colleague) => (
+                <MenuItem key={colleague.id} value={colleague.name}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <SourcedAvatar
+                      source={"MINIMAL"}
+                      avatarUrl={colleague.avatar}
+                    />
+                    <Box sx={{ ml: 1 }}>{colleague.name}</Box>
+                  </Box>
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <label className="switch">
