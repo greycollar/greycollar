@@ -215,7 +215,7 @@ AI: "Yes, most certainly, we have a parking spot in the back. 😎"
 <p align="center">
   <b>⭐️ Star us on GitHub for the support</b>
   <br/>
-  Thanks to supervising learning, we have a brand-new approach to AI Agents. Join us in shaping the future of AI!
+  Thanks to supervising learning, we have a brand-new approach to AI Agents. Join us in shaping the future of AI! We welcome all kinds of contributions!
 </p>
 
 <p align="center">
