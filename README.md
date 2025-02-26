@@ -111,7 +111,7 @@ GreyCollar is designed as a **standalone AI addition** to operational workspaces
 
 The **Async Chat** feature enables AI agents to engage in **continuous, asynchronous communication**—both with human team members and other AI colleagues. This ensures that agents can participate actively in task execution, collaborate with teammates, and respond to evolving instructions over time.
 
-<img src="https://github.com/user-attachments/assets/ed48676c-0537-4d51-b281-0f2a9193d1d3" alt="Async Chat" width="400" />
+![Async Chat](https://github.com/user-attachments/assets/ef65fb00-b559-4aea-9390-26019c0ddafc)
 
 ### Task Execution
 
