@@ -33,7 +33,7 @@ function TeamPermissionWidget({ teamId }) {
 
   const handleUserInputSubmit = (e) => {
     if (e.key === "Enter") {
-      addNewUser(newUserId);
+      addNewUser();
     }
   };
 
@@ -78,7 +78,7 @@ function TeamPermissionWidget({ teamId }) {
       }}
     >
       <List>
-        <TitleBar barHeight={"4rem"} />
+        <TitleBar barHeight={"4rem"} bgColor={""} title={""} color={""} />
         <ListItem
           sx={{
             display: "flex",

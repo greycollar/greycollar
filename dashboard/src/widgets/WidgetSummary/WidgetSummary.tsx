@@ -32,7 +32,7 @@ function WidgetSummaryWidget({ title, chartType, per }) {
       x: { show: false },
       y: {
         // eslint-disable-next-line no-undef
-        formatter: (value) => fNumber(value),
+        formatter: (value) => Number(value),
         title: {
           formatter: () => "",
         },
@@ -49,7 +49,18 @@ function WidgetSummaryWidget({ title, chartType, per }) {
         dir="ltr"
         type={chartType}
         series={[{ data: series }]}
-        options={chartOptions}
+        options={{
+          ...chartOptions,
+          tooltip: {
+            ...chartOptions.tooltip,
+            y: {
+              formatter: (value) => String(value),
+              title: {
+                formatter: () => "",
+              },
+            },
+          },
+        }}
         width={60}
         height={36}
       />
@@ -62,6 +73,7 @@ function WidgetSummaryWidget({ title, chartType, per }) {
       percent={per}
       total={4876}
       chart={<Charst />}
+      sx={{}}
     />
   );
 }

@@ -11,6 +11,7 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:cypress/recommended"
   ],
   "parserOptions": {

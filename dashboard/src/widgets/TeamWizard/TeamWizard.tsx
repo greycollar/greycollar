@@ -100,11 +100,27 @@ function TeamWizard({ open, onClose }) {
   const [teamSelected] = useEvent("PROJECT_SELECTED", { projectId: null });
 
   const { organizations, loading } = useOrganizations();
-  const [organization, setOrganization] = useState({});
-  const [team, setTeam] = useState({});
-  const [colleague, setColleague] = useState({});
+  const [organization, setOrganization] = useState({
+    name: "",
+    id: "",
+  });
+  const [team, setTeam] = useState({
+    team: "",
+    avatar: "",
+    src: "",
+    name: "",
+  });
+  const [colleague, setColleague] = useState({
+    name: "",
+    avatar: "",
+    src: "",
+    character: "",
+    role: "",
+    aiEngineId: "",
+    engineName: "",
+  });
 
-  const { createOrganization } = useOrganization();
+  const { createOrganization } = useOrganization(organizations[0].id);
   const { createColleague } = useColleagues();
   const { createTeam } = useTeams();
 
@@ -152,9 +168,25 @@ function TeamWizard({ open, onClose }) {
       Object.keys(colleague).length > 0
     ) {
       createColleague(colleague, projectId);
-      setColleague({});
-      setOrganization({});
-      setTeam({});
+      setColleague({
+        name: "",
+        avatar: "",
+        src: "",
+        character: "",
+        role: "",
+        aiEngineId: "",
+        engineName: "",
+      });
+      setOrganization({
+        name: "",
+        id: "",
+      });
+      setTeam({
+        team: "",
+        avatar: "",
+        src: "",
+        name: "",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamSelected]);
@@ -195,7 +227,11 @@ function TeamWizard({ open, onClose }) {
             data-cy="team-wizard-org-name-input"
             prop="Organziaton Name"
             value={organization.name}
-            onChange={(e) => setOrganization({ name: e.target.value })}
+            onChange={(e) =>
+              setOrganization({ ...organization, name: e.target.value })
+            }
+            onRandomValue={""}
+            multiline={""}
           />
         </div>
         {organizations.length > 0 && (
@@ -264,7 +300,9 @@ function TeamWizard({ open, onClose }) {
             data-cy="colleague-wizard-name-input"
             prop="Team Name"
             value={team.name}
-            onChange={(e) => setTeam({ name: e.target.value })}
+            onChange={(e) => setTeam({ ...team, name: e.target.value })}
+            onRandomValue={""}
+            multiline={""}
           />
         </div>
       </div>
@@ -311,7 +349,11 @@ function TeamWizard({ open, onClose }) {
             data-cy="colleague-wizard-name-input"
             prop="name"
             value={colleague.name}
-            onChange={(e) => setColleague({ name: e.target.value })}
+            onChange={(e) =>
+              setColleague({ ...colleague, name: e.target.value })
+            }
+            onRandomValue={""}
+            multiline={""}
           />
         </div>
 
@@ -444,6 +486,8 @@ function TeamWizard({ open, onClose }) {
           <EnginesChart
             handleEngineSelect={handleEngineSelect}
             isWizardEngine={true}
+            open={""}
+            setOpen={""}
           />
         );
       case 7:
@@ -464,8 +508,16 @@ function TeamWizard({ open, onClose }) {
       onClose={() => {
         if (organizations.length !== 0 && projectId) {
           onClose();
-          setTeam({});
-          setOrganization({});
+          setTeam({
+            team: "",
+            avatar: "",
+            src: "",
+            name: "",
+          });
+          setOrganization({
+            name: "",
+            id: "",
+          });
           setActiveStep(0);
         }
       }}

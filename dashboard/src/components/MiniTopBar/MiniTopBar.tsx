@@ -1,5 +1,5 @@
 import React from "react";
-import config from "../.././../config";
+import config from "../../../config";
 import styles from "./styles";
 
 import { AppBar, Box, Slide, Toolbar } from "@mui/material";

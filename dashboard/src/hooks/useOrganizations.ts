@@ -5,7 +5,15 @@ import { useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
 function useOrganizations() {
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState([
+    {
+      id: "",
+      name: "",
+      description: "",
+      created_at: "",
+      updated_at: "",
+    },
+  ]);
 
   const { loading, error, handleResponse } = useApi();
 

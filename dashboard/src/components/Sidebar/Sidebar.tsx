@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
-import config from "../.././../config.js";
+import config from "../../../config.js";
 import styles from "./styles";
 
 const Sidebar = ({ routes, isCollapsed }) => {

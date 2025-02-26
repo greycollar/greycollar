@@ -10,7 +10,7 @@
     "build": "vite build",
     "cypress:open": "cypress open --e2e --browser chrome",
     "cypress:run": "cypress run",
-    "lint": "eslint . --ext js,jsx --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build"
@@ -67,6 +67,8 @@
     "@storybook/react": "^7.0.13",
     "@storybook/react-vite": "^7.0.13",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",

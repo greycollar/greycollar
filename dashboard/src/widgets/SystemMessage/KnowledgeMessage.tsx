@@ -63,6 +63,7 @@ function KnowledgeMessage({ id, handleClick, onDateFetched }) {
                   source={"MINIMAL"}
                   avatarUrl={colleague.avatar}
                   sx={{ ml: 1, width: 18, height: 18 }}
+                  children={{}}
                 />
               }
               label={colleague.name}
