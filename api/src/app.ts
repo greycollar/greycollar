@@ -1,22 +1,26 @@
+import "express";
+
 import * as platform from "@nucleoidai/platform-express";
+
+import agent from "./functions/agent";
 import colleagues from "./routes/colleagues";
 import engines from "./routes/engines";
 import knowledge from "./routes/knowledge";
 import messages from "./routes/messages";
 import metrics from "./routes/metrics";
 import organizations from "./routes/organizations";
+import projects from "./routes/projects";
 import sessions from "./routes/sessions";
+import { subscribe } from "./lib/Event";
 import supervisings from "./routes/supervisings";
 import tasks from "./routes/tasks";
 import teamDetails from "./routes/teamDetails";
-import { subscribe } from "./lib/Event";
-
-import "express";
-import agent from "./functions/agent";
 
 declare module "express-serve-static-core" {
   interface Request {
     session: {
+      userId: string;
+      appId: string;
       organizationId: string;
       projectId: string;
     };
@@ -32,6 +36,7 @@ app.use("/metrics", metrics);
 app.use(authorization.verify);
 app.use(authorization.authorize("ADMIN"));
 
+app.use("/projects", projects);
 app.use("/teams/details", teamDetails);
 app.use("/colleagues", colleagues);
 app.use("/knowledge", knowledge);
