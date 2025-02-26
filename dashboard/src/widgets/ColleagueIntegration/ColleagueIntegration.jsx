@@ -169,6 +169,8 @@ const ColleagueIntegration = ({ colleague }) => {
 
   const { teamById } = useTeam(teamId);
 
+  const { colleagues } = useColleagues();
+
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [skillDialogOpen, setSkillDialogOpen] = React.useState(false);
   const [selectedSkill, setSelectedSkill] = React.useState([]);
@@ -245,7 +247,7 @@ const ColleagueIntegration = ({ colleague }) => {
           handleClose={handleSkillDialogClose}
           skill={selectedSkill}
           team={teamById}
-          colleague={colleague}
+          colleagues={colleagues}
         />
 
         <IncomingDrawer
