@@ -42,6 +42,9 @@ function useKnowledges(colleagueId) {
         (response) => {
           publish("KNOWLEDGE_CREATED", { knowledge: response.data });
           return response.data;
+        },
+        (error) => {
+          console.error(error);
         }
       );
     },
@@ -59,6 +62,9 @@ function useKnowledges(colleagueId) {
         (response) => {
           publish("KNOWLEDGE_UPDATED", { knowledges: response.data });
           return response.data;
+        },
+        (error) => {
+          console.error(error);
         }
       );
     },
@@ -72,6 +78,9 @@ function useKnowledges(colleagueId) {
         (response) => {
           publish("KNOWLEDGE_DELETED", { knowledge: knowledge.id });
           return response.data;
+        },
+        (error) => {
+          console.error(error);
         }
       );
     },
@@ -84,6 +93,9 @@ function useKnowledges(colleagueId) {
       (response) => {
         setKnowledges(response.data);
         publish("KNOWLEDGE_LOADED", { knowledge: response.data });
+      },
+      (error) => {
+        console.error(error);
       }
     );
 

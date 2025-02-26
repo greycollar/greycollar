@@ -29,6 +29,11 @@ export default function IconSelector({ handleEmojiSelect, avatarSrc, avatar }) {
           }}
         >
           <SourcedAvatar
+            name="avatar"
+            avatarUrl={
+              avatarSrc ||
+              `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatar}.jpg`
+            }
             source={
               avatarSrc ||
               `https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_${avatar}.jpg`

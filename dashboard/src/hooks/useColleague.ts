@@ -11,6 +11,7 @@ function useColleague(colleagueId) {
     character: "",
     role: "",
     teamId: "",
+    AIEngine: "",
   });
 
   const { loading, error, handleResponse } = useApi();
@@ -30,8 +31,12 @@ function useColleague(colleagueId) {
       return;
     }
 
-    handleResponse(http.get(`/colleagues/${colleagueId}`), (response) =>
-      setColleague(response.data)
+    handleResponse(
+      http.get(`/colleagues/${colleagueId}`),
+      (response) => setColleague(response.data),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,6 +54,9 @@ function useColleague(colleagueId) {
       }),
       () => {
         publish("COLLEAGUE_UPDATED", { colleagueId: colleague.id });
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

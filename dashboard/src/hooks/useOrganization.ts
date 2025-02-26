@@ -22,7 +22,6 @@ function useOrganization(id) {
 
   const createOrganization = useCallback(async (organization) => {
     const response = await http.post("/organizations", organization);
-    handleResponse(response);
     return response.data;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -31,8 +30,12 @@ function useOrganization(id) {
     if (!id) {
       return;
     }
-    handleResponse(http.get(`/organizations/${id}`), (response) =>
-      setOrganizations(response.data)
+    handleResponse(
+      http.get(`/organizations/${id}`),
+      (response) => setOrganizations(response.data),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

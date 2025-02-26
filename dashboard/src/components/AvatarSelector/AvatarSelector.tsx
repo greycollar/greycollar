@@ -32,10 +32,12 @@ export default function AvatarSelector({
           }}
         >
           <SourcedAvatar
+            name={avatar}
             source={
               avatarSrc ||
               `https://cdn.nucleoid.com/greycollar/avatars/${avatar}.jpg`
             }
+            avatarUrl={`https://cdn.nucleoid.com/greycollar/avatars/${avatar}.jpg`}
             sx={{
               display: "flex",
               alignSelf: "center",

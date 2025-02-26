@@ -24,9 +24,15 @@ function useAIEngines() {
   }, []);
 
   const getEngines = useCallback(() => {
-    handleResponse(http.get(`/engines`), (response) => {
-      setEngines(response.data);
-    });
+    handleResponse(
+      http.get(`/engines`),
+      (response) => {
+        setEngines(response.data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

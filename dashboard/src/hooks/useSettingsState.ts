@@ -21,22 +21,22 @@ const useSettingsState = () => {
       payload: permissions,
     });
   }, []);
-  /*
+  
   const addPermission = useCallback(
     async (newUserId, teamId) => {
       const permission = { userId: newUserId, teamId: teamId };
 
       await http.post(`/api/userAcces`, permission);
-      await fetchPermissionData(teamId);
+      await fetchPermissionData();
     },
     [fetchPermissionData]
   );
   //update for new permission endpoints
-*/
+
   const removePermission = useCallback(
-    async (permissionId, teamId) => {
+    async (permissionId) => {
       await http.delete(`/api/userAcces/${permissionId}`);
-      await fetchPermissionData(teamId);
+      await fetchPermissionData();
     },
     [fetchPermissionData]
   );
@@ -44,6 +44,7 @@ const useSettingsState = () => {
   return {
     settingsState,
     dispatch,
+    addPermission,
     fetchPermissionData,
     removePermission,
   };

@@ -17,7 +17,12 @@ function AIMarketplaceButton() {
       >
         <Iconify icon={"codicon:organization"} width={24} />
       </IconButton>
-      <EnginesChart open={open} setOpen={setOpen} />
+      <EnginesChart 
+        open={open} 
+        setOpen={setOpen} 
+        isWizardEngine={false} 
+        handleEngineSelect={() => {}} 
+      />
     </>
   );
 }

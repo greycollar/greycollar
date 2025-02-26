@@ -2,7 +2,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import React from "react";
 import Stack from "@mui/material/Stack";
 import styles from "./styles";
-import { useEvent } from "@nucleoidjs/synapses";
+import { useEvent } from "@nucleoidai/react-event";
 
 function Loading() {
   const [linearProgress] = useEvent("LOADED", {

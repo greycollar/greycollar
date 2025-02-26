@@ -16,8 +16,12 @@ function useTeamDetails() {
   const { loading, error, handleResponse } = useApi();
 
   const getTeamDetails = useCallback(() => {
-    handleResponse(http.get("/teams/details"), (response) =>
-      setTeamDetails(response.data)
+    handleResponse(
+      http.get("/teams/details"),
+      (response) => setTeamDetails(response.data),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

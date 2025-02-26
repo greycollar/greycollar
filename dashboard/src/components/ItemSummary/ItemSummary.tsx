@@ -40,6 +40,7 @@ export default function ItemSummary({ newItem }) {
                     {newItem.name}
                   </Typography>
                   <SourcedAvatar
+                    name={newItem.name}
                     source={
                       newItem.src ||
                       `https://cdn.nucleoid.com/greycollar/avatars/${newItem?.avatar?.replace(
@@ -47,6 +48,7 @@ export default function ItemSummary({ newItem }) {
                         ""
                       )}.jpg`
                     }
+                    avatarUrl={newItem.avatarUrl}
                     sx={{
                       display: "flex",
                       alignSelf: "center",
@@ -56,7 +58,9 @@ export default function ItemSummary({ newItem }) {
                       border: `solid 2px ${(theme) =>
                         theme.palette.common.white}`,
                     }}
-                  />
+                  >
+                    {newItem.children}
+                  </SourcedAvatar>
                 </>
               }
             />

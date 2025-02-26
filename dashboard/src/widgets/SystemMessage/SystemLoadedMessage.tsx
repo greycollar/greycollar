@@ -8,7 +8,7 @@ import { IconButton, Stack, Typography } from "@mui/material";
 function SystemLoadedMessage({ handleClick, command, message, onDateFetched }) {
   useEffect(() => {
     if (message) {
-      onDateFetched(fDateTime(message.createdAt));
+      onDateFetched(fDateTime(message.createdAt, "YYYY-MM-DD HH:mm:ss"));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);

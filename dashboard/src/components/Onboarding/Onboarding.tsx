@@ -24,7 +24,7 @@ const Onboarding = () => {
 
   switch (landing) {
     case 0:
-      return <LandingDialog handleClose={handleClose} />;
+      return <LandingDialog />;
   }
 
   return;

@@ -26,8 +26,12 @@ function useOrganizations() {
   }, [teamSelected]);
 
   const getOrganizations = useCallback(() => {
-    handleResponse(http.get(`/organizations`), (response) =>
-      setOrganizations(response.data)
+    handleResponse(
+      http.get(`/organizations`),
+      (response) => setOrganizations(response.data),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

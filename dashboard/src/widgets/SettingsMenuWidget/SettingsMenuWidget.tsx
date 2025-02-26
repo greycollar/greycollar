@@ -23,7 +23,12 @@ function SettingsMenuWigdet() {
       }}
     >
       <MenuList>
-        <TitleBar title={"Settings"} barHeight={"4rem"} />
+        <TitleBar
+          title={"Settings"}
+          barHeight={"4rem"}
+          bgColor={"defaultBgColor"}
+          color={"defaultColor"}
+        />
         <Divider sx={{ marginTop: "3.59rem" }} />
         <MenuItem sx={{ height: "3.8rem", marginY: -1 }}>
           <ListItemIcon>

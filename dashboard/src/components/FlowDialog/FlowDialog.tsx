@@ -12,7 +12,7 @@ const FlowDialog = ({ open, setOpen, steps }) => {
     if (!steps || steps.length === 0) return null;
 
     const sortedSteps = [...steps].sort(
-      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
 
     const root = {

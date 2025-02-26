@@ -30,6 +30,8 @@ function useSupervising(id) {
   const getSupervisingById = useCallback((id) => {
     handleResponse(http.get(`/supervisings/${id}`), (response) => {
       setSupervising(response.data);
+    }, (error) => {
+      console.error(error);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

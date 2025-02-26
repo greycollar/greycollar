@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const AnimatedNode = styled.div`
+const AnimatedNode = styled.div<{
+  visible: boolean;
+  delay: number;
+}>`
   opacity: 0;
   transform: translateY(20px);
   animation: ${(props) =>

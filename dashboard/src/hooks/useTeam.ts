@@ -22,7 +22,13 @@ function useTeam(teamId) {
   }, [teamId]);
 
   const getTeam = useCallback(() => {
-    handleResponse(http.get(`/projects`), (response) => setTeam(response.data));
+    handleResponse(
+      http.get(`/projects`),
+      (response) => setTeam(response.data),
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -30,10 +36,16 @@ function useTeam(teamId) {
     if (!teamId) {
       return;
     }
-    handleResponse(http.get(`/projects/${teamId}`), (response) => {
-      setTeamById(response.data);
-      publish("TEAM_SELECTED", { teamId: teamId });
-    });
+    handleResponse(
+      http.get(`/projects/${teamId}`),
+      (response) => {
+        setTeamById(response.data);
+        publish("TEAM_SELECTED", { teamId: teamId });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,7 +58,10 @@ function useTeam(teamId) {
         companyId: "4def7431-cb19-4aab-aa4b-2a84198cb56a",
       }),
 
-      publish("TEAM_UPDATED", { teamId: team.id })
+      publish("TEAM_UPDATED", { teamId: team.id }),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -17,12 +17,12 @@ import {
 import React, { useCallback } from "react";
 
 function TeamPermissionWidget({ teamId }) {
-  const [activateAddUser, setActivateAddUser] = React.useState();
+  const [activateAddUser, setActivateAddUser] = React.useState(false);
   const [newUserId, setNewUserId] = React.useState();
   const {
     settingsState,
-    fetchPermissionData,
     addPermission,
+    fetchPermissionData,
     removePermission,
   } = useSettingsState();
 
@@ -59,7 +59,7 @@ function TeamPermissionWidget({ teamId }) {
   );
 
   const fetchPermissions = useCallback(async () => {
-    await fetchPermissionData(teamId);
+    await fetchPermissionData();
   }, [fetchPermissionData, teamId]);
 
   React.useEffect(() => {

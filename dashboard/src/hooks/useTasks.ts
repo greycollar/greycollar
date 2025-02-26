@@ -46,6 +46,9 @@ function useTasks(colleagueId) {
       (response) => {
         publish("TASK_CREATED", response.data);
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,16 +60,25 @@ function useTasks(colleagueId) {
       (response) => {
         setTasks(response.data);
         publish("TASK_LOADED", response.data);
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getSteps = useCallback((id) => {
-    handleResponse(http.get(`/tasks/${id}/steps`), (response) => {
-      setSteps(response.data);
-      publish("TASK_STEP_LOADING", response.data);
-    });
+    handleResponse(
+      http.get(`/tasks/${id}/steps`),
+      (response) => {
+        setSteps(response.data);
+        publish("TASK_STEP_LOADING", response.data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -79,6 +91,9 @@ function useTasks(colleagueId) {
       }),
       (response) => {
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

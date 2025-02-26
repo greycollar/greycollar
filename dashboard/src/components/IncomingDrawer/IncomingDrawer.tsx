@@ -74,18 +74,10 @@ const IncomingDrawer = ({
                     mb: 0.2,
                   }}
                 >
-                  <Fab
-                    variant="button"
-                    color="default"
-                    sx={{ width: 32, height: 32 }}
-                  >
+                  <Fab sx={{ width: 32, height: 32 }}>
                     <Iconify icon="solar:pen-bold" width={16} height={16} />
                   </Fab>
-                  <Fab
-                    variant="button"
-                    color="default"
-                    sx={{ width: 32, height: 32 }}
-                  >
+                  <Fab sx={{ width: 32, height: 32 }}>
                     <Iconify
                       icon="solar:trash-bin-trash-bold"
                       width={16}
@@ -101,8 +93,6 @@ const IncomingDrawer = ({
         <Box>
           <Stack sx={{ display: "flex", alignItems: "flex-end" }}>
             <Fab
-              variant="button"
-              color="default"
               size="small"
               sx={{ m: 2 }}
               onClick={() => {
@@ -117,6 +107,7 @@ const IncomingDrawer = ({
             open={open}
             setOpen={setOpen}
             colleagueId={colleague.id}
+            createTask={() => {}}
           />
         </Box>
       </Box>

@@ -29,7 +29,7 @@ function StandardNode({ node, sx }) {
   const handleDialogClose = (confirmed) => {
     setOpen(false);
     if (confirmed) {
-      sessionStorage.setItem("fromLink", true);
+      sessionStorage.setItem("fromLink", `true`);
       sessionStorage.setItem("name", node.name);
     }
   };
@@ -39,7 +39,7 @@ function StandardNode({ node, sx }) {
       event.preventDefault();
       handleDialogOpen();
     } else {
-      sessionStorage.setItem("fromLink", true);
+      sessionStorage.setItem("fromLink", `true`);
       sessionStorage.setItem("name", node.name);
     }
   };
@@ -78,7 +78,9 @@ function StandardNode({ node, sx }) {
               source={"MINIMAL"}
               avatarUrl={node.avatar ? node.avatar : null}
               sx={{ mr: 2, mb: 1, width: 48, height: 48 }}
-            />
+            >
+              {null}
+            </SourcedAvatar>
           )}
 
           <Stack>
@@ -98,12 +100,10 @@ function StandardNode({ node, sx }) {
             <Link
               data-cy="chat-link"
               onClick={handleClick}
-              to={{
-                pathname: "/chat",
-                state: {
-                  fromLink: true,
-                  name: node.name,
-                },
+              to="/chat"
+              state={{
+                fromLink: true,
+                name: node.name,
               }}
               style={{ position: "absolute", top: 0, right: 0, color: "white" }}
             >

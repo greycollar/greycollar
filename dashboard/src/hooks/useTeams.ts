@@ -9,7 +9,13 @@ function useTeams() {
   const { loading, error, handleResponse } = useApi();
 
   const getTeams = useCallback(() => {
-    handleResponse(http.get("/teams"), (response) => setTeams(response.data));
+    handleResponse(
+      http.get("/teams"),
+      (response) => setTeams(response.data),
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -19,8 +25,6 @@ function useTeams() {
       icon: team.avatar,
       organizationId,
     });
-
-    handleResponse(response);
 
     publish("PROJECT_CREATED", { project: response.data });
 
@@ -32,6 +36,9 @@ function useTeams() {
   const deleteTeam = useCallback((teamId) => {
     handleResponse(
       http.delete(`/projects/${teamId}`),
+      (error) => {
+        console.error(error);
+      },
       publish("TEAM_DELETED", { teamId })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

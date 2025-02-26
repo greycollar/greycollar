@@ -10,9 +10,8 @@ function OrganizationChart({ open, setOpen }) {
         <DialogTitle variant="h4">Organizational Chart</DialogTitle>
 
         <OrganizationalChart
-          sx={{ margin: 0.2 }}
+          sx={{ margin: 0.2, lineHeight: "15px" }}
           variant="standard"
-          lineHeight="15px"
         />
       </DialogContent>
     );

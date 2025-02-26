@@ -4,7 +4,10 @@ import { alpha } from "@mui/material/styles";
 
 import React, { memo } from "react";
 
-const AIMessage = memo(({ content, messageRef }) => (
+const AIMessage: React.FC<{
+  content: string;
+  messageRef: React.RefObject<HTMLDivElement>;
+}> = memo(({ content, messageRef }) => (
   <Stack
     ref={messageRef}
     sx={{

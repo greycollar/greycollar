@@ -20,8 +20,12 @@ function useColleagues() {
   }, [colleagueUpdated, colleagueDeleted, colleagueAdded, teamSelected]);
 
   const getTeamColleagues = useCallback(() => {
-    handleResponse(http.get(`/colleagues`), (response) =>
-      setColleagues(response.data)
+    handleResponse(
+      http.get(`/colleagues`),
+      (response) => setColleagues(response.data),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,7 +55,10 @@ function useColleagues() {
   const deleteColleague = useCallback((colleagueId) => {
     handleResponse(
       http.delete(`/colleagues/${colleagueId}`),
-      publish("COLLEAGUE_DELETED", { colleagueId })
+      publish("COLLEAGUE_DELETED", { colleagueId }),
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

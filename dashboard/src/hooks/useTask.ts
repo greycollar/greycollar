@@ -23,9 +23,15 @@ function useTask(id) {
   }, []);
 
   const getTask = useCallback((id) => {
-    handleResponse(http.get(`/tasks/${id}`), (response) => {
-      setTask(response.data);
-    });
+    handleResponse(
+      http.get(`/tasks/${id}`),
+      (response) => {
+        setTask(response.data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

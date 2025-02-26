@@ -6,7 +6,13 @@ import { Card, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 function AddNewButton({ type, addNew, onClickFunction }) {
-  const [size, setSize] = useState({});
+  const [size, setSize] = useState({
+    width: "",
+    height: "",
+    borderRadius: "",
+    minWidth: "",
+    maxHeight: ""
+  });
 
   useEffect(() => {
     switch (type) {
@@ -26,7 +32,6 @@ function AddNewButton({ type, addNew, onClickFunction }) {
       <Card
         data-cy="add-new-button"
         onClick={onClickFunction}
-        variant="contained"
         sx={{
           ...styles.default,
           width: { xs: "90%", sm: size.width },
@@ -36,7 +41,7 @@ function AddNewButton({ type, addNew, onClickFunction }) {
           maxHeight: size.maxHeight,
         }}
       >
-        <Stack direction="column" alignItems="center" fullWidth>
+        <Stack direction="column" alignItems="center">
           <AddCircleIcon fontSize="large" />
           <Typography color={"inherit"} variant="subtitle1" margin={0.5}>
             Add New {addNew}

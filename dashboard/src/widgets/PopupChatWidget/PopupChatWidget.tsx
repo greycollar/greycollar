@@ -67,13 +67,13 @@ const PopupChatWidget = ({
         history={messages}
         closeButton={true}
         handleNewUserMessage={handleNewUserMessage}
-        color="appTheme"
         readOnly={readOnly}
         selectedConversationId={conversationId || null}
         sound={sound}
+        sx={{}}
       />
       {!open && !readOnly && (
-        <Fab onClick={() => setOpen(!open)} cursor="pointer" size="small">
+        <Fab onClick={() => setOpen(!open)} size="small">
           <Badge
             anchorOrigin={{
               vertical: "top",
