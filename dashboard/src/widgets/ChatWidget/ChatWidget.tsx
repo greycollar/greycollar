@@ -22,13 +22,17 @@ import { withReact } from "slate-react";
 
 import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 
-const ChatWidget = memo(function ChatWidget({ projectId }) {
+const ChatWidget = memo(function ChatWidget({
+  projectId,
+}: {
+  projectId: string;
+}) {
   const socket = useSocket();
 
   const { team, loading: teamLoading } = useTeam(projectId);
   const { colleagues, loading } = useColleagues();
 
-  const { updateSupervising } = useSupervisings();
+  const { updateSupervising } = useSupervisings(colleagues[0]?.id);
 
   const { messages, loading: messagesLoading } = useChat();
 
@@ -126,7 +130,6 @@ const ChatWidget = memo(function ChatWidget({ projectId }) {
               user={user}
               editor={editor}
               messages={messages}
-              colleague={colleague}
               isReplying={isReplying}
               setIsReplying={setIsReplying}
               selectedMessage={selectedMessage}

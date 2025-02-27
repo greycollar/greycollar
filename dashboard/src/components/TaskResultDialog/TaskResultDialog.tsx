@@ -1,12 +1,10 @@
 import CodeBlock from "../CodeBlock/CodeBlock";
-import { Iconify } from "@nucleoidai/platform/minimal/components";
 import InfoCard from "../InfoCard/InfoCard";
 import { ResultTable } from "../ResultTable/ResultTable";
 import { parseJsonResult } from "../../utils/formatters";
 
 import {
   Box,
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -78,7 +76,6 @@ const TaskResultDialog = ({ open, setOpen, task }) => {
                     <Switch
                       checked={viewMode === "table"}
                       onChange={toggleViewMode}
-                      color="background.paper"
                       sx={{
                         position: "absolute",
                         top: -5,

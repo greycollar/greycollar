@@ -15,7 +15,7 @@ function SupervisingMessage({ id, handleClick, onDateFetched }) {
 
   useEffect(() => {
     if (supervising) {
-      onDateFetched(fDateTime(supervising.createdAt));
+      onDateFetched(fDateTime(supervising.createdAt, "MMM DD, YYYY"));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supervising]);

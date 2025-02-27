@@ -102,7 +102,7 @@ function ChatNav({ loading, colleagues, collapsed, setCollapsed }) {
   const renderSkeleton = (
     <>
       {[...Array(12)].map((_, index) => (
-        <ChatNavItemSkeleton key={index} />
+        <ChatNavItemSkeleton sx={""} key={index} />
       ))}
     </>
   );

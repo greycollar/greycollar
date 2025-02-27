@@ -161,7 +161,6 @@ const InputComponent = ({
             <ListItem
               ref={(el) => (itemRefs.current[index] = el)}
               tabIndex={-1}
-              disableRipple
               key={index}
               onClick={() => onSelect(option)}
               sx={{

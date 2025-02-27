@@ -14,6 +14,13 @@ const PopupChatWidget = ({
   setOpenPopChat,
   sessionId,
   sound,
+}: {
+  readOnly?: boolean;
+  conversationId?: string;
+  openPopChat?: boolean;
+  setOpenPopChat?: any;
+  sessionId?: string;
+  sound?: boolean;
 }) => {
   const { colleagueId } = useParams();
   const [open, setOpen] = useState(false);

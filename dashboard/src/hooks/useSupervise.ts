@@ -5,16 +5,16 @@ import { useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
 function useSupervising(id) {
-  const [supervising, setSupervising] = useState([
-    {
-      answer: "",
-      colleagueId: "",
-      conversationId: "",
-      sessionId: "",
-      status: "",
-      id: "",
-    },
-  ]);
+  const [supervising, setSupervising] = useState({
+    answer: "",
+    colleagueId: "",
+    conversationId: "",
+    sessionId: "",
+    status: "",
+    id: "",
+    createdAt: "",
+    question: "",
+  });
 
   const [supervisingAnswered] = useEvent("SUPERVISING_ANSWERED", null);
 
@@ -28,11 +28,15 @@ function useSupervising(id) {
   const { loading, error, handleResponse } = useApi();
 
   const getSupervisingById = useCallback((id) => {
-    handleResponse(http.get(`/supervisings/${id}`), (response) => {
-      setSupervising(response.data);
-    }, (error) => {
-      console.error(error);
-    });
+    handleResponse(
+      http.get(`/supervisings/${id}`),
+      (response) => {
+        setSupervising(response.data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

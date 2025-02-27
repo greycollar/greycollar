@@ -18,6 +18,9 @@ function useChat() {
       (response) => {
         publish("MESSAGE_CREATED", { message: response.data });
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,6 +34,9 @@ function useChat() {
       (response) => {
         publish("MESSAGE_STATUS_UPDATED", { message: response.data });
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +50,9 @@ function useChat() {
           const messages = response.data;
           publish("MESSAGES_LOADED_BY_DATE", { messages });
           return messages;
+        },
+        (error) => {
+          console.error(error);
         }
       );
       return response;

@@ -4,16 +4,14 @@ import useApi from "./useApi";
 import { useCallback, useEffect, useState } from "react";
 
 function useTask(id) {
-  const [task, setTask] = useState([
-    {
-      description: "",
-      colleagueId: "",
-      status: "",
-      commandId: "",
-      id: "",
-      createdAt: "",
-    },
-  ]);
+  const [task, setTask] = useState({
+    description: "",
+    colleagueId: "",
+    status: "",
+    commandId: "",
+    id: "",
+    createdAt: "",
+  });
 
   const { loading, error, handleResponse } = useApi();
 

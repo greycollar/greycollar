@@ -11,7 +11,7 @@ function AddNewButton({ type, addNew, onClickFunction }) {
     height: "",
     borderRadius: "",
     minWidth: "",
-    maxHeight: ""
+    maxHeight: "",
   });
 
   useEffect(() => {

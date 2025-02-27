@@ -110,7 +110,7 @@ function ChatMessageItem({
         color: "text.disabled",
       }}
     >
-      {fDateTime(message.createdAt)}
+      {fDateTime(message.createdA, "MMM DD, YYYY")}
     </Typography>
   ) : null;
 

@@ -33,9 +33,11 @@ const LandingDialog = () => {
       open={open}
       fullWidth
       maxWidth={"sm"}
-      onClose={(event) => (event.key === "Escape" ? handleClose() : null)}
+      onClose={(event: React.KeyboardEvent) =>
+        event.key === "Escape" ? handleClose() : null
+      }
     >
-      <ClosableDialogTitle handleClose={handleClose} />
+      <ClosableDialogTitle handleClose={handleClose} label={""} content={""} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" sx={{ mt: 1 }}>

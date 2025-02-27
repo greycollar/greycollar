@@ -4,7 +4,7 @@ import userInstance from "../http/user";
 import { useCallback, useEffect, useState } from "react";
 
 function useUser() {
-  const [user, setUser] = useState({ name: "", avatarUrl: "" });
+  const [user, setUser] = useState({ name: "", avatarUrl: "", id: "" });
   const { loading, error, handleResponse } = useApi();
 
   useEffect(() => {
@@ -13,8 +13,14 @@ function useUser() {
   }, []);
 
   const getUser = useCallback(() => {
-    handleResponse(userInstance.getUserDetails(), (response) =>
-      setUser(response)
+    handleResponse(
+      userInstance.getUserDetails(),
+      (response) => {
+        setUser(response);
+      },
+      (error) => {
+        console.error(error);
+      }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

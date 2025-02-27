@@ -186,6 +186,7 @@ function ColleagueWizard({
             value={newItem["name"]}
             onChange={handleInputChange("name")}
             onRandomValue={() => handleRandomValue("name")}
+            multiline={""}
           />
         </div>
 
@@ -313,6 +314,8 @@ function ColleagueWizard({
           <EnginesChart
             handleEngineSelect={handleEngineSelect}
             isWizardEngine={true}
+            open={""}
+            setOpen={""}
           />
         );
       case 5:

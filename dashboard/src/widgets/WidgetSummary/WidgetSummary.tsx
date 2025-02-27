@@ -2,7 +2,15 @@ import Chart from "react-apexcharts";
 import WidgetSummary from "../../components/WidgetSummary/WidgetSummary";
 import { useTheme } from "@mui/material/styles";
 
-function WidgetSummaryWidget({ title, chartType, per }) {
+function WidgetSummaryWidget({
+  title,
+  chartType,
+  per,
+}: {
+  title?: string;
+  chartType?: any;
+  per?: number;
+}) {
   const theme = useTheme();
   const colors = [theme.palette["primary"].main, theme.palette["primary"].dark];
 

@@ -6,7 +6,12 @@ import { useCallback, useEffect, useState } from "react";
 
 function useTeam(teamId) {
   const [team, setTeam] = useState({ id: "", name: "", icon: "" });
-  const [teamById, setTeamById] = useState({ id: "", name: "", icon: "" });
+  const [teamById, setTeamById] = useState({
+    id: "",
+    name: "",
+    icon: "",
+    organizationId: "",
+  });
   const { loading, error, handleResponse } = useApi();
 
   useEffect(() => {

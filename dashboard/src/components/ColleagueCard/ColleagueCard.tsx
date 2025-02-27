@@ -33,7 +33,6 @@ export default function ColleagueCard({ colleague, onView, onEdit, onDelete }) {
       <Fab
         data-cy="colleague-card-more-vert"
         color="default"
-        variant="outlined"
         size="small"
         sx={{ position: "absolute", top: 8, right: 8, boxShadow: 2 }}
       >

@@ -71,7 +71,6 @@ const MentionList = ({ colleagues, onSelect, editor }) => {
     >
       {colleagues.map((colleague, index) => (
         <ListItem
-          disableRipple
           data-cy={`command-item-${colleague.name.split("/")[1]}`}
           key={colleague.name}
           ref={(el) => (itemRefs.current[index] = el)}

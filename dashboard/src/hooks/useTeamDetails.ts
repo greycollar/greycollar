@@ -4,9 +4,11 @@ import useApi from "./useApi";
 import { useCallback, useEffect, useState } from "react";
 
 function useTeamDetails() {
-  const [teamDetails, setTeamDetails] = useState([
-    { id: "", coach: "", coachAvatar: "" },
-  ]);
+  const [teamDetails, setTeamDetails] = useState({
+    id: "",
+    coach: "",
+    coachAvatar: "",
+  });
 
   useEffect(() => {
     getTeamDetails();

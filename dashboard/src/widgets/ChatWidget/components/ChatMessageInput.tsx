@@ -18,6 +18,14 @@ const ChatMessageInput = memo(function ChatMessageInput({
   replied,
   createMessage,
   userId,
+}: {
+  disabled: boolean;
+  onSendMessage: (message: string) => void;
+  editor: any;
+  selectedMessage: any;
+  replied: any;
+  createMessage: any;
+  userId: string;
 }) {
   const fileRef = useRef(null);
 
@@ -75,7 +83,6 @@ const ChatMessageInput = memo(function ChatMessageInput({
         onKeyUp={handleSendMessage}
         onChange={handleChangeMessage}
         placeholder="Type a message"
-        disabled={disabled}
         chatCommands={Commands}
         startAdornment={
           <IconButton>

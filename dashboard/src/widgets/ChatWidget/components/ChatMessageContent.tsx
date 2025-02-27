@@ -2,7 +2,7 @@ import ActionMessageItem from "../../SystemMessage/SystemMessage";
 import Box from "@mui/material/Box";
 import ChatMessageItem from "./ChatMessageItem";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton } from "@mui/material"; // Add Skeleton
+import { IconButton } from "@mui/material";
 import { ReactEditor } from "slate-react";
 import SystemMessage from "../../SystemMessage/SystemMessage";
 import { Types } from "./CommandArea/chat.config";
@@ -19,6 +19,14 @@ const ChatMessageContent = memo(function ChatMessageList({
   selectedMessage,
   isReplying,
   setIsReplying,
+}: {
+  user: any;
+  messages: any;
+  replied: any;
+  editor: any;
+  selectedMessage: any;
+  isReplying: any;
+  setIsReplying: any;
 }) {
   const messagesEndRef = useRef(null);
   const [event] = useEvent("KNOWLEDGE_STATUS_CHANGED", null);
@@ -76,6 +84,8 @@ const ChatMessageContent = memo(function ChatMessageList({
             handleClick={() => handleClick(message)}
             isAI={message.role === "ASSISTANT"}
             user={user}
+            replied={""}
+            messages={""}
           />
         );
       case "USER":
@@ -99,9 +109,7 @@ const ChatMessageContent = memo(function ChatMessageList({
   return (
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
-        <Box>
-          {messages.map((message, index) => renderMessages(message, index))}
-        </Box>
+        <Box>{messages.map((message, index) => renderMessages(message))}</Box>
       </Scrollbar>
       {isReplying && (
         <>

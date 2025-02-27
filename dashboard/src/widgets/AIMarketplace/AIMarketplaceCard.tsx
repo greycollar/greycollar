@@ -35,9 +35,8 @@ function AIMarketplaceCard({
         <AIEngineChart
           handleEngineSelect={handleEngineSelect}
           isWizardEngine={isWizardEngine}
-          setOpen={setOpen}
           data={engines}
-          lineHeight="15px"
+          sx={""}
         />
       </DialogContent>
     );

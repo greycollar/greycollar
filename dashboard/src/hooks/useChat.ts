@@ -63,6 +63,7 @@ function useChat() {
         console.log("newMessages", newMessages);
         const filteredMessages = newMessages.filter(
           (newMessage) =>
+            !Array.isArray(messages) ||
             !messages.some((message) => message.id === newMessage.id)
         );
 
@@ -98,17 +99,23 @@ function useChat() {
   });
 
   const getMessages = useCallback(() => {
-    handleResponse(http.get(`/messages`), (response) => {
-      const sortedMessages = response.data.sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-      setMessages(sortedMessages);
-      publish("MESSAGES_LOADED", { messages: sortedMessages }),
-        (error) => {
-          console.error(error);
-        };
-    });
+    handleResponse(
+      http.get(`/messages`),
+      (response) => {
+        const sortedMessages = response.data.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        setMessages(sortedMessages);
+        publish("MESSAGES_LOADED", { messages: sortedMessages }),
+          (error) => {
+            console.error(error);
+          };
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

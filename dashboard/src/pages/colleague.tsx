@@ -9,7 +9,7 @@ function Colleague() {
 
   return (
     <>
-      <Page name={"Colleague"} />
+      <Page name={"Colleague"} links={""} children={""} />
       <ColleagueLayout colleague={colleague} loading={loading} />
     </>
   );

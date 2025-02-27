@@ -42,6 +42,7 @@ const TABS = [
 
 function ColleagueLayout({ colleague, loading }) {
   const [currentTab, setCurrentTab] = useState("profile");
+
   const mdDown = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (

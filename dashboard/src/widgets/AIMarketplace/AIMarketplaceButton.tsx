@@ -13,15 +13,14 @@ function AIMarketplaceButton() {
           color: (theme) => theme.palette.text.primary,
         }}
         onClick={() => setOpen(!open)}
-        variant="contained"
       >
         <Iconify icon={"codicon:organization"} width={24} />
       </IconButton>
-      <EnginesChart 
-        open={open} 
-        setOpen={setOpen} 
-        isWizardEngine={false} 
-        handleEngineSelect={() => {}} 
+      <EnginesChart
+        open={open}
+        setOpen={setOpen}
+        isWizardEngine={false}
+        handleEngineSelect={() => {}}
       />
     </>
   );

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
-import Grid from "@mui/material/Unstable_Grid2";
+import { Grid } from "@mui/material";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import Stack from "@mui/material/Stack";
 import useColleague from "../../hooks/useColleague";
@@ -64,7 +64,13 @@ function Profile({ colleagueId }) {
     </Card>
   );
 
-  const renderEngine = <AIMarketplaceItem engine={engine} />;
+  const renderEngine = (
+    <AIMarketplaceItem
+      engine={engine}
+      isWizardEngine={""}
+      handleEngineSelect={""}
+    />
+  );
 
   const renderRole = (
     <>
@@ -119,7 +125,6 @@ function Profile({ colleagueId }) {
           justifyContent="space-between"
         >
           <Fab
-            variant="button"
             color="default"
             size="small"
             data-cy="edit-icon"

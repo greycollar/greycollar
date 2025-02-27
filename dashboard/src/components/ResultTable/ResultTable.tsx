@@ -38,7 +38,9 @@ export const ResultTable = ({ data }) => {
                   <TableCell sx={{ lineHeight: ".8rem" }}>
                     {formatKey(key)}
                   </TableCell>
-                  <TableCell sx={{ lineHeight: ".8rem" }}>{value}</TableCell>
+                  <TableCell sx={{ lineHeight: ".8rem" }}>
+                    {String(value)}
+                  </TableCell>
                 </TableRow>
               ))}
         </TableBody>

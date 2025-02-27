@@ -46,7 +46,7 @@ function TeamPermissionWidget({ teamId }) {
 
   const deletePermission = useCallback(
     async (permissionId) => {
-      await removePermission(permissionId, teamId);
+      await removePermission(permissionId);
     },
     [removePermission, teamId]
   );

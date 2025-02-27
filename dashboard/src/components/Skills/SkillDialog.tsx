@@ -53,9 +53,11 @@ const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
       open={open}
       fullWidth
       maxWidth={"sm"}
-      onClose={(event) => (event.key === "Escape" ? handleClose() : null)}
+      onClose={(event: React.KeyboardEvent) =>
+        event.key === "Escape" ? handleClose() : null
+      }
     >
-      <ClosableDialogTitle grey handleClose={handleClose} />
+      <ClosableDialogTitle label={""} content={""} handleClose={handleClose} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Icon icon={skill.logo} width="20" height="20" />
@@ -117,6 +119,7 @@ const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
                     <SourcedAvatar
                       source={"MINIMAL"}
                       avatarUrl={colleague.avatar}
+                      name={colleague.name}
                     />
                     <Box sx={{ ml: 1 }}>{colleague.name}</Box>
                   </Box>

@@ -4,7 +4,17 @@ import { HumanMessage } from "./HumanMessage";
 import React, { memo } from "react";
 
 const MessageList = memo(
-  ({ messages, selectedId, messagesEndRef, highlightedMessage }) => (
+  ({
+    messages,
+    selectedId,
+    messagesEndRef,
+    highlightedMessage,
+  }: {
+    messages: any[];
+    selectedId: string;
+    messagesEndRef: any;
+    highlightedMessage: any;
+  }) => (
     <>
       <AIMessage content="Hi, How can I help you today?" />
       {messages.map((item, index) => {

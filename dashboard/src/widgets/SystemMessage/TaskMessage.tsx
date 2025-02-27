@@ -26,7 +26,7 @@ function TaskMessage({ id, handleClick, onDateFetched }) {
 
   useEffect(() => {
     if (task) {
-      onDateFetched(fDateTime(task?.createdAt));
+      onDateFetched(fDateTime(task?.createdAt, "MMM DD, YYYY"));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [task]);

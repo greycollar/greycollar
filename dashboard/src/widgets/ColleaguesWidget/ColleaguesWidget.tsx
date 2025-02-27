@@ -10,7 +10,7 @@ import { publish } from "@nucleoidai/react-event";
 import useColleague from "../../hooks/useColleague";
 import useColleagues from "../../hooks/useColleagues";
 import { useNavigate } from "react-router-dom";
-import useTeam from "../../hooks/useTeam";
+import useTeams from "../../hooks/useTeams";
 import useUIState from "../../hooks/useUIState";
 
 import React, { useState } from "react";
@@ -22,7 +22,7 @@ function ColleaguesWidget({ teamId, colleagueId }) {
   const { uiState, openForm, closeForm, openDialog, closeDialog } =
     useUIState();
 
-  const { deleteTeam } = useTeam();
+  const { deleteTeam } = useTeams();
   const { colleagues, loading, deleteColleague, createColleague } =
     useColleagues();
 
@@ -73,7 +73,6 @@ function ColleaguesWidget({ teamId, colleagueId }) {
             ))
           : colleagues.map((colleague) => (
               <ColleagueCard
-                moreVertCY="more-vert"
                 key={colleague.id}
                 colleague={colleague}
                 onView={() => handleColleagueClick(colleague.id)}

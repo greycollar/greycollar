@@ -1,11 +1,11 @@
 import config from "../../config";
-import io from "socket.io-client";
 import { storage } from "@nucleoidjs/webstorage";
 
+import { Socket, io } from "socket.io-client";
 import { useEffect, useRef } from "react";
 
 export const useSocket = () => {
-  const socketRef = useRef();
+  const socketRef = useRef<Socket | null>(null);
   const { name } = config;
 
   useEffect(() => {

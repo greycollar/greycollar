@@ -6,7 +6,7 @@ import React, { memo } from "react";
 
 const AIMessage: React.FC<{
   content: string;
-  messageRef: React.RefObject<HTMLDivElement>;
+  messageRef?: React.RefObject<HTMLDivElement>;
 }> = memo(({ content, messageRef }) => (
   <Stack
     ref={messageRef}

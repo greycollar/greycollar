@@ -154,7 +154,6 @@ const TaskCard = ({
               }}
             >
               <SourcedAvatar
-                variant="rounded"
                 sx={{
                   width: 36,
                   height: 36,

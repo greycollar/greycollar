@@ -2,7 +2,15 @@ import React from "react";
 
 import { Card, FormControl, FormLabel, Typography } from "@mui/material";
 
-const InfoCard = ({ label, value, sx }) => (
+const InfoCard = ({
+  label,
+  value,
+  sx,
+}: {
+  label: string;
+  value: string | React.ReactNode;
+  sx?: any;
+}) => (
   <Card sx={{ mb: 2, p: 2, ...sx }}>
     <FormControl fullWidth>
       <FormLabel sx={{ color: "#637381!important" }}>

@@ -71,7 +71,6 @@ const CommandList = ({ commands, onSelect, editor }) => {
     >
       {commands.map((command, index) => (
         <ListItem
-          disableRipple
           data-cy={`command-item-${command.name.split("/")[1]}`}
           key={command.name}
           ref={(el) => (itemRefs.current[index] = el)}

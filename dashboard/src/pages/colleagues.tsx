@@ -9,9 +9,11 @@ import useTeam from "../hooks/useTeam";
 import React, { useEffect } from "react";
 
 function Colleagues() {
-  const { team, loading } = useTeam();
-  const { colleagueId } = useParams();
   const teamId = storage.get("itemId");
+
+  const { team, loading } = useTeam(teamId);
+  const { colleagueId } = useParams();
+
   const [teamSelected] = useEvent("ITEM_SELECTED", { itemId: teamId });
 
   useEffect(() => {
@@ -23,7 +25,7 @@ function Colleagues() {
   }
   return (
     <>
-      <Page name={"Colleague"} />
+      <Page name={"Colleague"} links={""} children={""} />
       <SingleScorllableLayout title={team.name}>
         <ColleaguesWidget colleagueId={colleagueId} teamId={teamId} />
       </SingleScorllableLayout>

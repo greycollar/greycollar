@@ -20,7 +20,6 @@ const TeamSkeleton = () => {
       }}
     >
       <Skeleton
-        variant="h5"
         animation="wave"
         sx={{
           margin: "5%",
@@ -31,7 +30,6 @@ const TeamSkeleton = () => {
         }}
       />
       <Skeleton
-        variant="box"
         sx={{
           display: "flex",
           height: "45%",

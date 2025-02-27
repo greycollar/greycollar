@@ -76,7 +76,6 @@ const TaskStepDialog = ({ open, setOpen, results }) => {
                     <Switch
                       checked={viewMode === "table"}
                       onChange={toggleViewMode}
-                      color="background.paper"
                       sx={{
                         position: "absolute",
                         top: -5,

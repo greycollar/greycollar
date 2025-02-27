@@ -54,6 +54,9 @@ function useSupervisings(colleagueId) {
       }),
       (response) => {
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,6 +71,9 @@ function useSupervisings(colleagueId) {
       (response) => {
         publish("SUPERVISING_ANSWERED", response.data);
         return response.data;
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,6 +84,9 @@ function useSupervisings(colleagueId) {
       http.get(`/colleagues/${colleagueId}/supervisings`),
       (response) => {
         setSupervisings(response.data);
+      },
+      (error) => {
+        console.error(error);
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,8 +98,14 @@ function useSupervisings(colleagueId) {
         ? `/colleagues/${colleagueId}/supervisings`
         : `/colleagues/${colleagueId}/supervisings?status=${status}`;
 
-    return handleResponse(http.get(endpoint), (response) =>
-      setSupervisings(response.data)
+    return handleResponse(
+      http.get(endpoint),
+      (response) => {
+        setSupervisings(response.data);
+      },
+      (error) => {
+        console.error(error);
+      }
     );
   }, []);
 

@@ -86,6 +86,7 @@ export default function TotalIncome() {
       total={18765}
       percent={2.6}
       chart={<Charst />}
+      sx={""}
     />
   );
 }

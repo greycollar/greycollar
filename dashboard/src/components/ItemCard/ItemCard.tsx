@@ -14,8 +14,6 @@ import {
   usePopover,
 } from "@nucleoidai/platform/minimal/components";
 
-// ----------------------------------------------------------------------
-// TODO ADD OPTIONS PROPS
 export default function ItemCard({
   item,
   onView,
@@ -30,10 +28,28 @@ export default function ItemCard({
   opt2CY,
   opt3CY,
   opt4CY,
+}: {
+  item?: {
+    name?: string;
+    personality?: string;
+    avatar?: string;
+  };
+  onView?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onIconClick?: () => void;
+  icon?: string;
+  onAssign?: () => void;
+  dataCy?: string;
+  moreVertCY?: string;
+  opt1CY?: string;
+  opt2CY?: string;
+  opt3CY?: string;
+  opt4CY?: string;
 }) {
   const popover = usePopover();
-
   const { name, personality, avatar } = item;
+
   return (
     <>
       <Card data-cy={dataCy}>
@@ -48,7 +64,7 @@ export default function ItemCard({
         <Stack sx={{ p: 3, pb: 2 }}>
           <Avatar
             alt={name}
-            src={`https://cdn.nucleoid.com/greycollar/avatars/${avatar.replace(
+            src={`https://cdn.nucleoid.com/greycollar/avatars/${avatar?.replace(
               /:/g,
               ""
             )}.jpg`}
@@ -63,7 +79,7 @@ export default function ItemCard({
                 {name}
               </Typography>
             }
-            secondary={`Created date:`}
+            secondary="Created date:"
             primaryTypographyProps={{
               typography: "subtitle1",
             }}
@@ -86,7 +102,7 @@ export default function ItemCard({
               spacing={2}
               sx={{ paddingY: "0.5rem" }}
             >
-              <Iconify icon={"ph:note-pencil-duotone"} width={24} />
+              <Iconify icon="ph:note-pencil-duotone" width={24} />
               <Typography variant="subtitle1">Personality</Typography>
             </Stack>
             <Stack
@@ -98,15 +114,13 @@ export default function ItemCard({
             >
               <Typography
                 sx={{ width: "300px", textJustify: "start" }}
-                color={"inherit"}
-                variant={"body2"}
+                color="inherit"
+                variant="body2"
               >
                 {personality}
               </Typography>
               <Iconify
-                onClick={() => {
-                  onIconClick();
-                }}
+                onClick={onIconClick}
                 sx={{
                   marginX: 2,
                   display: "flex",
@@ -149,6 +163,7 @@ export default function ItemCard({
           <Iconify icon="solar:pen-bold" />
           Edit
         </MenuItem>
+
         {onAssign && (
           <MenuItem
             data-cy={opt3CY}
