@@ -1,11 +1,8 @@
 import ClosableDialogTitle from "./ClosableDialogTitle";
 import { Icon } from "@iconify/react";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
-import NumberOne from "/media/number-one.png";
-import NumberThree from "/media/number-three.png";
-import NumberTwo from "/media/number-two.png";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
-// eslint-disable-next-line no-unused-vars
+// @ts-ignore
 import styless from "../../styles/connectButton.css";
 
 import {
@@ -30,6 +27,9 @@ import { useEffect, useState } from "react";
 const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);
+  const NumberOne = "/media/number-one.png";
+  const NumberTwo = "/media/number-two.png";
+  const NumberThree = "/media/number-three.png";
 
   useEffect(() => {
     if (skill.acquired) {

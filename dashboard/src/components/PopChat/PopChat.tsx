@@ -1,6 +1,5 @@
 import Draggable from "react-draggable";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
-import MessageSfx from "./messageSFX.mp3";
 import { Scrollbar } from "@nucleoidai/platform/minimal/components";
 import Stack from "@mui/material/Stack";
 import { alpha } from "@mui/material/styles";
@@ -40,6 +39,8 @@ const PopChat = ({
     "SUPERVISING_ANSWERED",
     null
   );
+
+  const MessageSfx = "./messageSFX.mp3";
 
   const [messages, setMessages] = useState([]);
   const [mute, setMute] = useState(false);

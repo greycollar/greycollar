@@ -1,8 +1,4 @@
 import ClosableDialogTitle from "../Skills/ClosableDialogTitle";
-import CodeImage from "/media/image.png";
-import NumberOne from "/media/number-one.png";
-import NumberThree from "/media/number-three.png";
-import NumberTwo from "/media/number-two.png";
 import { storage } from "@nucleoidjs/webstorage";
 import { useState } from "react";
 
@@ -22,6 +18,11 @@ import {
 
 const LandingDialog = () => {
   const [open, setOpen] = useState(true);
+
+  const NumberOne = "/media/number-one.png";
+  const NumberTwo = "/media/number-two.png";
+  const NumberThree = "/media/number-three.png";
+  const CodeImage = "/media/image.png";
 
   const handleClose = () => {
     storage.set("landingLevel", 1);

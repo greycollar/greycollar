@@ -94,7 +94,6 @@ function ColleaguesWidget({ teamId, colleagueId }) {
             closeForm();
             setUpdatedColleague(null);
           }}
-          title="colleague"
           itemProperties={["name", "character", "role"]}
           onSubmit={updatedColleague ? updateColleague : createColleague}
           itemToEdit={updatedColleague}
