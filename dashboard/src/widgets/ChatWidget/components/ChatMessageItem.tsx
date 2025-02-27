@@ -15,10 +15,12 @@ function ChatMessageItem({
   isAI,
   replied,
   message,
-  messages,
+  messages = {}, // Add default empty array
   handleClick,
 }) {
-  const repliedMessage = messages?.find((msg) => msg.id === message.replyTo);
+  const repliedMessage = Array.isArray(messages)
+    ? messages.find((msg) => msg?.id === message?.replyTo)
+    : undefined;
 
   const { teamDetails } = useTeamDetails();
 
@@ -110,7 +112,7 @@ function ChatMessageItem({
         color: "text.disabled",
       }}
     >
-      {fDateTime(message.createdA, "MMM DD, YYYY")}
+      {fDateTime(message.createdAt, "MMM DD, YYYY")}
     </Typography>
   ) : null;
 
@@ -122,7 +124,7 @@ function ChatMessageItem({
         color: "text.disabled",
       }}
     >
-      {isAI ? teamDetails.coach : user.name}
+      {isAI ? teamDetails.coach : user?.name}
     </Typography>
   );
 
@@ -153,7 +155,7 @@ function ChatMessageItem({
           {repliedMessage && truncateContent(repliedMessage.content)}
         </Stack>
 
-        <Stack direction="row" display="flex" alignItems={"center"}>
+        <Stack direction="row" display="flex" alignItems="center">
           <Box
             sx={{
               position: "relative",
@@ -189,12 +191,12 @@ function ChatMessageItem({
                 },
               }}
             >
-              <Stack direction="row" spacing={1} alignItems={"center"}>
+              <Stack direction="row" spacing={1} alignItems="center">
                 {!isAI ? (
                   <Avatar src={user.avatarUrl} />
                 ) : (
                   <SourcedAvatar
-                    source={"MINIMAL"}
+                    source="MINIMAL"
                     avatarUrl={teamDetails.coachAvatar}
                   />
                 )}
@@ -244,7 +246,7 @@ function ChatMessageItem({
         </Stack>
       </Stack>
     ) : (
-      <Stack direction="row" display="flex" alignItems={"center"}>
+      <Stack direction="row" display="flex" alignItems="center">
         <Box
           data-cy="message-content"
           sx={{
@@ -280,12 +282,12 @@ function ChatMessageItem({
               },
             }}
           >
-            <Stack direction="row" spacing={1} alignItems={"center"}>
+            <Stack direction="row" spacing={1} alignItems="center">
               {!isAI ? (
                 <Avatar src={user.avatarUrl} />
               ) : (
                 <SourcedAvatar
-                  source={"MINIMAL"}
+                  source="MINIMAL"
                   avatarUrl={teamDetails.coachAvatar}
                 />
               )}
@@ -340,14 +342,14 @@ function ChatMessageItem({
       data-cy="message-item"
       data-status={message.status}
       direction="row"
-      justifyContent={"flex-start"}
+      justifyContent="flex-start"
       sx={{
         p: 2,
         mb: -3,
         width: "100%",
       }}
     >
-      <Stack alignItems={"flex-start"}>{renderBody}</Stack>
+      <Stack alignItems="flex-start">{renderBody}</Stack>
     </Stack>
   );
 }

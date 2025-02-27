@@ -21,7 +21,16 @@ const ChatMessageContent = memo(function ChatMessageList({
   setIsReplying,
 }: {
   user: any;
-  messages: any;
+  messages: {
+    [x: string]: any;
+    role: string;
+    content: string;
+    colleagueId: string;
+    knowledgeId: string;
+    createdAt: string;
+    userId: string;
+    command: string;
+  };
   replied: any;
   editor: any;
   selectedMessage: any;
@@ -85,7 +94,6 @@ const ChatMessageContent = memo(function ChatMessageList({
             isAI={message.role === "ASSISTANT"}
             user={user}
             replied={""}
-            messages={""}
           />
         );
       case "USER":

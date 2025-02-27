@@ -7,17 +7,15 @@ import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function useChat() {
-  const [messages, setMessages] = useState([
-    {
-      role: "",
-      content: "",
-      colleagueId: "",
-      createdAt: "",
-      userId: "",
-      command: "",
-      knowledgeId: "",
-    },
-  ]);
+  const [messages, setMessages] = useState({
+    role: "",
+    content: "",
+    colleagueId: "",
+    createdAt: "",
+    userId: "",
+    command: "",
+    knowledgeId: "",
+  });
 
   const location = useLocation();
 
