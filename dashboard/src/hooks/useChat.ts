@@ -7,15 +7,19 @@ import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function useChat() {
-  const [messages, setMessages] = useState({
-    role: "",
-    content: "",
-    colleagueId: "",
-    createdAt: "",
-    userId: "",
-    command: "",
-    knowledgeId: "",
-  });
+  const [messages, setMessages] = useState<
+    Array<{
+      role: string;
+      content: string;
+      colleagueId: string;
+      createdAt: string;
+      userId: string;
+      command: string;
+      knowledgeId: string;
+      status?: string;
+      id?: string;
+    }>
+  >([]);
 
   const location = useLocation();
 
@@ -44,7 +48,7 @@ function useChat() {
     knowledgeStatusChanged,
   ]);
 
-  const intervalId = useRef();
+  const intervalId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const fetchMessages = async () => {

@@ -47,8 +47,7 @@ export default function TotalIncome() {
         show: false,
       },
       y: {
-        // eslint-disable-next-line no-undef
-        formatter: (value) => fCurrency(value),
+        formatter: (value) => value,
         title: {
           formatter: () => "",
         },

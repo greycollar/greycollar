@@ -9,8 +9,9 @@ import Stack from "@mui/material/Stack";
 import Supervising from "../widgets/Supervising/Supervising";
 import Tasks from "../widgets/Tasks/Tasks";
 import { getBackgroundUrl } from "../utils/background";
-import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
+
+import { Theme, useMediaQuery } from "@mui/material";
 
 const TABS = [
   {
@@ -43,7 +44,7 @@ const TABS = [
 function ColleagueLayout({ colleague, loading }) {
   const [currentTab, setCurrentTab] = useState("profile");
 
-  const mdDown = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
 
   return (
     <>

@@ -4,7 +4,12 @@ import userInstance from "../http/user";
 import { useCallback, useEffect, useState } from "react";
 
 function useUser() {
-  const [user, setUser] = useState({ name: "", avatarUrl: "", id: "" });
+  const [user, setUser] = useState({
+    name: "",
+    avatarUrl: "",
+    id: "",
+    role: "",
+  });
   const { loading, error, handleResponse } = useApi();
 
   useEffect(() => {

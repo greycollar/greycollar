@@ -3,6 +3,7 @@ import AddItemDialog from "../../components/AddItemDialog/AddItemDialog";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 import EditDialog from "../../components/EditDialog/EditDialog";
 import KnowledgeTable from "../../components/KnowledgeTable/KnowledgeTable";
+import { Theme } from "@mui/material/styles";
 import TypeToolbar from "../../components/TypeToolbar/TypeToolbar";
 import useKnowledges from "../../hooks/useKnowledges";
 import { useTable } from "@nucleoidai/platform/minimal/components";
@@ -24,7 +25,9 @@ function Knowledge({ colleagueId }) {
     return 0;
   });
 
-  const lgScreen = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const lgScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("lg")
+  );
 
   const ADD_ITEM_TYPES = ALL_KNOWLEDGE_TYPES.filter((type) => type !== "ALL");
 

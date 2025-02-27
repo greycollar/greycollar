@@ -1,5 +1,6 @@
 import "../../../../styles/chat.css";
 
+import { BaseEditor } from "slate";
 import CommandList from "./components/CommandList";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import MentionList from "./components/MentionList";
@@ -22,6 +23,34 @@ import { Editor, Range, Transforms } from "slate";
 import React, { useCallback, useEffect, useState } from "react";
 
 import * as SlateReact from "slate-react";
+
+type CustomText = {
+  text: string;
+  colleagueId?: string;
+  type?: string;
+  children?: { text: string }[];
+};
+
+type CustomElement = {
+  type?:
+    | "input"
+    | "commandText"
+    | "mention"
+    | "label"
+    | "optional"
+    | "paragraph";
+  children: CustomText[];
+  options?: { name: string; id?: string }[];
+  onSelect?: (selected: { name: string; id?: string }) => void;
+  getInputValue?: (value: string) => void;
+};
+
+declare module "slate" {
+  interface CustomTypes {
+    Editor: BaseEditor;
+    Element: CustomElement;
+  }
+}
 
 const CommandArea = ({
   onKeyUp,
@@ -62,7 +91,7 @@ const CommandArea = ({
   }, [selectedColleague]);
 
   const insertCommand = (selectedCommand) => {
-    const command = {
+    const command: CustomElement = {
       type: "commandText",
       children: [{ text: selectedCommand }],
     };
@@ -71,7 +100,7 @@ const CommandArea = ({
   };
 
   const insertMention = (mentionName, colleagueId) => {
-    const mention = {
+    const mention: CustomElement = {
       type: "mention",
       children: [
         {
@@ -97,11 +126,16 @@ const CommandArea = ({
         type: "input",
         options: currentInput.list,
         onSelect: (selectedOption) => {
+          if (!selectedOption || !selectedOption.name) return;
+
           const selectedInput = currentInput.action(selectedOption.name);
+          if (!selectedInput || !currentInput.next[selectedInput]) return;
+
           Transforms.insertNodes(editor, {
             type: "input",
             children: [{ text: currentInput.next[selectedInput].type }],
             getInputValue: (inputValue) => {
+              if (!inputValue) return;
               handleInputSubmit(
                 currentInput.next[selectedInput].type,
                 inputValue
@@ -179,14 +213,17 @@ const CommandArea = ({
   const input = new Map();
   const [inputValue, setInputValue] = useState([]);
 
-  const initialValue = selectedColleague
+  const initialValue: CustomElement[] = selectedColleague
     ? [
         {
           type: "paragraph",
           children: [
             {
+              text: "",
+            },
+            {
+              text: `@${selectedColleague}`,
               type: "mention",
-              children: [{ text: `@${selectedColleague}` }],
             },
           ],
         },
@@ -247,7 +284,7 @@ const CommandArea = ({
       setCurrentInput(null);
       setInputValue([]);
     } else if (isMention) {
-      let messageContent = content
+      const messageContent = content
         .map((node) => {
           if (node.type === "mention") {
             return `@{ colleagueId: '${node.children[0].colleagueId}', name: '${node.children[0].text}' }`;

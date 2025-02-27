@@ -20,7 +20,7 @@ const ChatMessageInput = memo(function ChatMessageInput({
   userId,
 }: {
   disabled: boolean;
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string | { command: Event }) => void;
   editor: any;
   selectedMessage: any;
   replied: any;

@@ -15,7 +15,6 @@ function OrganizationButton() {
           color: (theme) => theme.palette.text.primary,
         }}
         onClick={() => setOpen(!open)}
-        variant="contained"
       >
         <Iconify icon={"ri:node-tree"} width={24} />
       </IconButton>

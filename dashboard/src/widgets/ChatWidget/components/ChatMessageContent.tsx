@@ -1,4 +1,3 @@
-import ActionMessageItem from "../../SystemMessage/SystemMessage";
 import Box from "@mui/material/Box";
 import ChatMessageItem from "./ChatMessageItem";
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,7 +5,6 @@ import { IconButton } from "@mui/material";
 import { ReactEditor } from "slate-react";
 import SystemMessage from "../../SystemMessage/SystemMessage";
 import { Types } from "./CommandArea/chat.config";
-import { useEvent } from "@nucleoidai/react-event";
 
 import { Label, Scrollbar } from "@nucleoidai/platform/minimal/components";
 import { memo, useEffect, useRef } from "react";
@@ -20,9 +18,9 @@ const ChatMessageContent = memo(function ChatMessageList({
   isReplying,
   setIsReplying,
 }: {
-  user: any;
-  messages: {
-    [x: string]: any;
+  user: { id: string; name: string; role: string };
+  messages: Array<{
+    id: string;
     role: string;
     content: string;
     colleagueId: string;
@@ -30,15 +28,25 @@ const ChatMessageContent = memo(function ChatMessageList({
     createdAt: string;
     userId: string;
     command: string;
-  };
-  replied: any;
-  editor: any;
-  selectedMessage: any;
-  isReplying: any;
-  setIsReplying: any;
+    mode?: string;
+  }>;
+  replied: React.MutableRefObject<boolean>;
+  editor: ReactEditor;
+  selectedMessage: React.MutableRefObject<{
+    id: string;
+    role: string;
+    content: string;
+    colleagueId: string;
+    knowledgeId: string;
+    createdAt: string;
+    userId: string;
+    command: string;
+    mode?: string;
+  } | null>;
+  isReplying: boolean;
+  setIsReplying: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const messagesEndRef = useRef(null);
-  const [event] = useEvent("KNOWLEDGE_STATUS_CHANGED", null);
 
   const handleClick = (message) => {
     setIsReplying(true);
@@ -117,7 +125,7 @@ const ChatMessageContent = memo(function ChatMessageList({
   return (
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
-        <Box>{messages.map((message, index) => renderMessages(message))}</Box>
+        <Box>{messages.map((message) => renderMessages(message))}</Box>
       </Scrollbar>
       {isReplying && (
         <>

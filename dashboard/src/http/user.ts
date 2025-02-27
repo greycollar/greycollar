@@ -1,6 +1,17 @@
-import axios from "axios";
 import config from "../../config";
 import { storage } from "@nucleoidjs/webstorage";
+
+import axios, { AxiosInstance } from "axios";
+
+declare module "axios" {
+  interface AxiosInstance {
+    getUserDetails(): Promise<{
+      name: string;
+      avatarUrl: string;
+      id: string | number;
+    } | null>;
+  }
+}
 
 const instance = axios.create({
   headers: {

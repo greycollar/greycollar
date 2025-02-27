@@ -8,7 +8,6 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import { createEditor } from "slate";
 import useChat from "../../hooks/useChat.js";
-import useColleague from "../../hooks/useColleague.js";
 import useColleagues from "../../hooks/useColleagues.js";
 import { useMediaQuery } from "@mui/material";
 import useMessage from "../../hooks/useMessage.js";
@@ -34,7 +33,20 @@ const ChatWidget = memo(function ChatWidget({
 
   const { updateSupervising } = useSupervisings(colleagues[0]?.id);
 
-  const { messages, loading: messagesLoading } = useChat();
+  const { messages: rawMessages, loading: messagesLoading } = useChat();
+
+  const messages = rawMessages.map((message) => ({
+    ...message,
+    role: message.role || "",
+    content: message.content || "",
+    colleagueId: message.colleagueId || "",
+    knowledgeId: message.knowledgeId || "",
+    createdAt: message.createdAt || "",
+    userId: message.userId || "",
+    command: message.command || "",
+    status: message.status || "",
+    id: message.id || "",
+  }));
 
   const { createMessage } = useMessage();
 
@@ -51,19 +63,13 @@ const ChatWidget = memo(function ChatWidget({
 
   const [collapsed, setCollapsed] = useState(true);
 
-  const [colleagueId, setColleagueId] = React.useState(null);
-
-  const { colleague } = useColleague(colleagueId);
-
   const sendMessage = useCallback(
     async (message) => {
       const { command } = message;
       if (command) {
         const name = command.get("NAME");
         Commands.find((command) => command.name === name).action(command);
-        const id = command.get("COLLEAGUE").id;
 
-        setColleagueId(id);
         socket?.emit("command_sent", {
           teamId: projectId,
           colleagueName: command.get("COLLEAGUE").name,

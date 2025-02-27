@@ -6,12 +6,16 @@ const styles = {
     minHeight: "17.7rem",
     borderRadius: "20px",
     marginLeft: "-10%",
+    maxHeight: "",
   },
   wideButton: {
     width: "100%",
     height: "100%",
     minHeight: "20rem",
-    minWidth: 200,
+    minWidth: "200px",
+    borderRadius: "",
+    maxHeight: "",
+    marginLeft: "",
   },
   default: {
     cursor: "pointer",

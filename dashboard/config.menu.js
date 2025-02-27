@@ -1,4 +1,4 @@
-import AIMarketplaceButton from "./src/widgets/AIMarketplace/AIMarketplaceButton.jsx";
+import AIMarketplaceButton from "./src/widgets/AIMarketplace/AIMarketplaceButton.js";
 import OrganizationButton from "./src/widgets/OrganizationButton/index.js";
 
 const menuConfig = {
