@@ -10,7 +10,7 @@ function SourcedAvatar({
 }: {
   name?: string;
   source?: string;
-  sx?: any;
+  sx?: object;
   children?: React.ReactNode;
   avatarUrl?: string;
 }) {

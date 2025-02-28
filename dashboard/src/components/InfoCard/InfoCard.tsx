@@ -9,7 +9,7 @@ const InfoCard = ({
 }: {
   label: string;
   value: string | React.ReactNode;
-  sx?: any;
+  sx?: object;
 }) => (
   <Card sx={{ mb: 2, p: 2, ...sx }}>
     <FormControl fullWidth>

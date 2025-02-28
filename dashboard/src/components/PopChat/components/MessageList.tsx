@@ -10,10 +10,10 @@ const MessageList = memo(
     messagesEndRef,
     highlightedMessage,
   }: {
-    messages: any[];
+    messages: { id: string; content: string; role: string }[];
     selectedId: string;
-    messagesEndRef: any;
-    highlightedMessage: any;
+    messagesEndRef: { current: HTMLDivElement | null };
+    highlightedMessage: { current: HTMLDivElement | null };
   }) => (
     <>
       <AIMessage content="Hi, How can I help you today?" />

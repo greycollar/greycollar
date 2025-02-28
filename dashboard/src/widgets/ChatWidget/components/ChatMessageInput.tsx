@@ -21,10 +21,10 @@ const ChatMessageInput = memo(function ChatMessageInput({
 }: {
   disabled: boolean;
   onSendMessage: (message: string | { command: Event }) => void;
-  editor: any;
-  selectedMessage: any;
-  replied: any;
-  createMessage: any;
+  editor: [];
+  selectedMessage: { current: { type: string } };
+  replied: { current: boolean };
+  createMessage: (message: string) => void;
   userId: string;
 }) {
   const fileRef = useRef(null);

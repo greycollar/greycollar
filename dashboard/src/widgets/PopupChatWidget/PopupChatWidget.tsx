@@ -18,7 +18,7 @@ const PopupChatWidget = ({
   readOnly?: boolean;
   conversationId?: string;
   openPopChat?: boolean;
-  setOpenPopChat?: any;
+  setOpenPopChat?: (open: boolean) => void;
   sessionId?: string;
   sound?: boolean;
 }) => {
