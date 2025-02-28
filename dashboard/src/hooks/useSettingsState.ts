@@ -21,7 +21,7 @@ const useSettingsState = () => {
       payload: permissions,
     });
   }, []);
-  
+
   const addPermission = useCallback(
     async (newUserId, teamId) => {
       const permission = { userId: newUserId, teamId: teamId };

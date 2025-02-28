@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function NewItemForm({
   title,
@@ -28,7 +28,7 @@ function NewItemForm({
     itemProperties.reduce((obj, property) => ({ ...obj, [property]: "" }), {})
   );
   const [emojiDialogOpen, setEmojiDialogOpen] = useState(false);
-  
+
   useEffect(() => {
     if (itemToEdit) {
       setNewItem(itemToEdit);

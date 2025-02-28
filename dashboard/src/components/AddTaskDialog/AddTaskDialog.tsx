@@ -53,6 +53,7 @@ function AddTaskDialog({ open, setOpen, createTask, colleagueId }) {
     setOpen(false);
     reset();
     setIsSubmitting(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskLoaded]);
 
   return (

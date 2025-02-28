@@ -1,9 +1,10 @@
+// eslint-disable-next-line
+import "../../styles/connectButton.css";
+
 import ClosableDialogTitle from "./ClosableDialogTitle";
 import { Icon } from "@iconify/react";
 import { Iconify } from "@nucleoidai/platform/minimal/components";
 import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
-// @ts-ignore
-import styless from "../../styles/connectButton.css";
 
 import {
   Avatar,

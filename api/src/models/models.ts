@@ -1,3 +1,4 @@
+/* eslint disable*/
 async function init() {
   const { Project } = require("@nucleoidai/platform-express/models");
 
@@ -115,3 +116,5 @@ async function init() {
 }
 
 export default { init };
+/* eslint disable*/
+

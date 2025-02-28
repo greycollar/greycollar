@@ -58,6 +58,7 @@ const TaskCard = ({
         clearInterval(interval);
       }
     };
+    // eslint-disable-next-line
   }, [expanded, open]);
 
   const handleStepResult = (step) => {

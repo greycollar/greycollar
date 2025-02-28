@@ -125,6 +125,7 @@ const PopChat = ({
       setSupervisorLoading(false);
       !mute && play();
     }
+    // eslint-disable-next-line
   }, [aiResponded, mute, play]);
 
   useEffect(() => {

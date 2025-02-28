@@ -48,7 +48,7 @@ function TeamPermissionWidget({ teamId }) {
     async (permissionId) => {
       await removePermission(permissionId);
     },
-    [removePermission, teamId]
+    [removePermission]
   );
 
   const addNewPermission = useCallback(
@@ -60,7 +60,7 @@ function TeamPermissionWidget({ teamId }) {
 
   const fetchPermissions = useCallback(async () => {
     await fetchPermissionData();
-  }, [fetchPermissionData, teamId]);
+  }, [fetchPermissionData]);
 
   React.useEffect(() => {
     fetchPermissions();

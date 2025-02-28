@@ -1,7 +1,6 @@
-import CONSTANTS from "./utils";
 import TaskTree from "./TaskTree";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const FlowDialog = ({ open, setOpen, steps }) => {
   const [visibleNodes, setVisibleNodes] = useState([]);
@@ -12,7 +11,8 @@ const FlowDialog = ({ open, setOpen, steps }) => {
     if (!steps || steps.length === 0) return null;
 
     const sortedSteps = [...steps].sort(
-      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
 
     const root = {
@@ -59,6 +59,7 @@ const FlowDialog = ({ open, setOpen, steps }) => {
         }, 1000);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, treeData, loadedNodes]);
 
   if (!treeData) return null;

@@ -2,7 +2,7 @@ import LandingDialog from "./LandingDialog";
 import { storage } from "@nucleoidjs/webstorage";
 import { useEvent } from "@nucleoidai/react-event";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Onboarding = () => {
   const landingLevel = storage.get("landingLevel");
@@ -15,12 +15,8 @@ const Onboarding = () => {
       storage.set("landingLevel", 0);
       setLanding(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamSelected]);
-
-  const handleClose = () => {
-    storage.set("landingLevel", 1);
-    setLanding(1);
-  };
 
   switch (landing) {
     case 0:

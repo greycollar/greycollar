@@ -23,7 +23,13 @@ const Users = React.memo(
     users,
   }: {
     users: {
-      map: (arg0: (user: any) => JSX.Element) => JSX.Element;
+      map: (
+        arg0: (user: {
+          id: string;
+          user_id: string;
+          name: string;
+        }) => JSX.Element
+      ) => JSX.Element;
       id: "";
       name: "";
     };

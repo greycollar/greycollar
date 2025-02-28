@@ -18,6 +18,7 @@ process.on("unhandledRejection", (reason) => {
 });
 
 platform.init(config).then(() => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const app = require("./src/app").default;
   const server = http.createServer(app);
   const io = new Server(server, {

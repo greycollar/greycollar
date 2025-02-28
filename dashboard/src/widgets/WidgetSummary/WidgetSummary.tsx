@@ -8,7 +8,7 @@ function WidgetSummaryWidget({
   per,
 }: {
   title?: string;
-  chartType?: any;
+  chartType?: "bar" | "line" | "area" | "radar" | "polarArea" | "donut";
   per?: number;
 }) {
   const theme = useTheme();

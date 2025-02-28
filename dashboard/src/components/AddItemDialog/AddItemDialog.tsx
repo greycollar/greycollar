@@ -77,7 +77,13 @@ function AddItemDialog({
 
   const onSubmit = handleSubmit(async (data) => {
     setIsSubmitting(true);
-    const item: { type: string; url?: string; text?: string; question?: string; answer?: string } = { type: selectedType };
+    const item: {
+      type: string;
+      url?: string;
+      text?: string;
+      question?: string;
+      answer?: string;
+    } = { type: selectedType };
     if (selectedType === "URL") {
       item.url = data.inputValue;
     } else if (selectedType === "TEXT") {
@@ -94,6 +100,8 @@ function AddItemDialog({
     setOpen(false);
     reset();
     setIsSubmitting(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [knowledgeLoaded]);
 
   const handleChangeType = (event) => {

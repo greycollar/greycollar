@@ -62,7 +62,7 @@ function KnowledgeTable({
   };
 
   const statusLabel = (row, status) => {
-    return row.teamId != null ? (
+    return row.teamId !== null ? (
       <>
         {status}{" "}
         <Label
