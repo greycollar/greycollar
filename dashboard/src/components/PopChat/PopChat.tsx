@@ -40,7 +40,7 @@ const PopChat = ({
     null
   );
 
-  const MessageSfx = "./messageSFX.mp3";
+  const MessageSfx = "/src/components/PopChat/messageSFX.mp3";
 
   const [messages, setMessages] = useState([]);
   const [mute, setMute] = useState(false);

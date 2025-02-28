@@ -14,7 +14,7 @@ const styles = {
     minHeight: "20rem",
     minWidth: "200px",
     borderRadius: "",
-    maxHeight: "",
+    maxHeight: "100%",
     marginLeft: "",
   },
   default: {

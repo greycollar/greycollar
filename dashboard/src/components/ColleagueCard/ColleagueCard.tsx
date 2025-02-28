@@ -34,7 +34,18 @@ export default function ColleagueCard({ colleague, onView, onEdit, onDelete }) {
         data-cy="colleague-card-more-vert"
         color="default"
         size="small"
-        sx={{ position: "absolute", top: 8, right: 8, boxShadow: 2 }}
+        sx={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          boxShadow: 2,
+          border: "1px solid",
+          borderColor: "rgba(0, 0, 0, 0.23)",
+          backgroundColor: "transparent",
+          "&:hover": {
+            backgroundColor: "rgba(0, 0, 0, 0.04)",
+          },
+        }}
       >
         <IconButton onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
