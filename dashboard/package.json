@@ -27,7 +27,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
     "@mui/styled-engine-sc": "^5.14.12",
-    "@nucleoidai/platform": "^1.0.50",
+    "@nucleoidai/platform": "^1.0.51",
     "@nucleoidai/react-event": "^1.1.7",
     "@nucleoidjs/webstorage": "^1.0.5",
     "axios": "^1.7.2",
@@ -55,7 +55,8 @@
     "styled-components": "^5.3.10",
     "swr": "^2.2.4",
     "typescript": "^5.7.3",
-    "use-sound": "^4.0.1"
+    "use-sound": "^4.0.1",
+    "vite-plugin-checker": "^0.9.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.5",
