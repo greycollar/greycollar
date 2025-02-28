@@ -22,10 +22,22 @@ export const parseJsonResult = (result) => {
 
 export const getAllKeys = (data) => {
   if (Array.isArray(data)) {
-    return data.map((_, index) => `Value ${index + 1}`);
+    if (data.every((item) => typeof item === "object" && item !== null)) {
+      return data.map((item) => {
+        const keys = Object.keys(item);
+        const values = Object.values(item);
+        return { keys, values };
+      });
+    } else {
+      return data.map((value, index) => {
+        return { keys: [], values: [value], index: index + 1 };
+      });
+    }
   }
   if (typeof data === "object" && data !== null) {
-    return Object.keys(data);
+    const keys = Object.keys(data);
+    const values = Object.values(data);
+    return [{ keys, values }];
   }
   return [];
 };

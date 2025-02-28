@@ -24,25 +24,27 @@ export const ResultTable = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.isArray(data)
-            ? data.map((value, index) => (
-                <TableRow key={index}>
-                  <TableCell sx={{ lineHeight: ".8rem" }}>
-                    {keys[index]}
-                  </TableCell>
-                  <TableCell sx={{ lineHeight: ".8rem" }}>{value}</TableCell>
-                </TableRow>
-              ))
-            : Object.entries(data).map(([key, value], index) => (
-                <TableRow key={index}>
-                  <TableCell sx={{ lineHeight: ".8rem" }}>
-                    {formatKey(key)}
-                  </TableCell>
-                  <TableCell sx={{ lineHeight: ".8rem" }}>
-                    {String(value)}
-                  </TableCell>
-                </TableRow>
-              ))}
+          {keys.map((item, index) =>
+            item.keys.length > 0
+              ? item.keys.map((key, keyIndex) => (
+                  <TableRow key={`${index}-${keyIndex}`}>
+                    <TableCell sx={{ lineHeight: ".8rem" }}>
+                      {formatKey(key)}
+                    </TableCell>
+                    <TableCell sx={{ lineHeight: ".8rem" }}>
+                      {item.values[keyIndex]}
+                    </TableCell>
+                  </TableRow>
+                ))
+              : item.values.map((value, valueIndex) => (
+                  <TableRow key={`${index}-${valueIndex}`}>
+                    <TableCell sx={{ lineHeight: ".8rem" }}>
+                      Value {item.index}
+                    </TableCell>
+                    <TableCell sx={{ lineHeight: ".8rem" }}>{value}</TableCell>
+                  </TableRow>
+                ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>
