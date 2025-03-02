@@ -15,7 +15,7 @@ jobs:
 
       - name: Set config file
         run: |
-            cp ./dashboard/config.land.js ./dashboard/config.js && cp ./api/config.land.ts ./api/config.ts
+          cp ./dashboard/config.land.js ./dashboard/config.js && cp ./api/config.land.ts ./api/config.ts
 
       - name: Update version.json
         run: |
@@ -23,6 +23,9 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+
+      - name: Check lint
+        run: npm run lint
 
       - name: Build
         run: npm run build
@@ -56,4 +59,4 @@ jobs:
           resourceGroup: NucGroup
           imageToDeploy: registry.hub.docker.com/canmingir/greycollar:land-${{ github.run_id }}
           targetPort: 3000
-          ingress: 'external'
+          ingress: "external"

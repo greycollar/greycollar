@@ -1,5 +1,5 @@
-import AIMarketplaceButton from "./src/widgets/AIMarketplace/AIMarketplaceButton.jsx";
-import OrganizationButton from "./src/widgets/OrganizationButton/index.js";
+import AIMarketplaceButton from "./src/widgets/AIMarketplace/AIMarketplaceButton";
+import OrganizationButton from "./src/widgets/OrganizationButton/index.ts";
 
 const menuConfig = {
   topMenu: [],

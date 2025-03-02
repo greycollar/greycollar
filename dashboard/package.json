@@ -7,10 +7,11 @@
     "dev": "vite",
     "dev:cy": "cypress open",
     "test": "start-server-and-test dev http://localhost:5173 cypress:run",
-    "build": "vite build",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
     "cypress:open": "cypress open --e2e --browser chrome",
     "cypress:run": "cypress run",
-    "lint": "eslint . --ext js,jsx --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build"
@@ -26,7 +27,7 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/material": "^5.16.4",
     "@mui/styled-engine-sc": "^5.14.12",
-    "@nucleoidai/platform": "^1.0.50",
+    "@nucleoidai/platform": "^1.0.51",
     "@nucleoidai/react-event": "^1.1.7",
     "@nucleoidjs/webstorage": "^1.0.5",
     "axios": "^1.7.2",
@@ -53,7 +54,9 @@
     "socket.io-client": "^4.8.1",
     "styled-components": "^5.3.10",
     "swr": "^2.2.4",
-    "use-sound": "^4.0.1"
+    "typescript": "^5.7.3",
+    "use-sound": "^4.0.1",
+    "vite-plugin-checker": "^0.9.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.5",
@@ -69,6 +72,8 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
     "@vitejs/plugin-react": "^4.0.0",
     "babel-jest": "^29.5.0",
     "concurrently": "^8.2.0",

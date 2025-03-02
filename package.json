@@ -17,11 +17,13 @@
     "test:dashboard": "cd ./dashboard && npm run test",
     "test": "npm run test:api && npm run test:dashboard",
     "build": "cd ./dashboard && npm run build",
-    "serve": "concurrently -n \"main,api,dashboard\" \"npm start\" \"npm run dev:api\" \"npx @nucleoidai/http-server start --port 5173\""
+    "serve": "concurrently -n \"main,api,dashboard\" \"npm start\" \"npm run dev:api\" \"npx @nucleoidai/http-server start --port 5173\"",
+    "lint:dashboard": "cd ./dashboard && npm run lint",
+    "lint": "npm run lint:dashboard"
   },
   "dependencies": {
-    "@nucleoidai/platform": "^1.0.47",
-    "@nucleoidai/platform-express": "^1.5.46",
+    "@nucleoidai/platform": "^1.0.50",
+    "@nucleoidai/platform-express": "^1.5.47",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",

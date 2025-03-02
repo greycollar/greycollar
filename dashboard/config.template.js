@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const templateConfig = {
   theme: {
-    variants: (theme) => ({
+    variants: () => ({
       MuiCard: {
         variants: [
           {
