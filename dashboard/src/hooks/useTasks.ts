@@ -1,8 +1,8 @@
-import http from "../http";
-import useApi from "./useApi";
-
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
+
+import http from "../http";
+import useApi from "./useApi";
 
 function useTasks(colleagueId) {
   const [tasks, setTasks] = useState([
@@ -30,7 +30,7 @@ function useTasks(colleagueId) {
 
   const [taskStatus] = useEvent("TASK_STATUS_CHANGED", null);
   const [taskCreated] = useEvent("TASK_CREATED", null);
-  const [taskStepLoading] = useEvent("TASK_STEP_LOADING", null);
+  const [taskStepLoading] = useEvent("TASK_STEP_LOADED", null);
 
   useEffect(() => {
     getTasks(colleagueId);
@@ -73,7 +73,7 @@ function useTasks(colleagueId) {
       http.get(`/tasks/${id}/steps`),
       (response) => {
         setSteps(response.data);
-        publish("TASK_STEP_LOADING", response.data);
+        publish("TASK_STEP_LOADED", response.data);
       },
       (error) => {
         console.error(error);
