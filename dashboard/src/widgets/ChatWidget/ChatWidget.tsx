@@ -35,18 +35,20 @@ const ChatWidget = memo(function ChatWidget({
 
   const { messages: rawMessages, loading: messagesLoading } = useChat();
 
-  const messages = rawMessages.map((message) => ({
-    ...message,
-    role: message.role || "",
-    content: message.content || "",
-    colleagueId: message.colleagueId || "",
-    knowledgeId: message.knowledgeId || "",
-    createdAt: message.createdAt || "",
-    userId: message.userId || "",
-    command: message.command || "",
-    status: message.status || "",
-    id: message.id || "",
-  }));
+  const messages = useMemo(() => {
+    return rawMessages.map((message) => ({
+      ...message,
+      role: message.role || "",
+      content: message.content || "",
+      colleagueId: message.colleagueId || "",
+      knowledgeId: message.knowledgeId || "",
+      createdAt: message.createdAt || "",
+      userId: message.userId || "",
+      command: message.command || "",
+      status: message.status || "",
+      id: message.id || "",
+    }));
+  }, [rawMessages]);
 
   const { createMessage } = useMessage();
 
