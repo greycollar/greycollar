@@ -12,7 +12,6 @@ declare module "@mui/material/styles" {
   interface Theme {
     customShadows: {
       card: string;
-      // add other custom shadow properties here
     };
     neutral: {
       stack: string;
@@ -24,12 +23,10 @@ declare module "@mui/material/styles" {
   interface ThemeOptions {
     customShadows?: {
       card?: string;
-      // add other custom shadow properties here
     };
   }
 }
 
-// Add this for your custom Card variant
 declare module "@mui/material/Card" {
   interface CardPropsVariantOverrides {
     "profile-card": true;
@@ -42,7 +39,6 @@ declare module "@mui/material/Fab" {
   }
 }
 
-// Since Card extends Paper, you might also need this
 declare module "@mui/material/Paper" {
   interface PaperPropsVariantOverrides {
     "profile-card": true;

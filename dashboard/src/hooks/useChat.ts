@@ -1,10 +1,10 @@
+import { publish, useEvent } from "@nucleoidai/react-event";
+import { useCallback, useEffect, useRef, useState } from "react";
+
 import http from "../http";
 import useApi from "./useApi";
 import { useLocation } from "react-router-dom";
 import useMessage from "./useMessage";
-
-import { publish, useEvent } from "@nucleoidai/react-event";
-import { useCallback, useEffect, useRef, useState } from "react";
 
 function useChat() {
   const [messages, setMessages] = useState<
@@ -17,7 +17,7 @@ function useChat() {
       command: string;
       knowledgeId: string;
       status?: string;
-      id?: string;
+      id: string;
     }>
   >([]);
 

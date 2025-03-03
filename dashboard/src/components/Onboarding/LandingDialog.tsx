@@ -1,7 +1,3 @@
-import ClosableDialogTitle from "../Skills/ClosableDialogTitle";
-import { storage } from "@nucleoidjs/webstorage";
-import { useState } from "react";
-
 import {
   Avatar,
   Box,
@@ -15,6 +11,10 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
+import ClosableDialogTitle from "../Skills/ClosableDialogTitle";
+import { storage } from "@nucleoidjs/webstorage";
+import { useState } from "react";
 
 const LandingDialog = () => {
   const [open, setOpen] = useState(true);
@@ -38,7 +38,7 @@ const LandingDialog = () => {
         event.key === "Escape" ? handleClose() : null
       }
     >
-      <ClosableDialogTitle handleClose={handleClose} label={""} content={""} />
+      <ClosableDialogTitle handleClose={handleClose} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" sx={{ mt: 1 }}>
