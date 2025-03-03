@@ -1,3 +1,14 @@
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Dialog,
+  DialogContent,
+  Typography,
+} from "@mui/material";
+import React, { useEffect } from "react";
+
 import DialogTitle from "@mui/material/DialogTitle";
 import EnginesChart from "../AIMarketplace/AIMarketplaceCard";
 import IconSelector from "../../components/IconSelector/IconSelector";
@@ -13,17 +24,6 @@ import useOrganization from ".././../hooks/useOrganization";
 import { useOrganizations } from "../../hooks/useOrganizations";
 import { useState } from "react";
 import useTeams from "../../hooks/useTeams";
-
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  Dialog,
-  DialogContent,
-  Typography,
-} from "@mui/material";
-import React, { useEffect } from "react";
 
 const sampleColleagues = [
   {
@@ -120,7 +120,7 @@ function TeamWizard({ open, onClose }) {
     engineName: "",
   });
 
-  const { createOrganization } = useOrganization(organizations[0].id);
+  const { createOrganization } = useOrganization(organizations[0]?.id);
   const { createColleague } = useColleagues();
   const { createTeam } = useTeams();
 
