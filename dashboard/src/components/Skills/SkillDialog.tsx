@@ -34,15 +34,15 @@ const SkillDialog = ({
 }: {
   open: boolean;
   handleClose: () => void;
-  skill: {
+  skill?: {
     name: string;
     logo: string;
     title: string;
     description: string;
     acquired: boolean;
-  };
+  } | null;
   team: { name: string; icon: string };
-  colleagues: Array<object>;
+  colleagues: Array<{ id: string; name: string; avatar: string }>;
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);

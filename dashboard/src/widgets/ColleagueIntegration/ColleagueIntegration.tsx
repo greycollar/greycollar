@@ -173,7 +173,14 @@ const ColleagueIntegration = ({ colleague }) => {
 
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [skillDialogOpen, setSkillDialogOpen] = React.useState(false);
-  const [selectedSkill, setSelectedSkill] = React.useState([]);
+  const [selectedSkill, setSelectedSkill] = React.useState<{
+    name: string;
+    logo: string;
+    title: string;
+    description: string;
+    acquired: boolean;
+  } | null>(null);
+
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const handleSkillClick = (skill) => {
@@ -187,12 +194,12 @@ const ColleagueIntegration = ({ colleague }) => {
 
   const handleSkillDialogClose = () => {
     setSkillDialogOpen(false);
-    setSelectedSkill([]);
+    setSelectedSkill(null);
   };
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
-    setSelectedSkill([]);
+    setSelectedSkill(null);
   };
 
   const handleTabChange = (event, newValue) => {
