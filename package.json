@@ -19,7 +19,9 @@
     "build": "cd ./dashboard && npm run build",
     "serve": "concurrently -n \"main,api,dashboard\" \"npm start\" \"npm run dev:api\" \"npx @nucleoidai/http-server start --port 5173\"",
     "lint:dashboard": "cd ./dashboard && npm run lint",
-    "lint": "npm run lint:dashboard"
+    "lint": "npm run lint:dashboard",
+    "typecheck:dashboard": "cd ./dashboard && npm run typecheck",
+    "typecheck": "npm run typecheck:dashboard"
   },
   "dependencies": {
     "@nucleoidai/platform": "^1.0.50",
