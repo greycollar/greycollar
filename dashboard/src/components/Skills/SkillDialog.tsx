@@ -1,11 +1,6 @@
 // eslint-disable-next-line
 import "../../styles/connectButton.css";
 
-import ClosableDialogTitle from "./ClosableDialogTitle";
-import { Icon } from "@iconify/react";
-import { Iconify } from "@nucleoidai/platform/minimal/components";
-import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
-
 import {
   Avatar,
   Box,
@@ -25,7 +20,18 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
+import ClosableDialogTitle from "./ClosableDialogTitle";
+import { Icon } from "@iconify/react";
+import { Iconify } from "@nucleoidai/platform/minimal/components";
+import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
+
+const SkillDialog = ({ open, handleClose, skill, team, colleagues }:{
+  open: boolean,
+  handleClose: () => void,
+  skill: any,
+  team: any,
+  colleagues: any
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);
   const NumberOne = "/media/number-one.png";
@@ -58,7 +64,7 @@ const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
         event.key === "Escape" ? handleClose() : null
       }
     >
-      <ClosableDialogTitle label={""} content={""} handleClose={handleClose} />
+      <ClosableDialogTitle handleClose={handleClose} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Icon icon={skill.logo} width="20" height="20" />

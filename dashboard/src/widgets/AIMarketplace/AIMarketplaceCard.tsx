@@ -1,7 +1,3 @@
-import AIEngineChart from "./Content";
-import React from "react";
-import useAIEngines from "../../hooks/useAIEngines";
-
 import {
   Box,
   Dialog,
@@ -9,6 +5,10 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+
+import AIEngineChart from "./Content";
+import React from "react";
+import useAIEngines from "../../hooks/useAIEngines";
 
 function AIMarketplaceCard({
   open,
@@ -36,7 +36,6 @@ function AIMarketplaceCard({
           handleEngineSelect={handleEngineSelect}
           isWizardEngine={isWizardEngine}
           data={engines}
-          sx={""}
         />
       </DialogContent>
     );
