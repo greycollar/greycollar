@@ -25,7 +25,25 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
+const SkillDialog = ({
+  open,
+  handleClose,
+  skill,
+  team,
+  colleagues,
+}: {
+  open: boolean;
+  handleClose: () => void;
+  skill?: {
+    name: string;
+    logo: string;
+    title: string;
+    description: string;
+    acquired: boolean;
+  } | null;
+  team: { name: string; icon: string };
+  colleagues: Array<{ id: string; name: string; avatar: string }>;
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);
   const NumberOne = "/media/number-one.png";
@@ -58,7 +76,7 @@ const SkillDialog = ({ open, handleClose, skill, team, colleagues }) => {
         event.key === "Escape" ? handleClose() : null
       }
     >
-      <ClosableDialogTitle label={""} content={""} handleClose={handleClose} />
+      <ClosableDialogTitle handleClose={handleClose} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Icon icon={skill.logo} width="20" height="20" />

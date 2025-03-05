@@ -36,7 +36,6 @@ function AIMarketplaceCard({
           handleEngineSelect={handleEngineSelect}
           isWizardEngine={isWizardEngine}
           data={engines}
-          sx={""}
         />
       </DialogContent>
     );

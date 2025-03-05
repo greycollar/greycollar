@@ -24,13 +24,6 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import * as SlateReact from "slate-react";
 
-type CustomText = {
-  text: string;
-  colleagueId?: string;
-  type?: string;
-  children?: { text: string }[];
-};
-
 type CustomElement = {
   type?:
     | "input"
@@ -39,7 +32,12 @@ type CustomElement = {
     | "label"
     | "optional"
     | "paragraph";
-  children: CustomText[];
+  children: {
+    text: string;
+    colleagueId?: string;
+    type?: string;
+    children?: { text: string }[];
+  }[];
   options?: { name: string; id?: string }[];
   onSelect?: (selected: { name: string; id?: string }) => void;
   getInputValue?: (value: string) => void;

@@ -38,7 +38,7 @@ const LandingDialog = () => {
         event.key === "Escape" ? handleClose() : null
       }
     >
-      <ClosableDialogTitle handleClose={handleClose} label={""} content={""} />
+      <ClosableDialogTitle handleClose={handleClose} />
       <DialogContent>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h4" sx={{ mt: 1 }}>

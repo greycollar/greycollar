@@ -120,7 +120,7 @@ function TeamWizard({ open, onClose }) {
     engineName: "",
   });
 
-  const { createOrganization } = useOrganization(organizations[0].id);
+  const { createOrganization } = useOrganization(organizations[0]?.id);
   const { createColleague } = useColleagues();
   const { createTeam } = useTeams();
 

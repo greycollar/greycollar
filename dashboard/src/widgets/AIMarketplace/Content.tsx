@@ -6,6 +6,13 @@ export default function AIEngineChart({
   data,
   isWizardEngine,
   handleEngineSelect,
+}: {
+  sx?: object;
+  data: {
+    id: string | number;
+  }[];
+  isWizardEngine: boolean;
+  handleEngineSelect: (engine: { id: string | number }) => void;
 }) {
   return (
     <>

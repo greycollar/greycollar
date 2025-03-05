@@ -17,7 +17,7 @@ function useChat() {
       command: string;
       knowledgeId: string;
       status?: string;
-      id?: string;
+      id: string;
     }>
   >([]);
 
