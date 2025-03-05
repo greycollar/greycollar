@@ -2,7 +2,7 @@ import ColleaguesWidget from "../widgets/ColleaguesWidget/ColleaguesWidget";
 import Page from "../components/Page/Page";
 import SingleScorllableLayout from "../layouts/SingleScrollableLayout";
 import { storage } from "@nucleoidjs/webstorage";
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { useEvent } from "@nucleoidai/react-event";
 import { useParams } from "react-router-dom";
 import useTeam from "../hooks/useTeam";

@@ -1,6 +1,11 @@
 // eslint-disable-next-line
 import "../../styles/connectButton.css";
 
+import ClosableDialogTitle from "./ClosableDialogTitle";
+import { Icon } from "@iconify/react";
+import { Iconify } from "@nucleoidai/platform/minimal/components";
+import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
+
 import {
   Avatar,
   Box,
@@ -20,17 +25,24 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import ClosableDialogTitle from "./ClosableDialogTitle";
-import { Icon } from "@iconify/react";
-import { Iconify } from "@nucleoidai/platform/minimal/components";
-import SourcedAvatar from "../SourcedAvatar/SourcedAvatar";
-
-const SkillDialog = ({ open, handleClose, skill, team, colleagues }:{
-  open: boolean,
-  handleClose: () => void,
-  skill: any,
-  team: any,
-  colleagues: any
+const SkillDialog = ({
+  open,
+  handleClose,
+  skill,
+  team,
+  colleagues,
+}: {
+  open: boolean;
+  handleClose: () => void;
+  skill: {
+    name: string;
+    logo: string;
+    title: string;
+    description: string;
+    acquired: boolean;
+  };
+  team: { name: string; icon: string };
+  colleagues: Array<object>;
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSwitchChecked, setIsSwitchChecked] = useState(false);

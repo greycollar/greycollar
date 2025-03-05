@@ -1,6 +1,14 @@
 import "../../../../styles/chat.css";
 
-import * as SlateReact from "slate-react";
+import { BaseEditor } from "slate";
+import CommandList from "./components/CommandList";
+import { Iconify } from "@nucleoidai/platform/minimal/components";
+import MentionList from "./components/MentionList";
+import MentionText from "./components/MentiontText";
+import { isKeyHotkey } from "is-hotkey";
+import useColleagues from "../../../../hooks/useColleagues";
+import { useEvent } from "@nucleoidai/react-event";
+import { useLocation } from "react-router-dom";
 
 import { Alert, Box, Collapse, IconButton } from "@mui/material";
 import {
@@ -14,15 +22,7 @@ import { Editable, ReactEditor } from "slate-react";
 import { Editor, Range, Transforms } from "slate";
 import React, { useCallback, useEffect, useState } from "react";
 
-import { BaseEditor } from "slate";
-import CommandList from "./components/CommandList";
-import { Iconify } from "@nucleoidai/platform/minimal/components";
-import MentionList from "./components/MentionList";
-import MentionText from "./components/MentiontText";
-import { isKeyHotkey } from "is-hotkey";
-import useColleagues from "../../../../hooks/useColleagues";
-import { useEvent } from "@nucleoidai/react-event";
-import { useLocation } from "react-router-dom";
+import * as SlateReact from "slate-react";
 
 type CustomElement = {
   type?:
