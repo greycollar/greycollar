@@ -51,7 +51,7 @@ const SkillDialog = ({
   const NumberThree = "/media/number-three.png";
 
   useEffect(() => {
-    if (skill.acquired) {
+    if (skill && skill.acquired) {
       setSelectedOption(team.name);
       setIsSwitchChecked(true);
     }
