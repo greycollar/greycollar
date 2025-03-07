@@ -1,8 +1,8 @@
-import { publish, useEvent } from "@nucleoidai/react-event";
-import { useCallback, useEffect, useState } from "react";
-
 import http from "../http";
 import useApi from "./useApi";
+
+import { publish, useEvent } from "@nucleoidai/react-event";
+import { useCallback, useEffect, useState } from "react";
 
 function useKnowledges(colleagueId) {
   const [knowledgeCreated] = useEvent("KNOWLEDGE_CREATED", null);

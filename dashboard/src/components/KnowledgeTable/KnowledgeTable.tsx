@@ -1,6 +1,7 @@
+import { Label } from "@nucleoidai/platform/minimal/components";
+
 import {
   Card,
-  Fab,
   IconButton,
   Pagination,
   Table,
@@ -16,10 +17,6 @@ import {
   TableSelectedAction,
 } from "@nucleoidai/platform/minimal/components";
 import React, { useState } from "react";
-
-import { ImportContactsOutlined } from "@mui/icons-material";
-import { Label } from "@nucleoidai/platform/minimal/components";
-import MoreVertButton from "../MoreButton/MoreButton";
 
 function KnowledgeTable({
   table,

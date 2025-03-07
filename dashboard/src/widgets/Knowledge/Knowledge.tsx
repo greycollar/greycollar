@@ -1,6 +1,3 @@
-import { Box, Container, Fab, Stack, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
-
 import AddIcon from "@mui/icons-material/Add";
 import AddItemDialog from "../../components/AddItemDialog/AddItemDialog";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
@@ -9,6 +6,9 @@ import { Theme } from "@mui/material/styles";
 import TypeToolbar from "../../components/TypeToolbar/TypeToolbar";
 import useKnowledges from "../../hooks/useKnowledges";
 import { useTable } from "@nucleoidai/platform/minimal/components";
+
+import { Box, Container, Fab, Stack, useMediaQuery } from "@mui/material";
+import { useEffect, useState } from "react";
 
 function Knowledge({ colleagueId }) {
   const { knowledges, deleteKnowledges, createKnowledge } =
