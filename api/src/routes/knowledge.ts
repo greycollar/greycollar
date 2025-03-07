@@ -1,9 +1,9 @@
 import * as platform from "@nucleoidai/platform-express";
 
 import Colleague from "../models/Colleague";
-import ColleagueKnowledge from "../models/ColleagueKnowledge";
 import Joi from "joi";
 import Knowledge from "../models/Knowledge";
+import colleague from "../functions/colleague";
 import express from "express";
 import knowledge from "../functions/knowledge";
 import schemas from "../schemas";
@@ -63,10 +63,7 @@ router.get("/", async (req, res) => {
   }
 
   if (colleagueId) {
-    const colleagueInstance = await Colleague.findByPk(colleagueId);
-    if (!colleagueInstance) {
-      return res.status(404).end();
-    }
+    const colleagueInstance = await colleague.get({ colleagueId });
 
     if (colleagueInstance.teamId !== teamId) {
       return res.status(401).end();
@@ -78,6 +75,7 @@ router.get("/", async (req, res) => {
     teamId: queryTeamId,
     type,
   });
+
   res.json(knowledgeList);
 });
 
@@ -85,42 +83,25 @@ router.get("/:id", async (req, res) => {
   const { projectId: teamId } = req.session;
   const { id } = req.params;
 
-  const knowledgeItem = await Knowledge.findByPk(id, {
-    include: [
-      {
-        model: ColleagueKnowledge,
-        attributes: ["teamId", "colleagueId"],
-        include: [
-          {
-            model: Colleague,
-            attributes: ["id", "teamId"],
-          },
-        ],
-      },
-    ],
+  const knowledgeItem = await knowledge.get({
+    knowledgeId: id,
+    withOwner: true,
   });
 
-  if (!knowledgeItem) {
-    return res.status(404).json({ message: "Knowledge not found" });
-  }
+  const { ColleagueKnowledge } = knowledgeItem;
 
-  const colleagueKnowledges = Array.isArray(knowledgeItem.ColleagueKnowledge)
-    ? knowledgeItem.ColleagueKnowledge
-    : [knowledgeItem.ColleagueKnowledge];
-
-  const hasAccess = colleagueKnowledges.some(
-    (ck) =>
-      ck.teamId === teamId || (ck.Colleague && ck.Colleague.teamId === teamId)
-  );
+  const hasAccess =
+    ColleagueKnowledge.teamId === teamId ||
+    ColleagueKnowledge.Colleague?.teamId === teamId;
 
   if (!hasAccess) {
     return res.status(403).json({ message: "Unauthorized access" });
   }
 
-  const { ColleagueKnowledge: ColleagueKnowledgeData, ...knowledgeData } =
-    knowledgeItem.toJSON();
+  const { colleagueId } = ColleagueKnowledge;
 
-  const colleagueId = ColleagueKnowledgeData?.colleagueId;
+  const knowledgeData = knowledgeItem.toJSON();
+  delete knowledgeData.ColleagueKnowledge;
 
   const responseData = {
     ...knowledgeData,
@@ -134,33 +115,16 @@ router.delete("/:id", async (req, res) => {
   const { projectId: teamId } = req.session;
   const { id } = req.params;
 
-  const knowledgeItem = await Knowledge.findByPk(id, {
-    include: [
-      {
-        model: ColleagueKnowledge,
-        attributes: ["teamId", "colleagueId"],
-        include: [
-          {
-            model: Colleague,
-            attributes: ["id", "teamId"],
-          },
-        ],
-      },
-    ],
+  const knowledgeItem = await knowledge.get({
+    knowledgeId: id,
+    withOwner: true,
   });
 
-  if (!knowledgeItem) {
-    return res.status(404).json({ message: "Knowledge not found" });
-  }
+  const { ColleagueKnowledge } = knowledgeItem;
 
-  const colleagueKnowledges = Array.isArray(knowledgeItem.ColleagueKnowledge)
-    ? knowledgeItem.ColleagueKnowledge
-    : [knowledgeItem.ColleagueKnowledge];
-
-  const hasAccess = colleagueKnowledges.some(
-    (ck) =>
-      ck.teamId === teamId || (ck.Colleague && ck.Colleague.teamId === teamId)
-  );
+  const hasAccess =
+    ColleagueKnowledge.teamId === teamId ||
+    ColleagueKnowledge.Colleague?.teamId === teamId;
 
   if (!hasAccess) {
     return res.status(403).json({ message: "Unauthorized access" });
