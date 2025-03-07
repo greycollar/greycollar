@@ -9,9 +9,7 @@ import config from "../../config";
 import useStatistics from "../hooks/useStatistics";
 
 function Dashboard() {
-  const { statistics } = useStatistics();
-
-  const statistic = statistics[0];
+  const { statistic } = useStatistics();
 
   return (
     <>

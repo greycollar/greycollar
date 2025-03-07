@@ -5,16 +5,14 @@ import { useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
 function useStatistics() {
-  const [statistics, setStatisticks] = useState([
-    {
-      responseRate: "",
-      knowledgeSize: "",
-      taskCount: "",
-      totalMessages: "",
-      id: "",
-      supervisingRate: "",
-    },
-  ]);
+  const [statistic, setStatistick] = useState({
+    responseRate: "",
+    knowledgeSize: "",
+    taskCount: "",
+    totalMessages: "",
+    id: "",
+    supervisingRate: "",
+  });
 
   const { loading, error, handleResponse } = useApi();
 
@@ -29,7 +27,7 @@ function useStatistics() {
     handleResponse(
       http.get(`/statistics`),
       (response) => {
-        setStatisticks(response.data);
+        setStatistick(response.data);
       },
       (error) => {
         console.error(error);
@@ -41,7 +39,7 @@ function useStatistics() {
   return {
     loading,
     error,
-    statistics,
+    statistic,
   };
 }
 
