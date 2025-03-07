@@ -44,7 +44,7 @@ const IncomingDrawer = ({
         </Stack>
 
         <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
-          {selectedSkill && selectedSkill.title}
+          {selectedSkill?.title}
         </Typography>
 
         <Box
