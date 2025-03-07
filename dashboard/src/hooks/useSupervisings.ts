@@ -5,7 +5,7 @@ import { useSocket } from "./useSocket";
 import { publish, useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
-function useSupervisings(colleagueId) {
+function useSupervisings(colleagueId?: string) {
   const socket = useSocket();
 
   const [supervisings, setSupervisings] = useState([

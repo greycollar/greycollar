@@ -31,7 +31,7 @@ const ChatWidget = memo(function ChatWidget({
   const { team, loading: teamLoading } = useTeam(projectId);
   const { colleagues, loading } = useColleagues();
 
-  const { updateSupervising } = useSupervisings(colleagues[0]?.id);
+  const { updateSupervising } = useSupervisings();
 
   const { messages: rawMessages, loading: messagesLoading } = useChat();
 
