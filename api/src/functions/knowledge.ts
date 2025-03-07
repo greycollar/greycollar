@@ -161,10 +161,10 @@ async function list({
 
 async function get({
   knowledgeId,
-  withOwner = false,
+  includeOwner = false,
 }: {
   knowledgeId: string;
-  withOwner?: boolean;
+  includeOwner?: boolean;
 }) {
   const includeOptions: {
     model: typeof ColleagueKnowledge;
@@ -175,7 +175,7 @@ async function get({
     }[];
   }[] = [];
 
-  if (withOwner) {
+  if (includeOwner) {
     includeOptions.push({
       model: ColleagueKnowledge,
       attributes: ["teamId", "colleagueId"],
@@ -196,7 +196,7 @@ async function get({
     throw new NotFoundError();
   }
 
-  return knowledgeItem;
+  return knowledgeItem.toJSON();
 }
 
 export default { create, list, get };
