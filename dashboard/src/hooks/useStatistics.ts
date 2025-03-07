@@ -5,7 +5,7 @@ import { useEvent } from "@nucleoidai/react-event";
 import { useCallback, useEffect, useState } from "react";
 
 function useStatistics() {
-  const [statistic, setStatistick] = useState({
+  const [statistics, setStatisticks] = useState({
     responseRate: "",
     knowledgeSize: "",
     taskCount: "",
@@ -27,7 +27,7 @@ function useStatistics() {
     handleResponse(
       http.get(`/statistics`),
       (response) => {
-        setStatistick(response.data);
+        setStatisticks(response.data);
       },
       (error) => {
         console.error(error);
@@ -39,7 +39,7 @@ function useStatistics() {
   return {
     loading,
     error,
-    statistic,
+    statistics,
   };
 }
 
