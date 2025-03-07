@@ -1,5 +1,6 @@
 import * as platform from "@nucleoidai/platform-express";
 
+import { AuthenticationError } from "@nucleoidai/platform-express/error";
 import Colleague from "../models/Colleague";
 import Joi from "joi";
 import Knowledge from "../models/Knowledge";
@@ -22,7 +23,7 @@ router.post("/", async (req, res) => {
 
   if (knowledgeTeamId) {
     if (knowledgeTeamId !== teamId) {
-      return res.status(401).end();
+      throw new AuthenticationError();
     }
   } else {
     const colleague = await Colleague.findOne({
@@ -33,7 +34,7 @@ router.post("/", async (req, res) => {
     });
 
     if (!colleague) {
-      return res.status(401).end();
+      throw new AuthenticationError();
     }
   }
 
@@ -59,14 +60,14 @@ router.get("/", async (req, res) => {
   };
 
   if (queryTeamId && queryTeamId !== teamId) {
-    return res.status(401).end();
+    throw new AuthenticationError();
   }
 
   if (colleagueId) {
     const colleagueInstance = await colleague.get({ colleagueId });
 
     if (colleagueInstance.teamId !== teamId) {
-      return res.status(401).end();
+      throw new AuthenticationError();
     }
   }
 
@@ -85,7 +86,7 @@ router.get("/:id", async (req, res) => {
 
   const knowledgeItem = await knowledge.get({
     knowledgeId: id,
-    withOwner: true,
+    includeOwner: true,
   });
 
   const { ColleagueKnowledge } = knowledgeItem;
@@ -95,16 +96,15 @@ router.get("/:id", async (req, res) => {
     ColleagueKnowledge.Colleague?.teamId === teamId;
 
   if (!hasAccess) {
-    return res.status(403).json({ message: "Unauthorized access" });
+    throw new AuthenticationError();
   }
 
   const { colleagueId } = ColleagueKnowledge;
 
-  const knowledgeData = knowledgeItem.toJSON();
-  delete knowledgeData.ColleagueKnowledge;
+  delete knowledgeItem.ColleagueKnowledge;
 
   const responseData = {
-    ...knowledgeData,
+    ...knowledgeItem,
     ...(colleagueId ? { colleagueId, teamId } : { teamId }),
   };
 
@@ -117,7 +117,7 @@ router.delete("/:id", async (req, res) => {
 
   const knowledgeItem = await knowledge.get({
     knowledgeId: id,
-    withOwner: true,
+    includeOwner: true,
   });
 
   const { ColleagueKnowledge } = knowledgeItem;
@@ -127,7 +127,7 @@ router.delete("/:id", async (req, res) => {
     ColleagueKnowledge.Colleague?.teamId === teamId;
 
   if (!hasAccess) {
-    return res.status(403).json({ message: "Unauthorized access" });
+    throw new AuthenticationError();
   }
 
   await Knowledge.destroy({ where: { id } });
