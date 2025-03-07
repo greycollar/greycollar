@@ -12,23 +12,23 @@ const Statistics = sequelize.define("Statistics", {
     allowNull: false,
   },
   responseRate: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   supervisingRate: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   knowledgeSize: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   taskCount: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   totalMessages: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   teamId: {
