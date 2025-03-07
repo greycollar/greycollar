@@ -18,7 +18,7 @@ function PerformanceChart() {
 
   const chartOptions = useChart({
     labels: names,
-    colors: [...new Array(colleagues.length).fill(undefined), "#adafb6"],
+    colors: [...new Array(colleagues.length).fill(undefined), "#344055"],
     legend: {
       position: "right",
       offsetX: -20,
