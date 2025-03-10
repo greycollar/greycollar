@@ -42,7 +42,7 @@ function OrganizationalChart({ variant = "simple", sx }) {
       }
     >
       <TreeNode label={<div />}>
-        {filteredOrganizations.slice(0, 2).map((rootNode, index) => (
+        {filteredOrganizations.map((rootNode, index) => (
           <TreeNode
             key={index}
             label={

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import SourcedAvatar from "../../../components/SourcedAvatar/SourcedAvatar";
 import Typography from "@mui/material/Typography";
+import { publish } from "@nucleoidai/react-event";
 
 import {
   Button,
@@ -61,7 +62,7 @@ function StandardNode({ node, sx }) {
         }}
       >
         <Stack direction={"row"}>
-          {node.coach ? (
+          {node.icon ? (
             <Iconify
               sx={{
                 mr: 2,
@@ -96,7 +97,7 @@ function StandardNode({ node, sx }) {
               {node.coach ? node.coach : node.role}
             </Typography>
           </Stack>
-          {!node.coach && (
+          {!node.icon && (
             <Link
               data-cy="chat-link"
               onClick={handleClick}
@@ -124,9 +125,7 @@ function StandardNode({ node, sx }) {
               Cancel
             </Button>
             <Button
-              onClick={() => {
-                handleDialogClose(false);
-              }}
+              onClick={() => handleDialogClose(true)}
               color="primary"
               autoFocus
             >
