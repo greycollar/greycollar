@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import SourcedAvatar from "../../../components/SourcedAvatar/SourcedAvatar";
 import Typography from "@mui/material/Typography";
-import { publish } from "@nucleoidai/react-event";
 
 import {
   Button,
