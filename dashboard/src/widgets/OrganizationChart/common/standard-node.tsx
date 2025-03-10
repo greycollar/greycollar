@@ -61,7 +61,7 @@ function StandardNode({ node, sx }) {
         }}
       >
         <Stack direction={"row"}>
-          {node.coach ? (
+          {node.icon ? (
             <Iconify
               sx={{
                 mr: 2,
@@ -96,7 +96,7 @@ function StandardNode({ node, sx }) {
               {node.coach ? node.coach : node.role}
             </Typography>
           </Stack>
-          {!node.coach && (
+          {!node.icon && (
             <Link
               data-cy="chat-link"
               onClick={handleClick}
@@ -124,9 +124,7 @@ function StandardNode({ node, sx }) {
               Cancel
             </Button>
             <Button
-              onClick={() => {
-                handleDialogClose(false);
-              }}
+              onClick={() => handleDialogClose(true)}
               color="primary"
               autoFocus
             >
