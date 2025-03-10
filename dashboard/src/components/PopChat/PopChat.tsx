@@ -35,17 +35,12 @@ const PopChat = ({
 }) => {
   const [aiResponded] = useEvent("AI_RESPONDED", null);
   const [conversationSent] = useEvent("CONVERSATION_SENT", null);
-  const [supervisingAnswered, setSupervisingAnswered] = useEvent(
-    "SUPERVISING_ANSWERED",
-    null
-  );
 
   const MessageSfx = "/src/components/PopChat/messageSFX.mp3";
 
   const [messages, setMessages] = useState([]);
   const [mute, setMute] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [supervisorLoading, setSupervisorLoading] = useState(false);
 
   const [play] = useSound(MessageSfx);
   const inputRef = useRef(null);
@@ -70,7 +65,6 @@ const PopChat = ({
       handleNewUserMessage(messageContent);
       !mute && play();
       setLoading(true);
-      setSupervisorLoading(false);
     },
     [handleNewUserMessage, mute, play]
   );
@@ -97,7 +91,6 @@ const PopChat = ({
     response((ret) => {
       setMessages((prev) => [...prev, { content: ret, role: "AI" }]);
       setLoading(false);
-      setSupervisorLoading(false);
     });
   }, []);
 
@@ -118,35 +111,21 @@ const PopChat = ({
   useEffect(() => {
     if (!sound) {
       setLoading(false);
-      setSupervisorLoading(false);
       return;
     } else if (aiResponded !== null) {
       setLoading(false);
-      setSupervisorLoading(false);
+
       !mute && play();
     }
     // eslint-disable-next-line
   }, [aiResponded, mute, play]);
 
-  useEffect(() => {
-    if (supervisingAnswered) {
-      setSupervisorLoading(true);
-    }
-  }, [supervisingAnswered]);
-
-  useEffect(() => {
-    return () => {
-      setSupervisorLoading(false);
-      setSupervisingAnswered("SUPERVISING_ANSWERED", null);
-    };
-  }, [setSupervisingAnswered]);
-
   const renderIndicator = useCallback(() => {
     if (conversationSent?.createdAt > aiResponded?.createdAt) return true;
-    if (loading || supervisorLoading) return true;
+    if (loading) return true;
     if (conversationSent && aiResponded === null) return true;
     return false;
-  }, [conversationSent, aiResponded, loading, supervisorLoading]);
+  }, [conversationSent, aiResponded, loading]);
 
   if (!open) return null;
 
