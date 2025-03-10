@@ -226,7 +226,7 @@ function TeamWizard({ open, onClose }) {
         <div>
           <SparkleInput
             data-cy="team-wizard-org-name-input"
-            prop="Organziaton Name"
+            prop="Organization Name"
             value={organization.name}
             onChange={(e) =>
               setOrganization({ ...organization, name: e.target.value })
