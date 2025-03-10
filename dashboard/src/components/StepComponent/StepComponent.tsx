@@ -55,6 +55,7 @@ export default function StepComponent({
             my: 2,
             mx: 5,
             backgroundColor: (theme) => theme.palette.background.default,
+            cursor: "default",
           }}
         >
           {stepExp[activeStep]}
